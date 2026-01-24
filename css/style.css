@@ -1344,14 +1344,18 @@ strong {
         font-size: var(--font-size-sm);
     }
 
-    /* Floating CTA - smaller icon only */
-    .floating-cta-button {
-        padding: 12px 16px;
-        font-size: var(--font-size-xs);
+    /* Floating CTA - full width on mobile */
+    .floating-cta {
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+        bottom: var(--spacing-sm);
     }
 
-    .floating-cta-button span {
-        display: none;
+    .floating-cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 24px;
+        font-size: var(--font-size-base);
     }
 }
 
