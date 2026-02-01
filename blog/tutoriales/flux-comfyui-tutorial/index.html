@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX en ComfyUI: Tutorial Completo [2026] | Morfeo Academy</title>
+    <meta name="description" content="Aprende a usar FLUX en ComfyUI. Tutorial paso a paso: instalación, configuración, prompts y workflows para generar imágenes de alta calidad.">
+    <link rel="canonical" href="https://www.morfeoacademy.com/blog/tutoriales/flux-comfyui-tutorial/">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="page-header"><div class="container"><a href="/" class="logo-link"><span class="logo-text">MORFEO</span></a><nav class="page-nav"><a href="/labs">Labs</a><a href="/playground">Playground</a><a href="/blog" class="active">Blog</a></nav></div></header>
+    <main>
+        <article class="page-content">
+            <nav class="breadcrumbs"><a href="/">Inicio</a> / <a href="/blog">Blog</a> / <a href="/blog/tutoriales">Tutoriales</a> / FLUX en ComfyUI</nav>
+            <header style="margin-bottom:2rem">
+                <span style="display:inline-block;background:rgba(163,230,53,0.15);color:#a3e635;font-size:0.875rem;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:1rem">TUTORIAL</span>
+                <h1 style="font-family:'Instrument Serif',serif;font-size:2.75rem;line-height:1.1;margin-bottom:1rem">FLUX en ComfyUI: Tutorial Completo</h1>
+                <p style="font-size:1.25rem;color:#9ca3af">FLUX es uno de los modelos más potentes de 2024-2026. Aprendé a usarlo en ComfyUI con este tutorial paso a paso.</p>
+            </header>
+            <div class="article-meta"><span>Por Paul de Lavallaz</span><span>Febrero 2026</span><span>20 min</span></div>
+            <img src="/images/morfeo/nodes-glow.jpg" alt="FLUX en ComfyUI" style="width:100%;border-radius:12px;margin:2rem 0">
+            
+            <div class="article-content">
+                <p>FLUX cambió el juego de la generación de imágenes. Desarrollado por Black Forest Labs (el equipo detrás de Stable Diffusion), FLUX ofrece calidad superior, mejor seguimiento de prompts, y capacidades que antes eran imposibles.</p>
+                
+                <p>En este tutorial te muestro cómo configurar y usar FLUX en ComfyUI desde cero.</p>
+
+                <h2>¿Qué es FLUX?</h2>
+                <p>FLUX es una familia de modelos de difusión rectificada (rectified flow) creada por Black Forest Labs. Hay varias versiones:</p>
+                <ul>
+                    <li><strong>FLUX.1 [pro]:</strong> El más potente, acceso vía API (no local)</li>
+                    <li><strong>FLUX.1 [dev]:</strong> Potente, uso no comercial, corre local</li>
+                    <li><strong>FLUX.1 [schnell]:</strong> Rápido, uso comercial permitido, corre local</li>
+                </ul>
+                <p>Para uso local en ComfyUI, usaremos FLUX.1 [dev] o [schnell].</p>
+
+                <h2>Requisitos</h2>
+                <p>FLUX es más exigente que Stable Diffusion:</p>
+                <ul>
+                    <li><strong>GPU:</strong> NVIDIA con 12GB+ VRAM (24GB recomendado)</li>
+                    <li><strong>RAM:</strong> 32GB mínimo</li>
+                    <li><strong>Almacenamiento:</strong> ~30GB para el modelo completo</li>
+                    <li><strong>ComfyUI:</strong> Versión actualizada</li>
+                </ul>
+
+                <div class="cta-box" style="background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3)">
+                    <h3 style="color:#fbbf24">⚡ ¿GPU limitada?</h3>
+                    <p>FLUX necesita bastante VRAM. Si tu GPU no alcanza, probalo en nuestro <a href="/playground">Playground</a> con GPUs de hasta 200GB.</p>
+                    <a href="/playground" class="cta-button">Ir al Playground →</a>
+                </div>
+
+                <h2>Paso 1: Descargar FLUX</h2>
+                <p>Los modelos FLUX están en Hugging Face:</p>
+                <ol>
+                    <li>Visitá <a href="https://huggingface.co/black-forest-labs" target="_blank">Hugging Face - Black Forest Labs</a></li>
+                    <li>Elegí FLUX.1-dev o FLUX.1-schnell</li>
+                    <li>Descargá el archivo <code>flux1-dev.safetensors</code> (~24GB)</li>
+                </ol>
+
+                <h3>Archivos Necesarios</h3>
+                <p>FLUX requiere varios componentes:</p>
+                <ul>
+                    <li><strong>Modelo principal:</strong> <code>flux1-dev.safetensors</code> → <code>models/unet/</code></li>
+                    <li><strong>VAE:</strong> <code>ae.safetensors</code> → <code>models/vae/</code></li>
+                    <li><strong>CLIP:</strong> <code>clip_l.safetensors</code> → <code>models/clip/</code></li>
+                    <li><strong>T5:</strong> <code>t5xxl_fp16.safetensors</code> → <code>models/clip/</code></li>
+                </ul>
+
+                <h2>Paso 2: Workflow Básico de FLUX</h2>
+                <p>El workflow de FLUX es diferente al de SD. Los nodos principales:</p>
+
+                <h3>1. Load Diffusion Model</h3>
+                <p>Cargá el modelo FLUX (UNET):</p>
+                <ul>
+                    <li>Nodo: <code>Load Diffusion Model</code></li>
+                    <li>Seleccioná: <code>flux1-dev.safetensors</code></li>
+                </ul>
+
+                <h3>2. DualCLIPLoader</h3>
+                <p>FLUX usa dos encoders de texto:</p>
+                <ul>
+                    <li>Nodo: <code>DualCLIPLoader</code></li>
+                    <li>clip_name1: <code>clip_l.safetensors</code></li>
+                    <li>clip_name2: <code>t5xxl_fp16.safetensors</code></li>
+                    <li>type: <code>flux</code></li>
+                </ul>
+
+                <h3>3. CLIP Text Encode (FLUX)</h3>
+                <p>Para los prompts:</p>
+                <ul>
+                    <li>Nodo: <code>CLIPTextEncode</code></li>
+                    <li>Conectá la salida del DualCLIPLoader</li>
+                    <li>Escribí tu prompt</li>
+                </ul>
+
+                <h3>4. Empty SD3 Latent Image</h3>
+                <p>Para el espacio latente:</p>
+                <ul>
+                    <li>Nodo: <code>EmptySD3LatentImage</code></li>
+                    <li>width/height: Resolución deseada (1024x1024, etc.)</li>
+                </ul>
+
+                <h3>5. FluxGuidance</h3>
+                <p>FLUX usa guidance diferente:</p>
+                <ul>
+                    <li>Nodo: <code>FluxGuidance</code></li>
+                    <li>guidance: 3.5-4.0 (típico)</li>
+                </ul>
+
+                <h3>6. KSampler</h3>
+                <p>Para el sampling:</p>
+                <ul>
+                    <li>Nodo: <code>KSampler</code></li>
+                    <li>sampler_name: <code>euler</code></li>
+                    <li>scheduler: <code>simple</code></li>
+                    <li>steps: 20-50 (dev), 4-8 (schnell)</li>
+                </ul>
+
+                <h3>7. VAE Decode</h3>
+                <ul>
+                    <li>Nodo: <code>VAELoader</code> → cargar <code>ae.safetensors</code></li>
+                    <li>Nodo: <code>VAEDecode</code> → convertir latent a imagen</li>
+                </ul>
+
+                <h2>Paso 3: Optimización de VRAM</h2>
+                <p>Si tenés VRAM limitada:</p>
+
+                <h3>FP8 Quantization</h3>
+                <p>Reducí el uso de memoria:</p>
+                <ul>
+                    <li>Descargá versiones FP8 del modelo</li>
+                    <li>O usá nodos de cuantización</li>
+                </ul>
+
+                <h3>Offloading</h3>
+                <p>Movimiento de modelos entre GPU y CPU:</p>
+                <ul>
+                    <li>Ejecutá ComfyUI con <code>--lowvram</code></li>
+                    <li>O usá <code>--cpu</code> para T5 (más lento pero funciona)</li>
+                </ul>
+
+                <h2>Tips para Prompts en FLUX</h2>
+                <p>FLUX es excelente siguiendo prompts. Algunas recomendaciones:</p>
+                <ul>
+                    <li><strong>Sé descriptivo:</strong> FLUX entiende prompts largos y detallados</li>
+                    <li><strong>Texto en imágenes:</strong> FLUX puede generar texto legible (algo que SD no podía)</li>
+                    <li><strong>Sin negative prompts:</strong> FLUX no necesita negative prompts extensos</li>
+                    <li><strong>Guía baja:</strong> 3.5-4.0 suele ser suficiente</li>
+                </ul>
+
+                <h3>Ejemplo de Prompt</h3>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>Professional product photography of a modern smartphone,
+floating in mid-air, dramatic lighting from the left,
+clean white background, reflection below, 8K quality,
+commercial advertising style, sharp details</code></pre>
+
+                <h2>FLUX.1 [schnell] vs [dev]</h2>
+                <div style="overflow-x:auto">
+                    <table style="width:100%;border-collapse:collapse;margin:1.5rem 0">
+                        <thead>
+                            <tr style="background:rgba(255,255,255,0.05)">
+                                <th style="padding:1rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)">Aspecto</th>
+                                <th style="padding:1rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)">[schnell]</th>
+                                <th style="padding:1rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)">[dev]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)"><strong>Velocidad</strong></td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">4-8 pasos</td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">20-50 pasos</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)"><strong>Calidad</strong></td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">Muy buena</td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">Máxima</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)"><strong>Licencia</strong></td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">Apache 2.0 (comercial OK)</td>
+                                <td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05)">No comercial</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0.75rem"><strong>Ideal para</strong></td>
+                                <td style="padding:0.75rem">Producción, iteración rápida</td>
+                                <td style="padding:0.75rem">Máxima calidad, personal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Workflows Avanzados</h2>
+                <p>Una vez que dominás lo básico, podés explorar:</p>
+                <ul>
+                    <li><strong>FLUX + ControlNet:</strong> Control sobre pose, profundidad, edges</li>
+                    <li><strong>FLUX + LoRAs:</strong> Estilos personalizados</li>
+                    <li><strong>FLUX + IPAdapter:</strong> Transferencia de estilo de imágenes</li>
+                    <li><strong>Upscaling:</strong> Aumentar resolución con modelos específicos</li>
+                </ul>
+
+                <h2>Próximos Pasos</h2>
+                <ul>
+                    <li><a href="/blog/tutoriales/controlnet-comfyui-tutorial/">Aprendé ControlNet en ComfyUI</a></li>
+                    <li><a href="/blog/tutoriales/loras-comfyui-como-usar/">Cómo usar LoRAs</a></li>
+                    <li><a href="/blog/tutoriales/guia-comfyui-espanol/">Guía completa de ComfyUI</a></li>
+                </ul>
+
+                <div class="cta-box">
+                    <h3>Workflows FLUX listos para usar</h3>
+                    <p>En nuestro <a href="/playground">Playground</a> tenemos workflows de FLUX optimizados y listos. Sin instalación, sin configuración.</p>
+                    <a href="/playground" class="cta-button">Explorar Playground →</a>
+                </div>
+            </div>
+            
+            <div class="author-box"><div class="author-avatar">👤</div><div class="author-info"><h4>Paul de Lavallaz</h4><p>Fundador de Morfeo Academy. +150 workflows de ComfyUI desarrollados.</p><a href="/sobre-mi">Ver perfil →</a></div></div>
+        </article>
+    </main>
+    <footer class="page-footer"><div class="container"><div class="footer-bottom"><p>© 2026 Morfeo Academy</p></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ControlNet en ComfyUI: Tutorial Completo [2026] | Morfeo Academy</title>
+    <meta name="description" content="Aprende a usar ControlNet en ComfyUI. Tutorial paso a paso: instalación, tipos de control (pose, canny, depth), y workflows prácticos.">
+    <link rel="canonical" href="https://www.morfeoacademy.com/blog/tutoriales/controlnet-comfyui-tutorial/">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="page-header"><div class="container"><a href="/" class="logo-link"><span class="logo-text">MORFEO</span></a><nav class="page-nav"><a href="/labs">Labs</a><a href="/playground">Playground</a><a href="/blog" class="active">Blog</a></nav></div></header>
+    <main>
+        <article class="page-content">
+            <nav class="breadcrumbs"><a href="/">Inicio</a> / <a href="/blog">Blog</a> / <a href="/blog/tutoriales">Tutoriales</a> / ControlNet</nav>
+            <header style="margin-bottom:2rem">
+                <span style="display:inline-block;background:rgba(163,230,53,0.15);color:#a3e635;font-size:0.875rem;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:1rem">TUTORIAL</span>
+                <h1 style="font-family:'Instrument Serif',serif;font-size:2.75rem;line-height:1.1;margin-bottom:1rem">ControlNet en ComfyUI: Tutorial Completo</h1>
+                <p style="font-size:1.25rem;color:#9ca3af">ControlNet te da control preciso sobre tus generaciones. Aprendé a usar pose, depth, canny y más en ComfyUI.</p>
+            </header>
+            <div class="article-meta"><span>Por Paul de Lavallaz</span><span>Febrero 2026</span><span>20 min</span></div>
+            <img src="/images/morfeo/nodes-glow.jpg" alt="ControlNet en ComfyUI" style="width:100%;border-radius:12px;margin:2rem 0">
+            
+            <div class="article-content">
+                <p>ControlNet es probablemente la extensión más importante para generación de imágenes con IA. Te permite controlar la composición, pose, profundidad, y estructura de tus generaciones con precisión milimétrica.</p>
+                
+                <p>En este tutorial te muestro cómo configurar y usar ControlNet en ComfyUI desde cero.</p>
+
+                <h2>¿Qué es ControlNet?</h2>
+                <p>ControlNet es un conjunto de modelos que agregan condiciones adicionales al proceso de generación. En lugar de solo texto, podés usar:</p>
+                <ul>
+                    <li><strong>Pose:</strong> Posición del cuerpo y articulaciones</li>
+                    <li><strong>Canny:</strong> Bordes y contornos</li>
+                    <li><strong>Depth:</strong> Información de profundidad</li>
+                    <li><strong>Lineart:</strong> Líneas de dibujo</li>
+                    <li><strong>Scribble:</strong> Bocetos simples</li>
+                    <li><strong>Normal:</strong> Mapas de normales para 3D</li>
+                </ul>
+
+                <h2>Instalación</h2>
+
+                <h3>1. Descargar Modelos ControlNet</h3>
+                <p>Los modelos están en Hugging Face:</p>
+                <ol>
+                    <li>Visitá <a href="https://huggingface.co/lllyasviel/ControlNet-v1-1" target="_blank">lllyasviel/ControlNet-v1-1</a></li>
+                    <li>Descargá los modelos que necesités (ej: <code>control_v11p_sd15_openpose.pth</code>)</li>
+                    <li>Colocalos en <code>ComfyUI/models/controlnet/</code></li>
+                </ol>
+
+                <h3>2. Preprocesadores</h3>
+                <p>Necesitás instalar el nodo de preprocesadores:</p>
+                <ol>
+                    <li>Abrí ComfyUI Manager</li>
+                    <li>Buscá "ControlNet Aux" o "ComfyUI-Controlnet-Aux"</li>
+                    <li>Instalá y reiniciá ComfyUI</li>
+                </ol>
+
+                <h2>Tipos de ControlNet</h2>
+
+                <h3>OpenPose (Pose)</h3>
+                <p>Detecta y replica poses humanas:</p>
+                <ul>
+                    <li><strong>Uso:</strong> Mantener pose específica de referencia</li>
+                    <li><strong>Preprocesador:</strong> OpenPose Preprocessor</li>
+                    <li><strong>Modelo:</strong> control_v11p_sd15_openpose</li>
+                    <li><strong>Ideal para:</strong> Retratos, fotos de cuerpo completo</li>
+                </ul>
+
+                <h3>Canny (Bordes)</h3>
+                <p>Detecta bordes y contornos:</p>
+                <ul>
+                    <li><strong>Uso:</strong> Mantener estructura y forma general</li>
+                    <li><strong>Preprocesador:</strong> Canny Edge Preprocessor</li>
+                    <li><strong>Modelo:</strong> control_v11p_sd15_canny</li>
+                    <li><strong>Ideal para:</strong> Arquitectura, productos, mantener formas</li>
+                </ul>
+
+                <h3>Depth (Profundidad)</h3>
+                <p>Usa información de profundidad:</p>
+                <ul>
+                    <li><strong>Uso:</strong> Mantener perspectiva y distancia</li>
+                    <li><strong>Preprocesador:</strong> Midas Depth Preprocessor</li>
+                    <li><strong>Modelo:</strong> control_v11f1p_sd15_depth</li>
+                    <li><strong>Ideal para:</strong> Escenas complejas, interiores</li>
+                </ul>
+
+                <h3>Lineart</h3>
+                <p>Convierte a líneas de dibujo:</p>
+                <ul>
+                    <li><strong>Uso:</strong> Colorear dibujos, mantener líneas</li>
+                    <li><strong>Preprocesador:</strong> Lineart Preprocessor</li>
+                    <li><strong>Modelo:</strong> control_v11p_sd15_lineart</li>
+                    <li><strong>Ideal para:</strong> Ilustraciones, anime, colorización</li>
+                </ul>
+
+                <h2>Workflow Básico en ComfyUI</h2>
+
+                <h3>1. Cargar la Imagen de Referencia</h3>
+                <ul>
+                    <li>Nodo: <code>Load Image</code></li>
+                    <li>Cargá la imagen que querés usar como referencia</li>
+                </ul>
+
+                <h3>2. Preprocesar la Imagen</h3>
+                <ul>
+                    <li>Nodo: <code>[Tipo] Preprocessor</code> (ej: OpenPose, Canny, etc.)</li>
+                    <li>Conectá la imagen</li>
+                    <li>Ajustá parámetros si es necesario</li>
+                </ul>
+
+                <h3>3. Cargar ControlNet</h3>
+                <ul>
+                    <li>Nodo: <code>Load ControlNet Model</code></li>
+                    <li>Seleccioná el modelo correspondiente</li>
+                </ul>
+
+                <h3>4. Aplicar ControlNet</h3>
+                <ul>
+                    <li>Nodo: <code>Apply ControlNet</code></li>
+                    <li>Conectá:
+                        <ul>
+                            <li>conditioning (del CLIP Text Encode positivo)</li>
+                            <li>control_net (del Load ControlNet)</li>
+                            <li>image (del preprocesador)</li>
+                        </ul>
+                    </li>
+                    <li>strength: 0.5-1.0 (cuánto influye el control)</li>
+                </ul>
+
+                <h3>5. Conectar al Flujo Principal</h3>
+                <p>La salida del Apply ControlNet va donde normalmente iría el conditioning positivo en el KSampler.</p>
+
+                <h2>Parámetros Importantes</h2>
+
+                <h3>Strength (Fuerza)</h3>
+                <ul>
+                    <li><strong>1.0:</strong> Seguimiento estricto (puede verse artificial)</li>
+                    <li><strong>0.7-0.8:</strong> Buen balance (recomendado)</li>
+                    <li><strong>0.5:</strong> Influencia suave</li>
+                    <li><strong>< 0.5:</strong> Casi imperceptible</li>
+                </ul>
+
+                <h3>Start/End Percent</h3>
+                <p>Cuándo aplica el control durante el sampling:</p>
+                <ul>
+                    <li><strong>start: 0, end: 1:</strong> Todo el proceso</li>
+                    <li><strong>start: 0, end: 0.5:</strong> Solo al principio (estructura base)</li>
+                    <li><strong>start: 0.5, end: 1:</strong> Solo al final (detalles)</li>
+                </ul>
+
+                <h2>Combinando Múltiples ControlNets</h2>
+                <p>Podés usar varios ControlNets al mismo tiempo:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>OpenPose (strength 0.8) + Canny (strength 0.5)
+= Pose exacta + estructura general</code></pre>
+                <p>Conectá en cadena: el output de un Apply ControlNet va al conditioning del siguiente.</p>
+
+                <h2>Tips Avanzados</h2>
+
+                <h3>Preprocesador vs Imagen Directa</h3>
+                <p>Podés crear tus propias imágenes de control:</p>
+                <ul>
+                    <li>Dibujá un esqueleto de pose en Photoshop</li>
+                    <li>Creá un mapa de profundidad manual</li>
+                    <li>Usá renders 3D para depth maps</li>
+                </ul>
+
+                <h3>ControlNet para SDXL y FLUX</h3>
+                <p>Modelos más nuevos tienen sus propias versiones de ControlNet:</p>
+                <ul>
+                    <li>SDXL: Descargá modelos específicos para SDXL</li>
+                    <li>FLUX: Buscá FLUX ControlNets en Hugging Face</li>
+                </ul>
+
+                <h3>Inpainting con ControlNet</h3>
+                <p>Combiná máscara de inpainting + ControlNet para ediciones precisas en áreas específicas.</p>
+
+                <h2>Casos de Uso Prácticos</h2>
+
+                <h3>Fotografía de Producto</h3>
+                <ol>
+                    <li>Fotografiá el producto con tu celular</li>
+                    <li>Usá Canny para mantener la forma exacta</li>
+                    <li>Generá nuevos fondos y estilos</li>
+                </ol>
+
+                <h3>Consistencia de Personajes</h3>
+                <ol>
+                    <li>Generá tu personaje base</li>
+                    <li>Usá OpenPose para diferentes poses</li>
+                    <li>Mantené el mismo prompt para consistencia</li>
+                </ol>
+
+                <h3>Arquitectura</h3>
+                <ol>
+                    <li>Bocetá o usá foto de referencia</li>
+                    <li>Aplicá Lineart o Canny</li>
+                    <li>Generá renders con diferentes estilos</li>
+                </ol>
+
+                <h2>Solución de Problemas</h2>
+
+                <h3>"ControlNet no tiene efecto"</h3>
+                <ul>
+                    <li>Verificá que el strength no esté muy bajo</li>
+                    <li>Asegurate de que la imagen preprocesada tenga contenido visible</li>
+                    <li>Chequeá que estés usando el modelo correcto para el preprocesador</li>
+                </ul>
+
+                <h3>"Imagen muy parecida a la referencia"</h3>
+                <ul>
+                    <li>Bajá el strength</li>
+                    <li>Reducí el end_percent</li>
+                    <li>Usá un preprocesador más abstracto (scribble en vez de canny)</li>
+                </ul>
+
+                <h2>Próximos Pasos</h2>
+                <ul>
+                    <li><a href="/blog/tutoriales/loras-comfyui-como-usar/">Cómo usar LoRAs en ComfyUI</a></li>
+                    <li><a href="/blog/tutoriales/flux-comfyui-tutorial/">FLUX en ComfyUI</a></li>
+                    <li><a href="/blog/tutoriales/guia-comfyui-espanol/">Guía completa de ComfyUI</a></li>
+                </ul>
+
+                <div class="cta-box">
+                    <h3>Workflows de ControlNet listos</h3>
+                    <p>En nuestro <a href="/playground">Playground</a> tenemos workflows de ControlNet optimizados para diferentes casos de uso. Sin configuración, sin descargas.</p>
+                    <a href="/playground" class="cta-button">Explorar Playground →</a>
+                </div>
+            </div>
+            
+            <div class="author-box"><div class="author-avatar">👤</div><div class="author-info"><h4>Paul de Lavallaz</h4><p>Fundador de Morfeo Academy. Experto en ComfyUI y workflows de producción.</p><a href="/sobre-mi">Ver perfil →</a></div></div>
+        </article>
+    </main>
+    <footer class="page-footer"><div class="container"><div class="footer-bottom"><p>© 2026 Morfeo Academy</p></div></div></footer>
+</body>
+</html>

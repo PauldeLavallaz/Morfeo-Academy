@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómo Instalar ComfyUI en Windows [2026] - Tutorial Paso a Paso | Morfeo Academy</title>
+    <meta name="description" content="Tutorial completo para instalar ComfyUI en Windows. Guía paso a paso con requisitos, configuración de NVIDIA, y solución de errores comunes.">
+    <link rel="canonical" href="https://www.morfeoacademy.com/blog/tutoriales/instalar-comfyui-windows/">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Cómo Instalar ComfyUI en Windows",
+      "description": "Tutorial completo para instalar ComfyUI en Windows con todos los pasos necesarios.",
+      "totalTime": "PT30M",
+      "tool": [
+        {"@type": "HowToTool", "name": "Python 3.10+"},
+        {"@type": "HowToTool", "name": "Git"},
+        {"@type": "HowToTool", "name": "GPU NVIDIA con CUDA"}
+      ],
+      "step": [
+        {"@type": "HowToStep", "name": "Verificar requisitos", "text": "Asegurate de tener GPU NVIDIA con al menos 4GB de VRAM"},
+        {"@type": "HowToStep", "name": "Instalar Python", "text": "Descargá e instalá Python 3.10 o superior"},
+        {"@type": "HowToStep", "name": "Instalar Git", "text": "Descargá e instalá Git for Windows"},
+        {"@type": "HowToStep", "name": "Clonar repositorio", "text": "Ejecutá git clone para descargar ComfyUI"},
+        {"@type": "HowToStep", "name": "Instalar dependencias", "text": "Ejecutá pip install para instalar los requisitos"},
+        {"@type": "HowToStep", "name": "Ejecutar ComfyUI", "text": "Abrí el navegador en localhost:8188"}
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header class="page-header"><div class="container"><a href="/" class="logo-link"><span class="logo-text">MORFEO</span></a><nav class="page-nav"><a href="/labs">Labs</a><a href="/playground">Playground</a><a href="/blog" class="active">Blog</a></nav></div></header>
+    <main>
+        <article class="page-content">
+            <nav class="breadcrumbs"><a href="/">Inicio</a> / <a href="/blog">Blog</a> / <a href="/blog/tutoriales">Tutoriales</a> / Instalar ComfyUI Windows</nav>
+            <header style="margin-bottom:2rem">
+                <span style="display:inline-block;background:rgba(163,230,53,0.15);color:#a3e635;font-size:0.875rem;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:1rem">TUTORIAL</span>
+                <h1 style="font-family:'Instrument Serif',serif;font-size:2.75rem;line-height:1.1;margin-bottom:1rem">Cómo Instalar ComfyUI en Windows [2026]</h1>
+                <p style="font-size:1.25rem;color:#9ca3af">Guía paso a paso para instalar ComfyUI en Windows. Incluye configuración de GPU, Python, y solución de errores comunes.</p>
+            </header>
+            <div class="article-meta"><span>Por Paul de Lavallaz</span><span>Febrero 2026</span><span>15 min</span></div>
+            <img src="/images/morfeo/brain-network.jpg" alt="Instalar ComfyUI en Windows" style="width:100%;border-radius:12px;margin:2rem 0">
+            
+            <div class="article-content">
+                <p>ComfyUI es la interfaz más potente para trabajar con modelos de difusión, pero la instalación puede ser intimidante si no tenés experiencia técnica. En esta guía te muestro exactamente cómo instalarlo en Windows paso a paso.</p>
+
+                <div class="cta-box" style="background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3)">
+                    <h3 style="color:#fbbf24">⚡ ¿Sin GPU o sin ganas de instalar?</h3>
+                    <p>Usá nuestro <a href="/playground">Playground</a> para acceder a ComfyUI en la nube con GPUs de hasta 200GB VRAM. Todo preconfigurado, sin instalación.</p>
+                    <a href="/playground" class="cta-button">Ir al Playground →</a>
+                </div>
+
+                <h2>Requisitos del Sistema</h2>
+                <p>Antes de empezar, verificá que tu PC cumple estos requisitos:</p>
+                
+                <h3>Hardware Mínimo</h3>
+                <ul>
+                    <li><strong>GPU:</strong> NVIDIA con 4GB VRAM mínimo (GTX 1650 o superior)</li>
+                    <li><strong>RAM:</strong> 16GB (32GB recomendado)</li>
+                    <li><strong>Almacenamiento:</strong> SSD con 50GB libres (100GB+ recomendado para modelos)</li>
+                    <li><strong>Sistema:</strong> Windows 10/11 64-bit</li>
+                </ul>
+
+                <h3>Hardware Recomendado</h3>
+                <ul>
+                    <li><strong>GPU:</strong> NVIDIA RTX 3060 12GB o superior</li>
+                    <li><strong>RAM:</strong> 32GB</li>
+                    <li><strong>Almacenamiento:</strong> SSD NVMe con 200GB+ libres</li>
+                </ul>
+
+                <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);padding:1rem;border-radius:8px;margin:1.5rem 0">
+                    <p style="margin:0"><strong>⚠️ Importante:</strong> ComfyUI requiere GPU NVIDIA con soporte CUDA. Las GPUs AMD e Intel tienen soporte limitado y no están cubiertas en esta guía.</p>
+                </div>
+
+                <h2>Paso 1: Instalar Drivers NVIDIA</h2>
+                <p>Primero, asegurate de tener los drivers de NVIDIA actualizados:</p>
+                <ol>
+                    <li>Abrí <strong>GeForce Experience</strong> o visitá <a href="https://www.nvidia.com/drivers" target="_blank">nvidia.com/drivers</a></li>
+                    <li>Descargá e instalá el driver más reciente para tu GPU</li>
+                    <li>Reiniciá la PC</li>
+                </ol>
+                <p>Para verificar la instalación, abrí CMD y ejecutá:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>nvidia-smi</code></pre>
+                <p>Deberías ver información de tu GPU y la versión de CUDA.</p>
+
+                <h2>Paso 2: Instalar Python 3.10</h2>
+                <p>ComfyUI funciona mejor con Python 3.10 o 3.11:</p>
+                <ol>
+                    <li>Descargá Python 3.10 desde <a href="https://www.python.org/downloads/" target="_blank">python.org</a></li>
+                    <li><strong>IMPORTANTE:</strong> Marcá "Add Python to PATH" durante la instalación</li>
+                    <li>Completá la instalación</li>
+                </ol>
+                <p>Verificá la instalación:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>python --version</code></pre>
+                <p>Debería mostrar "Python 3.10.x" o similar.</p>
+
+                <h2>Paso 3: Instalar Git</h2>
+                <p>Git es necesario para clonar el repositorio:</p>
+                <ol>
+                    <li>Descargá Git desde <a href="https://git-scm.com/download/win" target="_blank">git-scm.com</a></li>
+                    <li>Instalá con las opciones por defecto</li>
+                </ol>
+                <p>Verificá:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>git --version</code></pre>
+
+                <h2>Paso 4: Descargar ComfyUI</h2>
+                <p>Ahora descargamos ComfyUI:</p>
+                <ol>
+                    <li>Abrí CMD o PowerShell</li>
+                    <li>Navegá a donde querés instalar (ej: <code>cd C:\AI</code>)</li>
+                    <li>Ejecutá:</li>
+                </ol>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI</code></pre>
+
+                <h2>Paso 5: Crear Entorno Virtual (Recomendado)</h2>
+                <p>Es buena práctica usar un entorno virtual:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>python -m venv venv
+venv\Scripts\activate</code></pre>
+                <p>Sabrás que está activado cuando veas <code>(venv)</code> al inicio de la línea.</p>
+
+                <h2>Paso 6: Instalar PyTorch con CUDA</h2>
+                <p>Esta es la parte más importante. Instalá PyTorch con soporte CUDA:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121</code></pre>
+                <p>Esto puede tardar varios minutos dependiendo de tu conexión.</p>
+
+                <h2>Paso 7: Instalar Dependencias de ComfyUI</h2>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>pip install -r requirements.txt</code></pre>
+
+                <h2>Paso 8: Descargar un Modelo</h2>
+                <p>ComfyUI necesita al menos un modelo para funcionar. Descargá SDXL o FLUX:</p>
+                <ol>
+                    <li>Visitá <a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0" target="_blank">Hugging Face</a></li>
+                    <li>Descargá el archivo <code>.safetensors</code></li>
+                    <li>Colocalo en <code>ComfyUI/models/checkpoints/</code></li>
+                </ol>
+
+                <h2>Paso 9: Ejecutar ComfyUI</h2>
+                <p>¡Ya estamos listos!</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>python main.py</code></pre>
+                <p>Abrí tu navegador en <strong>http://localhost:8188</strong> y verás la interfaz de ComfyUI.</p>
+
+                <h2>Solución de Errores Comunes</h2>
+
+                <h3>"CUDA out of memory"</h3>
+                <p>Tu GPU no tiene suficiente VRAM. Soluciones:</p>
+                <ul>
+                    <li>Usá modelos más pequeños</li>
+                    <li>Reducí la resolución de generación</li>
+                    <li>Agregá <code>--lowvram</code> al ejecutar</li>
+                </ul>
+
+                <h3>"Torch not compiled with CUDA enabled"</h3>
+                <p>Instalaste PyTorch sin CUDA. Reinstalá con el comando del Paso 6.</p>
+
+                <h3>"ModuleNotFoundError"</h3>
+                <p>Falta alguna dependencia. Ejecutá:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>pip install [nombre_del_modulo]</code></pre>
+
+                <h2>Próximos Pasos</h2>
+                <p>Ya tenés ComfyUI funcionando. Ahora podés:</p>
+                <ul>
+                    <li><a href="/blog/tutoriales/guia-comfyui-espanol/">Aprender los conceptos básicos de ComfyUI</a></li>
+                    <li><a href="/blog/tutoriales/flux-comfyui-tutorial/">Instalar y usar FLUX</a></li>
+                    <li><a href="/blog/tutoriales/controlnet-comfyui-tutorial/">Dominar ControlNet</a></li>
+                    <li><a href="/playground">Probar workflows avanzados en el Playground</a></li>
+                </ul>
+
+                <div class="cta-box">
+                    <h3>¿Querés dominar ComfyUI de verdad?</h3>
+                    <p>En <a href="/labs">Morfeo Labs</a> desarrollamos sistemas de IA generativa a medida. Si necesitás ayuda profesional, estamos para ayudarte.</p>
+                    <a href="/labs" class="cta-button">Conocer Morfeo Labs →</a>
+                </div>
+            </div>
+            
+            <div class="author-box"><div class="author-avatar">👤</div><div class="author-info"><h4>Paul de Lavallaz</h4><p>Fundador de Morfeo Academy. Especialista en ComfyUI y workflows de IA generativa.</p><a href="/sobre-mi">Ver perfil →</a></div></div>
+        </article>
+    </main>
+    <footer class="page-footer"><div class="container"><div class="footer-bottom"><p>© 2026 Morfeo Academy</p></div></div></footer>
+</body>
+</html>

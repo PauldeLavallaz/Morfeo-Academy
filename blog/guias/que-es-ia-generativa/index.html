@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es la IA Generativa y Cómo Funciona? Guía [2026] | Morfeo Academy</title>
+    <meta name="description" content="Entiende qué es la IA generativa, cómo funciona, y para qué sirve. Explicación simple de modelos de difusión, LLMs, y aplicaciones prácticas.">
+    <link rel="canonical" href="https://www.morfeoacademy.com/blog/guias/que-es-ia-generativa/">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="page-header"><div class="container"><a href="/" class="logo-link"><span class="logo-text">MORFEO</span></a><nav class="page-nav"><a href="/labs">Labs</a><a href="/playground">Playground</a><a href="/blog" class="active">Blog</a></nav></div></header>
+    <main>
+        <article class="page-content">
+            <nav class="breadcrumbs"><a href="/">Inicio</a> / <a href="/blog">Blog</a> / <a href="/blog/guias">Guías</a> / Qué es IA Generativa</nav>
+            <header style="margin-bottom:2rem">
+                <span style="display:inline-block;background:rgba(59,130,246,0.15);color:#3b82f6;font-size:0.875rem;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:1rem">FUNDAMENTOS</span>
+                <h1 style="font-family:'Instrument Serif',serif;font-size:2.75rem;line-height:1.1;margin-bottom:1rem">¿Qué es la IA Generativa y Cómo Funciona?</h1>
+                <p style="font-size:1.25rem;color:#9ca3af">Una explicación clara de qué es la inteligencia artificial generativa, cómo funciona por dentro, y por qué está cambiando todo.</p>
+            </header>
+            <div class="article-meta"><span>Por Paul de Lavallaz</span><span>Febrero 2026</span><span>12 min</span></div>
+            <img src="/images/morfeo/brain-network.jpg" alt="IA Generativa" style="width:100%;border-radius:12px;margin:2rem 0">
+            
+            <div class="article-content">
+                <p>Probablemente ya escuchaste sobre ChatGPT, Midjourney, o Stable Diffusion. Todos son ejemplos de <strong>IA generativa</strong>—inteligencia artificial que puede crear contenido nuevo: texto, imágenes, video, audio, código.</p>
+                
+                <p>En esta guía te explico qué es, cómo funciona (sin matemáticas complicadas), y por qué importa.</p>
+
+                <h2>IA Tradicional vs IA Generativa</h2>
+                
+                <h3>IA Tradicional (Discriminativa)</h3>
+                <p>Clasifica, analiza, predice:</p>
+                <ul>
+                    <li>¿Este email es spam o no?</li>
+                    <li>¿Qué producto va a comprar este usuario?</li>
+                    <li>¿Hay un tumor en esta imagen médica?</li>
+                </ul>
+                <p>Input → Clasificación/Predicción</p>
+
+                <h3>IA Generativa</h3>
+                <p>Crea contenido nuevo:</p>
+                <ul>
+                    <li>Escribí un email de ventas</li>
+                    <li>Generá una imagen de un gato astronauta</li>
+                    <li>Creá un video de un producto</li>
+                </ul>
+                <p>Input (prompt) → Contenido nuevo</p>
+
+                <h2>Tipos de IA Generativa</h2>
+
+                <h3>Modelos de Lenguaje (LLMs)</h3>
+                <p>Generan texto:</p>
+                <ul>
+                    <li><strong>Ejemplos:</strong> GPT-4, Claude, Gemini, LLaMA</li>
+                    <li><strong>Usos:</strong> Chatbots, escritura, código, análisis</li>
+                </ul>
+
+                <h3>Modelos de Difusión</h3>
+                <p>Generan imágenes (y video):</p>
+                <ul>
+                    <li><strong>Ejemplos:</strong> Stable Diffusion, FLUX, DALL-E, Midjourney</li>
+                    <li><strong>Usos:</strong> Arte, fotografía, diseño, marketing</li>
+                </ul>
+
+                <h3>Modelos de Audio</h3>
+                <p>Generan sonido y voz:</p>
+                <ul>
+                    <li><strong>Ejemplos:</strong> ElevenLabs, Suno, Udio</li>
+                    <li><strong>Usos:</strong> Voiceovers, música, efectos de sonido</li>
+                </ul>
+
+                <h3>Modelos de Video</h3>
+                <p>Generan video:</p>
+                <ul>
+                    <li><strong>Ejemplos:</strong> Sora, Runway, Kling</li>
+                    <li><strong>Usos:</strong> Ads, contenido social, efectos</li>
+                </ul>
+
+                <h2>¿Cómo Funcionan los Modelos de Difusión?</h2>
+                <p>Los modelos que generan imágenes (como Stable Diffusion o FLUX) usan un proceso llamado "difusión":</p>
+
+                <h3>Entrenamiento</h3>
+                <ol>
+                    <li>Tomás millones de imágenes reales</li>
+                    <li>Agregás ruido progresivamente hasta que sean puro ruido</li>
+                    <li>Entrenás un modelo para revertir ese proceso</li>
+                </ol>
+
+                <h3>Generación</h3>
+                <ol>
+                    <li>Empezás con ruido aleatorio</li>
+                    <li>El modelo "quita" ruido paso a paso</li>
+                    <li>El texto guía qué imagen "emerge" del ruido</li>
+                    <li>Resultado: imagen coherente con tu prompt</li>
+                </ol>
+
+                <p>Es como si el modelo aprendiera a esculpir—sabe cómo ir de mármol sin forma a una escultura específica.</p>
+
+                <h2>¿Cómo Funcionan los Modelos de Lenguaje?</h2>
+                <p>Los LLMs como GPT funcionan diferente:</p>
+
+                <h3>El Concepto Básico</h3>
+                <p>Predicen la siguiente palabra más probable:</p>
+                <pre style="background:#1e1e1e;padding:1rem;border-radius:8px;overflow-x:auto"><code>"El cielo es..." → "azul" (probabilidad más alta)</code></pre>
+
+                <h3>Pero a Escala Masiva</h3>
+                <ul>
+                    <li>Entrenados con trillones de palabras de texto</li>
+                    <li>Cientos de miles de millones de parámetros</li>
+                    <li>Capaces de entender contexto, razonar, seguir instrucciones</li>
+                </ul>
+
+                <h2>Conceptos Clave</h2>
+
+                <h3>Prompt</h3>
+                <p>La instrucción que le das al modelo. Cuanto mejor el prompt, mejor el resultado.</p>
+
+                <h3>Token</h3>
+                <p>Unidad mínima que procesa el modelo. Puede ser una palabra, parte de palabra, o un símbolo.</p>
+
+                <h3>Temperatura</h3>
+                <p>Qué tan "creativo" o "conservador" es el output:</p>
+                <ul>
+                    <li>Baja (0): Respuestas predecibles, consistentes</li>
+                    <li>Alta (1+): Respuestas más variadas, creativas</li>
+                </ul>
+
+                <h3>Parámetros</h3>
+                <p>Los "conocimientos" del modelo. Más parámetros = más capacidad (pero más costo).</p>
+
+                <h3>Fine-tuning</h3>
+                <p>Adaptar un modelo existente para un uso específico con datos adicionales.</p>
+
+                <h2>Aplicaciones Prácticas</h2>
+
+                <h3>Contenido y Marketing</h3>
+                <ul>
+                    <li>Fotos de producto sin sesión fotográfica</li>
+                    <li>Creativos para ads en segundos</li>
+                    <li>Copys y textos optimizados</li>
+                </ul>
+
+                <h3>Diseño</h3>
+                <ul>
+                    <li>Conceptos visuales rápidos</li>
+                    <li>Iteración de ideas</li>
+                    <li>Mockups y prototipos</li>
+                </ul>
+
+                <h3>Desarrollo</h3>
+                <ul>
+                    <li>Generación de código</li>
+                    <li>Debugging asistido</li>
+                    <li>Documentación automática</li>
+                </ul>
+
+                <h3>Educación</h3>
+                <ul>
+                    <li>Tutores personalizados</li>
+                    <li>Generación de ejercicios</li>
+                    <li>Explicaciones adaptadas</li>
+                </ul>
+
+                <h2>Limitaciones Actuales</h2>
+                <p>La IA generativa no es perfecta:</p>
+                <ul>
+                    <li><strong>Alucinaciones:</strong> Puede inventar información falsa</li>
+                    <li><strong>Inconsistencia:</strong> Difícil mantener personajes/estilos</li>
+                    <li><strong>Detalles:</strong> Manos, texto, física a veces fallan</li>
+                    <li><strong>Sesgo:</strong> Refleja sesgos de los datos de entrenamiento</li>
+                    <li><strong>Copyright:</strong> Zona gris legal en algunos casos</li>
+                </ul>
+
+                <h2>El Futuro</h2>
+                <p>Lo que viene:</p>
+                <ul>
+                    <li><strong>Multimodal:</strong> Modelos que entienden texto, imagen, audio, video todo junto</li>
+                    <li><strong>Agentes:</strong> IA que puede tomar acciones, no solo generar</li>
+                    <li><strong>Personalización:</strong> Modelos adaptados a cada usuario/empresa</li>
+                    <li><strong>Tiempo real:</strong> Generación instantánea de video y 3D</li>
+                </ul>
+
+                <h2>¿Por Dónde Empezar?</h2>
+                <p>Si querés aprender IA generativa:</p>
+                <ol>
+                    <li><strong>Experimentá:</strong> Usá ChatGPT, Midjourney, o herramientas gratis</li>
+                    <li><strong>Aprendé prompting:</strong> Es la habilidad más transferible</li>
+                    <li><strong>Elegí un área:</strong> ¿Imágenes? ¿Texto? ¿Video? Especializate</li>
+                    <li><strong>Profundizá:</strong> Herramientas como ComfyUI para control total</li>
+                </ol>
+
+                <h2>Recursos para Seguir</h2>
+                <ul>
+                    <li><a href="/blog/tutoriales/guia-comfyui-espanol/">Guía Completa de ComfyUI</a></li>
+                    <li><a href="/blog/guias/mejores-modelos-ia-imagenes-2026/">Mejores Modelos de IA 2026</a></li>
+                    <li><a href="/blog/guias/ia-generativa-para-empresas/">IA Generativa para Empresas</a></li>
+                    <li><a href="/playground">Probá herramientas en el Playground</a></li>
+                </ul>
+
+                <div class="cta-box">
+                    <h3>¿Querés dominar la IA generativa?</h3>
+                    <p>En Morfeo Academy enseñamos a usar IA generativa de forma profesional. Desde los fundamentos hasta sistemas de producción.</p>
+                    <a href="/" class="cta-button">Conocer el programa →</a>
+                </div>
+            </div>
+            
+            <div class="author-box"><div class="author-avatar">👤</div><div class="author-info"><h4>Paul de Lavallaz</h4><p>Fundador de Morfeo Academy. +3 años trabajando con IA generativa.</p><a href="/sobre-mi">Ver perfil →</a></div></div>
+        </article>
+    </main>
+    <footer class="page-footer"><div class="container"><div class="footer-bottom"><p>© 2026 Morfeo Academy</p></div></div></footer>
+</body>
+</html>

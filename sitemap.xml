@@ -3,6 +3,7 @@
   <!-- Homepage (VSL) -->
   <url>
     <loc>https://www.morfeoacademy.com/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -10,11 +11,13 @@
   <!-- Services -->
   <url>
     <loc>https://www.morfeoacademy.com/labs/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.morfeoacademy.com/playground/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -22,13 +25,15 @@
   <!-- About -->
   <url>
     <loc>https://www.morfeoacademy.com/sobre-mi/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   
   <!-- Contact/Booking -->
   <url>
     <loc>https://www.morfeoacademy.com/agenda/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -36,6 +41,7 @@
   <!-- Blog Index -->
   <url>
     <loc>https://www.morfeoacademy.com/blog/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -43,16 +49,19 @@
   <!-- Blog Categories -->
   <url>
     <loc>https://www.morfeoacademy.com/blog/tutoriales/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.morfeoacademy.com/blog/guias/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.morfeoacademy.com/blog/casos/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -60,31 +69,90 @@
   <!-- Case Studies -->
   <url>
     <loc>https://www.morfeoacademy.com/blog/casos/franui-franatics-ia-generativa/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Blog Posts - Tutorials -->
+  <!-- Tutorials -->
   <url>
     <loc>https://www.morfeoacademy.com/blog/tutoriales/guia-comfyui-espanol/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/tutoriales/instalar-comfyui-windows/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/tutoriales/flux-comfyui-tutorial/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/tutoriales/controlnet-comfyui-tutorial/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/tutoriales/loras-comfyui-como-usar/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/tutoriales/sora-tutorial-videos-ia/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.morfeoacademy.com/blog/tutoriales/nano-banana-pro-tutorial/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.morfeoacademy.com/blog/tutoriales/sora-tutorial-videos-ia/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- Blog Posts - Guides -->
+  <!-- Guides -->
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/guias/que-es-ia-generativa/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/guias/ia-generativa-para-empresas/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://www.morfeoacademy.com/blog/guias/mejores-modelos-ia-imagenes-2026/</loc>
+    <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/guias/comfyui-vs-automatic1111/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/guias/crear-videos-con-ia/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.morfeoacademy.com/blog/guias/automatizar-contenido-ia/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
