@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} | Morfeo Academy</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <link rel="canonical" href="https://www.morfeoacademy.com{{PATH}}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{TITLE}} | Morfeo Academy">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:url" content="https://www.morfeoacademy.com{{PATH}}">
+    <meta property="og:type" content="{{OG_TYPE}}">
+    <meta property="og:image" content="https://www.morfeoacademy.com/images/og-image.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    
+    {{SCHEMA}}
+</head>
+<body class="page-{{PAGE_CLASS}}">
+    <!-- Minimal header for SEO pages -->
+    <header class="page-header">
+        <div class="container">
+            <a href="/" class="logo-link">
+                <span class="logo-text">MORFEO</span>
+            </a>
+            <nav class="page-nav">
+                <a href="/labs">Labs</a>
+                <a href="/playground">Playground</a>
+                <a href="/blog">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {{CONTENT}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">MORFEO</span>
+                    <p class="footer-tagline">Sistemas de contenido automatizado con IA</p>
+                </div>
+                <nav class="footer-nav">
+                    <div class="footer-col">
+                        <h4>Servicios</h4>
+                        <a href="/labs">Morfeo Labs</a>
+                        <a href="/playground">Playground</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Recursos</h4>
+                        <a href="/blog/tutoriales">Tutoriales</a>
+                        <a href="/blog/guias">Guías</a>
+                        <a href="/blog/casos">Casos de éxito</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Acerca</h4>
+                        <a href="/sobre-mi">Sobre Paul</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Morfeo Academy. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/pages.js"></script>
+</body>
+</html>

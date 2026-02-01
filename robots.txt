@@ -1,0 +1,11 @@
+# robots.txt - Morfeo Academy
+# https://www.morfeoacademy.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.morfeoacademy.com/sitemap.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1
