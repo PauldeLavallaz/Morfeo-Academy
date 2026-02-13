@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap | Morfeo Academy</title>
+    <meta name="description" content="Tu camino para dominar ComfyUI y sistemas de contenido automatizado con IA. 6 módulos, de cero a experto.">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Roadmap | Morfeo Academy">
+    <meta property="og:description" content="Tu camino para dominar ComfyUI y sistemas de contenido automatizado con IA.">
+    <meta property="og:image" content="https://www.morfeoacademy.com/images/og-image.jpg">
+    <meta property="og:url" content="https://www.morfeoacademy.com/roadmap">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.morfeoacademy.com/roadmap">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-size='60' font-family='serif' font-weight='400' fill='%23a3e635'>M</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="/css/style.css?v=2">
+
+    <!-- Roadmap Specific Styles -->
+    <style>
+        /* Roadmap Page Specific */
+        .roadmap-hero {
+            padding: var(--spacing-2xl) 0 var(--spacing-xl);
+            text-align: center;
+            position: relative;
+        }
+
+        .roadmap-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(163, 230, 53, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 100% 0%, rgba(251, 191, 36, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .roadmap-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(163, 230, 53, 0.1);
+            border: 1px solid rgba(163, 230, 53, 0.2);
+            border-radius: var(--border-radius-full);
+            font-size: var(--font-size-sm);
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .roadmap-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .roadmap-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .roadmap-subtitle {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .roadmap-stats {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .roadmap-stat {
+            text-align: center;
+        }
+
+        .roadmap-stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .roadmap-stat-label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .roadmap-divider {
+            width: 1px;
+            height: 2rem;
+            background: var(--color-border-light);
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            padding: var(--spacing-md) 0;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Modules Section */
+        .modules-section {
+            padding: var(--spacing-xl) 0 var(--spacing-3xl);
+        }
+
+        .modules-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Module Card */
+        .module-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-md);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+        }
+
+        .module-card:hover {
+            border-color: var(--color-border-accent);
+            box-shadow: 0 0 40px -10px rgba(163, 230, 53, 0.15);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+        }
+
+        .module-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(163, 230, 53, 0.2), rgba(163, 230, 53, 0.05));
+            border: 1px solid rgba(163, 230, 53, 0.3);
+            border-radius: var(--border-radius);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-accent);
+            flex-shrink: 0;
+        }
+
+        .module-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .module-title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .module-icon {
+            font-size: 1.5rem;
+        }
+
+        .module-title {
+            font-family: var(--font-body);
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .module-subtitle {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        .module-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+        }
+
+        .module-lessons-count {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-subtle);
+        }
+
+        .module-progress {
+            flex: 1;
+            max-width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .module-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+            border-radius: 2px;
+            transition: width 1s ease-out;
+        }
+
+        .module-toggle {
+            color: var(--color-text-subtle);
+            transition: transform var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .module-card.open .module-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Module Content */
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .module-card.open .module-content {
+            max-height: 2000px;
+        }
+
+        .module-content-inner {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            padding-left: calc(48px + var(--spacing-lg) + var(--spacing-md));
+        }
+
+        /* Submodule */
+        .submodule {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .submodule:last-child {
+            margin-bottom: 0;
+        }
+
+        .submodule-title {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: rgba(163, 230, 53, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Lesson Item */
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            transition: background var(--transition-fast);
+        }
+
+        .lesson-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .lesson-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lesson-checkbox.completed {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .lesson-checkbox.completed svg {
+            color: var(--color-bg);
+        }
+
+        .lesson-title {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        /* CTA Section */
+        .roadmap-cta {
+            text-align: center;
+            padding: var(--spacing-2xl) 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .roadmap-cta h2 {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .roadmap-cta p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .roadmap-stats {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .roadmap-divider {
+                width: 100%;
+                height: 1px;
+            }
+
+            .module-header {
+                flex-wrap: wrap;
+            }
+
+            .module-content-inner {
+                padding-left: var(--spacing-lg);
+            }
+        }
+    </style>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WKR5GV5M');</script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKR5GV5M"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- Header -->
+    <header class="container">
+        <a href="/" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Volver a Morfeo Academy
+        </a>
+    </header>
+
+    <!-- Hero -->
+    <section class="roadmap-hero">
+        <div class="container">
+            <div class="roadmap-badge">Programa 2025</div>
+            <h1 class="roadmap-title">Tu <span class="text-accent">Roadmap</span> hacia<br>sistemas de contenido con IA</h1>
+            <p class="roadmap-subtitle">6 módulos · 45 lecciones · De cero a experto en ComfyUI</p>
+
+            <div class="roadmap-stats">
+                <div class="roadmap-stat">
+                    <div class="roadmap-stat-value">0%</div>
+                    <div class="roadmap-stat-label">Completado</div>
+                </div>
+                <div class="roadmap-divider"></div>
+                <div class="roadmap-stat">
+                    <div class="roadmap-stat-value">6</div>
+                    <div class="roadmap-stat-label">Módulos</div>
+                </div>
+                <div class="roadmap-divider"></div>
+                <div class="roadmap-stat">
+                    <div class="roadmap-stat-value">45</div>
+                    <div class="roadmap-stat-label">Lecciones</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules -->
+    <section class="modules-section">
+        <div class="container modules-container">
+
+            <!-- Module 1: Fundamentos -->
+            <div class="module-card open">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">01</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">🚀</span>
+                            <h3 class="module-title">FUNDAMENTOS</h3>
+                        </div>
+                        <p class="module-subtitle">Configuración inicial y primeros pasos</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">9 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">Onboarding</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Onboarding a la plataforma</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Crear cuenta y cargar créditos</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Conseguir API Key</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Conectar API Key a ComfyDeploy</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Agendar reunión de onboarding</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">ComfyUI Desde Cero</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Bienvenido a ComfyUI 2025</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">ComfyUI para Principiantes</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Qué modelos usar y cómo no volverte loco</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cómo vivir de la IA en 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2: Generación de Imágenes -->
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">02</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">🎨</span>
+                            <h3 class="module-title">GENERACIÓN DE IMÁGENES</h3>
+                        </div>
+                        <p class="module-subtitle">Dominar la creación de imágenes con IA</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">9 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">Nano Banana</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Todo lo que podés hacer con Nano Banana</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Nano Banana en ComfyUI</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Personajes y Escenas</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Personajes Consistentes y Variaciones</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Visita Escenas de Cualquier Película</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Fotografía y Workflows</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Seedream: Fotografía de Producto</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">ComfyUI Avanzado: Diseñando el workflow</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Modelos Open Source</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Z-Image y Flux: Los mejores modelos OS</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Qwen: Loras y Personajes Consistentes</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Qwen: Realismo Extremo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: Video + UGC -->
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">03</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">🎬</span>
+                            <h3 class="module-title">VIDEO + UGC</h3>
+                        </div>
+                        <p class="module-subtitle">Automatización de contenido en video</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">11 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">UGC Automatizado</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Contenido UGC automatizado</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Generá videos en piloto automático</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Modelos de Video</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cling 3.0 - Videos Cinemáticos</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">VEO 3.1 - Primeras Impresiones</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">WAN</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Wan Animate en ComfyUI</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Wan Animate</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Wan 2.1 desde Runpod</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Entrenar un LORA para Wan 2.1</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">WAN VACE - Hacé bailar a cualquier persona</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Post-Producción</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Video Upscaling & Interpolation</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Clonación de voz y Avatares</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: Integraciones + Cloud -->
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">04</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">☁️</span>
+                            <h3 class="module-title">INTEGRACIONES + CLOUD</h3>
+                        </div>
+                        <p class="module-subtitle">Conectar ComfyUI con el mundo exterior</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">4 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">ComfyDeploy</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Introducción a Comfy Deploy (API)</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Trabajar en la nube</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Automatizaciones</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cómo conectar Comfy Deploy a N8n</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cómo conectar Comfy a Instagram (ManyChat)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5: Desarrollo -->
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">05</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">⚡</span>
+                            <h3 class="module-title">DESARROLLO</h3>
+                        </div>
+                        <p class="module-subtitle">Crear tus propias soluciones</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">5 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">Coding con IA</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cursor: Ventajas y Casos de Uso</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Claude Code y Remotion</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Vercel V0: Aplicaciones sin código</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">ClawdBot</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Introducción a ClawdBot [OpenClaw]</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cómo conectar ClawdBot a Comfy Deploy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 6: Proyecto Final -->
+            <div class="module-card">
+                <div class="module-header" onclick="toggleModule(this)">
+                    <div class="module-number">06</div>
+                    <div class="module-info">
+                        <div class="module-title-row">
+                            <span class="module-icon">🏆</span>
+                            <h3 class="module-title">PROYECTO FINAL</h3>
+                        </div>
+                        <p class="module-subtitle">De la teoría a la práctica y al negocio</p>
+                        <div class="module-meta">
+                            <span class="module-lessons-count">8 lecciones</span>
+                            <div class="module-progress">
+                                <div class="module-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <svg class="module-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <div class="module-content-inner">
+                        <div class="submodule">
+                            <h4 class="submodule-title">Automatización de Contenido</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Canal de YouTube automatizado</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Cuenta de TikTok automatizada</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Pipeline UGC completo</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Desarrollo a Medida</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Herramientas para vender a clientes</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Herramientas para uso propio</span>
+                            </div>
+                        </div>
+                        <div class="submodule">
+                            <h4 class="submodule-title">Modelos de Negocio</h4>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Monetización de herramientas IA</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Servicios vs Productos</span>
+                            </div>
+                            <div class="lesson-item">
+                                <div class="lesson-checkbox"></div>
+                                <span class="lesson-title">Pricing y propuestas para clientes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="roadmap-cta">
+        <div class="container">
+            <h2>¿Listo para <span class="text-accent">empezar</span>?</h2>
+            <p>Agendá tu evaluación gratuita y empezá a construir tu sistema de contenido con IA.</p>
+            <a href="/agenda" class="cta-button primary large">
+                Agendar evaluación gratuita
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-brand">MORFEO</p>
+                <p class="footer-tagline">Sistemas de contenido automatizado con IA</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleModule(header) {
+            const card = header.closest('.module-card');
+            card.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
