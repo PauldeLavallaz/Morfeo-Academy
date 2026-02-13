@@ -348,14 +348,19 @@
         }
 
         /* Responsive */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .roadmap-stats {
                 flex-direction: column;
-                gap: var(--spacing-sm);
+                gap: var(--spacing-md);
+                padding: var(--spacing-lg);
+            }
+
+            .roadmap-stat-value {
+                font-size: var(--font-size-3xl);
             }
 
             .roadmap-divider {
-                width: 100%;
+                width: 4rem;
                 height: 1px;
             }
 
@@ -365,6 +370,10 @@
 
             .module-content-inner {
                 padding-left: var(--spacing-lg);
+            }
+
+            .roadmap-subtitle {
+                font-size: var(--font-size-base);
             }
         }
     </style>
