@@ -1,0 +1,65 @@
+# Morfeo Academy
+
+> Morfeo Academy es una escuela online que enseña a diseñar, operar y vender sistemas de contenido automatizado con inteligencia artificial. Fundada en Argentina, está enfocada en profesionales y emprendedores que quieren generar contenido a escala usando flujos de trabajo basados en nodos (ComfyUI) y modelos de IA generativa.
+
+## Qué es Morfeo Academy
+
+Morfeo Academy ofrece un programa de 3 meses llamado "Morfeo Developers Club" donde los alumnos aprenden a construir sistemas automatizados de generación de contenido con IA. A diferencia de cursos que enseñan a usar herramientas individuales, Morfeo enseña a diseñar flujos completos: desde la entrada de instrucciones hasta la salida de contenido listo para publicar, con costos predecibles y resultados consistentes.
+
+## Tecnología
+
+El programa se basa en **ComfyUI**, una plataforma open source de nodos que conecta los modelos de IA generativa más avanzados del mercado:
+
+- **Modelos de lenguaje**: ChatGPT, Claude, Gemini
+- **Modelos de imagen**: Seedream, NanoBanana (Gemini), Morpheus, Recraft
+- **Modelos de video**: Kling, Veo, SeedDance, Sora
+- **Modelos de voz**: ElevenLabs
+
+Los flujos se ejecutan en la nube, no requieren hardware potente, y el alumno paga solo por lo que usa.
+
+## Para quién es
+
+- Creadores de contenido que necesitan escalar producción
+- Agencias y productoras de contenido con IA
+- Emprendedores que quieren montar servicios de generación de contenido
+- Profesionales de marketing que buscan automatizar creatividad
+
+## Para quién NO es
+
+- Personas buscando atajos rápidos o dinero fácil
+- Quienes solo experimentan sin intención de aplicar en un negocio real
+- Quienes esperan resultados sin esfuerzo
+
+## Qué aprenden los alumnos
+
+1. **Diseño de sistemas**: Crear flujos de trabajo automatizados en ComfyUI
+2. **Generación de imágenes**: Usar modelos como Seedream, NanoBanana, Morpheus para fotos de producto profesionales
+3. **Generación de video**: Crear videos UGC con lip-sync, videos con Sora/Veo
+4. **Integración con agentes**: Conectar flujos a agentes de IA (OpenClaw) para operar desde Telegram/chat
+5. **Operación profesional**: Estimar tiempos, costos, y vender servicios de contenido con IA
+
+## Diferenciadores
+
+- **Open source**: Basado en ComfyUI, sin lock-in de plataformas
+- **Costos predecibles**: Se sabe cuánto cuesta cada pieza de contenido
+- **Independencia total**: Los alumnos son dueños de sus flujos y datos
+- **Resultados consistentes**: Sistemas replicables, no improvisación
+
+## Contenido y recursos
+
+- [Página principal](https://morfeoacademy.com): Información del programa y propuesta de valor
+- [Agendar evaluación gratuita](https://morfeoacademy.com/agenda): Llamada de 30 minutos sin costo para evaluar si el programa es adecuado
+- [Instagram](https://instagram.com/morfeoacademy): Contenido educativo sobre IA generativa y automatización
+- [YouTube](https://youtube.com/@MorfeoAcademy): Tutoriales y demos de flujos de contenido con IA
+- [TikTok](https://tiktok.com/@morfeoacademy): Videos cortos sobre generación de contenido con IA
+
+## Fundador
+
+Paul de Lavallaz — Especialista en automatización de contenido con IA, creador de flujos de generación de imágenes, video y UGC usando ComfyUI, OpenClaw y modelos generativos.
+
+## Contacto
+
+- Web: https://morfeoacademy.com
+- Email: contacto@morfeoacademy.com
+- Instagram: @morfeoacademy
+- YouTube: @MorfeoAcademy
