@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morfeo Agency — Sumarte al equipo</title>
+<meta name="description" content="Formá parte de Morfeo Agency. Completá tu perfil y mostrá en qué te especializás.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-size='60' font-family='serif' font-weight='400' fill='%23a3e635'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --lime:   #a3e635;
+  --lime-d: #84c220;
+  --bg:     #050508;
+  --bg-1:   #0d0d12;
+  --bg-2:   #141419;
+  --white:  #f1f1f1;
+  --gray:   #888;
+  --border: rgba(255,255,255,0.08);
+  --input-bg: #0d0d12;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--white); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); }
+.nav-logo em { color: var(--lime); font-style: normal; }
+.nav-back { font-size: 12px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--white); }
+
+/* LAYOUT */
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.page-header { margin-bottom: 48px; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 16px;
+  padding: 5px 12px;
+  border: 1px solid rgba(163,230,53,0.2);
+  border-radius: 100px;
+}
+
+.page-header h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header h1 em { font-style: italic; color: var(--lime); }
+.page-header p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+/* FORM */
+.form-section { margin-bottom: 40px; }
+.form-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.field { margin-bottom: 20px; }
+.field label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.field label .req { color: var(--lime); font-size: 11px; }
+.field .hint { font-size: 11px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(163,230,53,0.4);
+}
+input::placeholder, textarea::placeholder { color: var(--gray); opacity: 0.5; }
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* Multi-select chips */
+.chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip-input { display: none; }
+.chip-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.chip-label:hover { border-color: rgba(163,230,53,0.3); color: var(--white); }
+.chip-input:checked + .chip-label {
+  background: rgba(163,230,53,0.12);
+  border-color: rgba(163,230,53,0.4);
+  color: var(--lime);
+}
+
+/* Social row */
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Progress */
+.progress-bar {
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--lime);
+  border-radius: 1px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Submit */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 32px;
+  background: var(--lime);
+  color: #000;
+  border: none;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.submit-btn:hover { background: var(--lime-d); transform: translateY(-1px); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Success state */
+.success-screen {
+  display: none;
+  text-align: center;
+  padding: 80px 24px;
+}
+.success-screen.show { display: block; }
+.success-icon {
+  width: 64px; height: 64px;
+  background: rgba(163,230,53,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.success-screen h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.success-screen h2 em { font-style: italic; color: var(--lime); }
+.success-screen p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+/* Error */
+.error-msg {
+  display: none;
+  background: rgba(255,80,80,0.08);
+  border: 1px solid rgba(255,80,80,0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #ff7070;
+  margin-bottom: 16px;
+}
+.error-msg.show { display: block; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  nav { padding: 16px 20px; }
+  .page { padding: 40px 20px 64px; }
+  .social-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/agency" class="nav-logo">
+    <div class="nav-dot"></div>
+    Morfeo <em>Agency</em>
+  </a>
+  <a href="/agency" class="nav-back">← Ver perfiles</a>
+</nav>
+
+<div class="page" id="formPage">
+  <div class="page-header">
+    <div class="badge">Morfeo Agency</div>
+    <h1>Sumarte al<br><em>equipo creativo.</em></h1>
+    <p>Si querés formar parte de Morfeo Agency como talento disponible para proyectos, completá el formulario. Revisamos cada aplicación y te contactamos.</p>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <form id="registroForm">
+
+    <!-- DATOS PERSONALES -->
+    <div class="form-section">
+      <div class="form-section-label">Datos personales</div>
+
+      <div class="field">
+        <label>Nombre y apellido <span class="req">*</span></label>
+        <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+      </div>
+
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" name="email" placeholder="hola@tumail.com" required>
+      </div>
+
+      <div class="field">
+        <label>País, ciudad y zona horaria <span class="req">*</span></label>
+        <input type="text" name="ubicacion" placeholder="ej: Argentina, Buenos Aires — GMT-3" required>
+      </div>
+    </div>
+
+    <!-- RUBRO -->
+    <div class="form-section">
+      <div class="form-section-label">Rubro de origen</div>
+      <div class="field">
+        <label>¿De dónde venís? <span class="req">*</span></label>
+        <div class="chips-grid">
+          <input type="checkbox" class="chip-input" name="rubro" id="r1" value="Fotografía">
+          <label class="chip-label" for="r1">📷 Fotografía</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r2" value="Dirección de arte / Diseño gráfico">
+          <label class="chip-label" for="r2">🎨 Dirección de arte / Diseño</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r3" value="Edición / Post-producción">
+          <label class="chip-label" for="r3">✂️ Edición / Post-producción</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r4" value="Programación / Desarrollo">
+          <label class="chip-label" for="r4">💻 Programación / Desarrollo</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r5" value="Copywriting / Marketing">
+          <label class="chip-label" for="r5">✍️ Copywriting / Marketing</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r6" value="Música / Diseño de sonido">
+          <label class="chip-label" for="r6">🎵 Música / Diseño de sonido</label>
+
+          <input type="checkbox" class="chip-input" name="rubro" id="r7" value="Otro">
+          <label class="chip-label" for="r7">+ Otro</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESPECIALIDADES -->
+    <div class="form-section">
+      <div class="form-section-label">Especialidades</div>
+      <div class="field">
+        <label>¿En qué te especializás? <span class="req">*</span></label>
+        <p class="hint" style="margin-bottom:12px">Podés elegir más de una.</p>
+        <div class="chips-grid">
+          <input type="checkbox" class="chip-input" name="especialidades" id="e1" value="Social Ads (Performance)">
+          <label class="chip-label" for="e1">📣 Social Ads (Performance)</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e2" value="Moda & Editorial">
+          <label class="chip-label" for="e2">👗 Moda & Editorial</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e3" value="E-commerce (Producto)">
+          <label class="chip-label" for="e3">🛍️ E-commerce (Producto)</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e4" value="Producción Audiovisual IA">
+          <label class="chip-label" for="e4">🎬 Producción Audiovisual IA</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e5" value="Realidades Inmersivas (XR/AR)">
+          <label class="chip-label" for="e5">🥽 Realidades Inmersivas (XR/AR)</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e6" value="UGC con IA">
+          <label class="chip-label" for="e6">📱 UGC con IA</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e7" value="Comerciales / TV / Cine">
+          <label class="chip-label" for="e7">🎥 Comerciales / TV / Cine</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e8" value="Creación y Manejo de Avatares">
+          <label class="chip-label" for="e8">🤖 Avatares</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e9" value="Campañas Interactivas / Experienciales">
+          <label class="chip-label" for="e9">✨ Campañas Interactivas</label>
+
+          <input type="checkbox" class="chip-input" name="especialidades" id="e10" value="Automatizaciones de Contenido">
+          <label class="chip-label" for="e10">⚙️ Automatizaciones</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISPONIBILIDAD Y COBRO -->
+    <div class="form-section">
+      <div class="form-section-label">Disponibilidad</div>
+
+      <div class="field">
+        <label>Disponibilidad base <span class="req">*</span></label>
+        <select name="disponibilidad" required>
+          <option value="" disabled selected>Seleccioná una opción</option>
+          <option value="Full-time freelance">Full-time freelance</option>
+          <option value="Part-time (tengo otro trabajo)">Part-time (tengo otro trabajo)</option>
+          <option value="Proyectos puntuales / fines de semana">Proyectos puntuales / fines de semana</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>¿Cómo cobrás por tus trabajos? <span class="req">*</span></label>
+        <select name="modelo_cobro" required>
+          <option value="" disabled selected>Seleccioná una opción</option>
+          <option value="Por hora">Por hora</option>
+          <option value="Por proyecto">Por proyecto</option>
+          <option value="Retainer mensual">Retainer mensual</option>
+          <option value="A discutir según proyecto">A discutir según proyecto</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO Y REDES -->
+    <div class="form-section">
+      <div class="form-section-label">Portfolio y redes</div>
+
+      <div class="field">
+        <label>Drive o Dropbox con tus trabajos <span class="req">*</span></label>
+        <input type="url" name="portfolio_url" placeholder="https://drive.google.com/..." required>
+        <p class="hint">Compartí los 5 trabajos que mejor te representen. El link debe ser público o con acceso para cualquier persona con el link.</p>
+      </div>
+
+      <div class="field">
+        <label>Redes sociales</label>
+        <div class="social-row">
+          <input type="url" name="linkedin" placeholder="LinkedIn URL">
+          <input type="url" name="instagram" placeholder="Instagram URL o @usuario">
+          <input type="url" name="tiktok" placeholder="TikTok URL o @usuario">
+          <input type="url" name="portfolio_extra" placeholder="Behance, website, etc.">
+        </div>
+      </div>
+    </div>
+
+    <div class="error-msg" id="errorMsg">Hubo un error al enviar. Revisá los campos e intentá de nuevo.</div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      Enviar mi aplicación
+    </button>
+
+  </form>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a3e635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
+  <h2>¡Aplicación <em>recibida!</em></h2>
+  <p>Revisamos tu perfil y nos ponemos en contacto<br>en los próximos días. 🙌</p>
+  <br><br>
+  <a href="/agency" style="color:var(--lime);font-size:14px;text-decoration:none;">← Ver el directorio de talentos</a>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://qbcoghkvefubgkxtrlyl.supabase.co'
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiY29naGt2ZWZ1YmdreHRybHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzMwMDgsImV4cCI6MjA5MDA0OTAwOH0.XGxmTlqHK14PenWGMfr12IYFIYf1B2jLp4YmOjz3aA8'
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
+
+// Progress on scroll/interaction
+const form = document.getElementById('registroForm')
+const progress = document.getElementById('progress')
+function updateProgress() {
+  const inputs = form.querySelectorAll('input[required], select[required]')
+  const filled = Array.from(inputs).filter(i => i.value.trim()).length
+  progress.style.width = Math.min(100, (filled / inputs.length) * 100) + '%'
+}
+form.addEventListener('change', updateProgress)
+form.addEventListener('input', updateProgress)
+
+// Submit
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const btn = document.getElementById('submitBtn')
+  const err = document.getElementById('errorMsg')
+  err.classList.remove('show')
+  btn.disabled = true
+  btn.textContent = 'Enviando...'
+
+  const data = new FormData(form)
+  const rubro = [...form.querySelectorAll('input[name="rubro"]:checked')].map(i => i.value)
+  const especialidades = [...form.querySelectorAll('input[name="especialidades"]:checked')].map(i => i.value)
+
+  const payload = {
+    nombre: data.get('nombre'),
+    email: data.get('email'),
+    ubicacion: data.get('ubicacion'),
+    portfolio_url: data.get('portfolio_url'),
+    disponibilidad: data.get('disponibilidad'),
+    modelo_cobro: data.get('modelo_cobro'),
+    linkedin: data.get('linkedin') || null,
+    instagram: data.get('instagram') || null,
+    tiktok: data.get('tiktok') || null,
+    portfolio_extra: data.get('portfolio_extra') || null,
+    rubro,
+    especialidades,
+    status: 'pending'
+  }
+
+  const { error } = await supabase.from('talent_applications').insert(payload)
+
+  if (error) {
+    console.error(error)
+    err.textContent = 'Hubo un error al enviar. Revisá los campos e intentá de nuevo.'
+    err.classList.add('show')
+    btn.disabled = false
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg> Enviar mi aplicación'
+  } else {
+    document.getElementById('formPage').style.display = 'none'
+    document.getElementById('successScreen').classList.add('show')
+    window.scrollTo(0, 0)
+  }
+})
+</script>
+</body>
+</html>

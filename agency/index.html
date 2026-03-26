@@ -3,68 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morfeo Agency — Sistemas de contenido con IA</title>
-<meta name="description" content="Potenciá a tu equipo creativo con el staff más entrenado de Morfeo. Sistemas de contenido, sin fricciones, con resultados.">
+<title>Morfeo Agency — Talento creativo con IA</title>
+<meta name="description" content="Encontrá el talento creativo que necesitás. Especialistas formados en Morfeo para sistemas de contenido con IA.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-size='60' font-family='serif' font-weight='400' fill='%23a3e635'>M</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 :root {
-  --lime:    #c8f23a;
-  --lime-d:  #a8d020;
-  --bg:      #080808;
-  --bg-1:    #111111;
-  --bg-2:    #181818;
-  --white:   #f5f5f5;
-  --gray:    #888;
-  --gray-l:  #555;
-  --border:  rgba(255,255,255,0.07);
+  --lime:   #a3e635;
+  --lime-d: #84c220;
+  --bg:     #050508;
+  --bg-1:   #0d0d12;
+  --bg-2:   #141419;
+  --white:  #f1f1f1;
+  --gray:   #777;
+  --gray-l: #444;
+  --border: rgba(255,255,255,0.07);
 }
 
 body {
   background: var(--bg);
   color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* ── NAV ── */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 20px 48px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(5,5,8,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background 0.3s;
+  height: 60px;
 }
-nav.scrolled { background: rgba(8,8,8,0.96); backdrop-filter: blur(12px); }
 
-.nav-logo {
-  display: flex; align-items: center; gap: 10px;
-  text-decoration: none; color: var(--white);
+.nav-left { display: flex; align-items: center; gap: 8px; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); }
+.nav-brand { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; }
+.nav-brand em { color: var(--lime); font-style: normal; }
+.nav-badge {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lime); border: 1px solid rgba(163,230,53,0.25); padding: 3px 8px; border-radius: 100px;
 }
-.nav-logo-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--lime);
-}
-.nav-logo span { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
-.nav-logo span em { color: var(--lime); font-style: normal; }
 
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-link { font-size: 12px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+.nav-link:hover { color: var(--white); }
 .nav-cta {
-  padding: 9px 22px;
+  padding: 8px 18px;
   background: var(--lime);
   color: #000;
   text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
   border-radius: 100px;
   transition: background 0.2s;
 }
@@ -72,704 +73,372 @@ nav.scrolled { background: rgba(8,8,8,0.96); backdrop-filter: blur(12px); }
 
 /* ── HERO ── */
 .hero {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 80px 40px 64px;
   text-align: center;
-  padding: 120px 48px 80px;
   position: relative;
   overflow: hidden;
 }
-
 .hero::before {
   content: '';
   position: absolute;
-  top: -200px; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(200,242,58,0.06) 0%, transparent 70%);
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse, rgba(163,230,53,0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
 .hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 32px;
-  border: 1px solid rgba(200,242,58,0.25);
-  padding: 6px 16px;
-  border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 20px;
+  border: 1px solid rgba(163,230,53,0.2); padding: 5px 14px; border-radius: 100px;
 }
-.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
 
 .hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(46px, 7vw, 90px);
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 6vw, 64px);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  max-width: 960px;
-  margin-bottom: 28px;
+  line-height: 1.1;
+  max-width: 760px;
+  margin: 0 auto 16px;
 }
 .hero h1 em { font-style: italic; color: var(--lime); }
-.hero h1 strong { font-weight: 500; }
 
 .hero-sub {
-  font-size: clamp(15px, 2vw, 18px);
-  color: var(--gray);
-  max-width: 600px;
-  line-height: 1.7;
-  margin-bottom: 48px;
+  font-size: 16px; color: var(--gray); max-width: 520px; margin: 0 auto 40px; line-height: 1.7;
 }
 
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
+.hero-ctas { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .btn-lime {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
-  background: var(--lime);
-  color: #000;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; background: var(--lime); color: #000;
+  text-decoration: none; font-size: 13px; font-weight: 600; border-radius: 100px;
   transition: all 0.2s;
 }
-.btn-lime:hover { background: var(--lime-d); transform: translateY(-1px); }
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 28px;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--white);
-  text-decoration: none;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  border-radius: 100px;
+.btn-lime:hover { background: var(--lime-d); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 11px 22px; border: 1px solid var(--border); color: var(--gray);
+  text-decoration: none; font-size: 13px; border-radius: 100px;
   transition: all 0.2s;
 }
-.btn-outline:hover { border-color: rgba(255,255,255,0.4); }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
 
-/* ── TRUST STRIP ── */
-.trust-strip {
-  border-top: 1px solid var(--border);
+/* ── FILTERS ── */
+.filters-bar {
+  padding: 24px 40px;
   border-bottom: 1px solid var(--border);
-  padding: 18px 48px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--gray);
-  letter-spacing: 0.04em;
-}
-.trust-item span.num { font-size: 22px; font-weight: 600; color: var(--white); font-family: 'Cormorant Garamond', serif; }
-
-/* ── VS SECTION ── */
-.vs-section {
-  padding: 100px 48px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 48px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
-
-.vs-grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 0;
-  align-items: start;
-}
-
-.vs-col { padding: 40px; }
-.vs-col.bad { background: var(--bg-1); border-radius: 16px 0 0 16px; border: 1px solid var(--border); border-right: none; }
-.vs-col.good { background: var(--bg-1); border-radius: 0 16px 16px 0; border: 1px solid var(--border); border-left: 1px solid rgba(200,242,58,0.2); background: rgba(200,242,58,0.03); }
-.vs-divider { display: flex; align-items: center; justify-content: center; padding: 40px 0; background: var(--bg-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.vs-badge { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--gray-l); writing-mode: vertical-rl; text-orientation: mixed; }
-
-.vs-col h4 { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 28px; }
-.vs-col h4.lime { color: var(--lime); }
-
-.vs-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: var(--gray);
-  line-height: 1.5;
-}
-.vs-item.good-item { color: var(--white); }
-.vs-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-.vs-icon.x { background: rgba(255,80,80,0.12); }
-.vs-icon.x svg { color: #ff5050; }
-.vs-icon.ok { background: rgba(200,242,58,0.15); }
-.vs-icon.ok svg { color: var(--lime); }
-
-/* ── SERVICES ── */
-.services-section {
-  padding: 100px 48px;
-  background: var(--bg-1);
-}
-
-.services-inner { max-width: 1100px; margin: 0 auto; }
-
-.services-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 56px;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.services-header h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 400;
-  line-height: 1.1;
-}
-.services-header h2 em { font-style: italic; color: var(--lime); }
-
-/* Filter pills */
-.filter-pills {
-  display: flex;
-  flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 48px;
+  flex-wrap: wrap;
 }
-.pill {
-  padding: 8px 18px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gray);
-  cursor: pointer;
-  transition: all 0.2s;
-  background: transparent;
-  font-family: 'Inter', sans-serif;
+.filter-pill {
+  padding: 7px 16px; border-radius: 100px;
+  border: 1px solid var(--border); background: transparent;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--gray); cursor: pointer;
+  transition: all 0.15s; font-family: 'DM Sans', sans-serif;
 }
-.pill:hover, .pill.active {
-  background: var(--lime);
-  color: #000;
-  border-color: var(--lime);
+.filter-pill:hover, .filter-pill.active {
+  background: var(--lime); color: #000; border-color: var(--lime);
 }
 
-.services-grid {
+/* ── GRID ── */
+.grid-section { padding: 40px; }
+
+.grid-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.grid-count { font-size: 12px; color: var(--gray); }
+.grid-count span { color: var(--white); font-weight: 600; }
+
+.profiles-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2px;
   background: var(--border);
 }
 
-.service-card {
+/* ── PROFILE CARD ── */
+.profile-card {
   background: var(--bg);
-  padding: 36px 32px;
+  padding: 28px;
   transition: background 0.2s;
-  cursor: default;
+  position: relative;
 }
-.service-card:hover { background: var(--bg-2); }
+.profile-card:hover { background: var(--bg-1); }
 
-.service-tag {
-  display: inline-block;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--lime);
-  border: 1px solid rgba(200,242,58,0.2);
-  padding: 3px 10px;
-  border-radius: 100px;
-  margin-bottom: 20px;
-}
-
-.service-card h3 {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: var(--white);
-  line-height: 1.3;
-}
-
-.service-card p {
-  font-size: 13px;
-  color: var(--gray);
-  line-height: 1.7;
-}
-
-/* ── HOW IT WORKS ── */
-.how-section {
-  padding: 100px 48px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  background: var(--border);
-  margin-top: 56px;
-}
-
-.step {
-  background: var(--bg);
-  padding: 36px 28px;
-}
-
-.step-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 48px;
-  font-weight: 400;
-  color: rgba(200,242,58,0.15);
-  line-height: 1;
-  margin-bottom: 20px;
-}
-
-.step h4 { font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--white); }
-.step p { font-size: 13px; color: var(--gray); line-height: 1.7; }
-
-/* ── DIFFERENTIATORS ── */
-.diff-section {
-  background: var(--bg-1);
-  padding: 100px 48px;
-}
-
-.diff-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.diff-text h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 4vw, 52px);
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 24px;
-}
-.diff-text h2 em { font-style: italic; color: var(--lime); }
-.diff-text p { font-size: 15px; color: var(--gray); line-height: 1.8; margin-bottom: 14px; }
-
-.diff-list { display: flex; flex-direction: column; gap: 16px; }
-.diff-item {
+.card-header {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 20px 24px;
-  background: var(--bg);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  transition: border-color 0.2s;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
-.diff-item:hover { border-color: rgba(200,242,58,0.2); }
-.diff-icon {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  background: rgba(200,242,58,0.1);
+
+.card-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(163,230,53,0.2), rgba(163,230,53,0.05));
   display: flex; align-items: center; justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; color: var(--lime); font-style: italic;
   flex-shrink: 0;
 }
-.diff-icon svg { color: var(--lime); }
-.diff-item h5 { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
-.diff-item p { font-size: 12px; color: var(--gray); line-height: 1.6; }
 
-/* ── CTA ── */
-.cta-section {
-  padding: 100px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.card-avail {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
 }
-.cta-section::before {
-  content: '';
-  position: absolute;
-  bottom: -100px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(200,242,58,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
+.avail-full { background: rgba(163,230,53,0.1); color: var(--lime); }
+.avail-part { background: rgba(255,200,80,0.1); color: #ffc850; }
+.avail-proj { background: rgba(255,255,255,0.05); color: var(--gray); }
 
-.cta-section h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(38px, 6vw, 68px);
-  font-weight: 400;
-  line-height: 1.1;
-  max-width: 800px;
-  margin: 0 auto 20px;
+.card-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--white); }
+.card-location { font-size: 12px; color: var(--gray); margin-bottom: 14px; display: flex; align-items: center; gap: 4px; }
+
+.card-tags {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;
 }
-.cta-section h2 em { font-style: italic; color: var(--lime); }
-.cta-section p {
-  font-size: 16px;
+.tag {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
   color: var(--gray);
-  max-width: 500px;
-  margin: 0 auto 48px;
-  line-height: 1.7;
 }
+.tag.primary { background: rgba(163,230,53,0.08); border-color: rgba(163,230,53,0.2); color: var(--lime); }
 
-/* ── FOOTER ── */
-footer {
+.card-rubro { font-size: 11px; color: var(--gray-l); margin-bottom: 16px; }
+
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+.card-cobro { font-size: 11px; color: var(--gray); }
+.card-links { display: flex; gap: 8px; }
+.card-link {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray); text-decoration: none; transition: all 0.2s;
+}
+.card-link:hover { background: rgba(163,230,53,0.1); color: var(--lime); border-color: rgba(163,230,53,0.2); }
+.card-link svg { width: 13px; height: 13px; }
+
+.view-portfolio {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 500; color: var(--lime);
+  text-decoration: none; transition: gap 0.2s;
+}
+.view-portfolio:hover { gap: 10px; }
+
+/* Empty state */
+.empty-state {
+  grid-column: 1 / -1;
+  background: var(--bg);
+  padding: 80px 40px;
+  text-align: center;
+  display: none;
+}
+.empty-state.show { display: block; }
+.empty-state h3 { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+.empty-state p { font-size: 14px; color: var(--gray); }
+
+/* Loading */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-1) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ── BOTTOM CTA ── */
+.bottom-cta {
   border-top: 1px solid var(--border);
-  padding: 32px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
+  padding: 80px 40px;
+  text-align: center;
 }
-footer p { font-size: 12px; color: var(--gray); }
-footer a { color: var(--gray); text-decoration: none; font-size: 12px; transition: color 0.2s; }
-footer a:hover { color: var(--white); }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  nav { padding: 16px 20px; }
-  .hero { padding: 100px 20px 64px; }
-  .trust-strip { padding: 16px 20px; gap: 24px; }
-  .vs-section, .how-section, .cta-section { padding: 72px 20px; }
-  .vs-grid { grid-template-columns: 1fr; }
-  .vs-col.bad { border-radius: 12px 12px 0 0; border-right: 1px solid var(--border); border-bottom: none; }
-  .vs-col.good { border-radius: 0 0 12px 12px; border-left: 1px solid var(--border); }
-  .vs-divider { display: none; }
-  .services-section { padding: 72px 20px; }
-  .services-header { flex-direction: column; align-items: flex-start; }
-  .services-grid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr 1fr; }
-  .diff-section { padding: 72px 20px; }
-  .diff-inner { grid-template-columns: 1fr; gap: 48px; }
-  footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+.bottom-cta h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 400; line-height: 1.15; margin-bottom: 12px;
 }
+.bottom-cta h2 em { font-style: italic; color: var(--lime); }
+.bottom-cta p { font-size: 15px; color: var(--gray); margin-bottom: 32px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.7; }
 
-@media (max-width: 480px) {
-  .steps { grid-template-columns: 1fr; }
+/* MOBILE */
+@media (max-width: 640px) {
+  nav { padding: 0 16px; }
+  .nav-badge { display: none; }
+  .hero { padding: 56px 20px 48px; }
+  .filters-bar { padding: 16px 20px; }
+  .grid-section { padding: 24px 20px; }
+  .bottom-cta { padding: 56px 20px; }
+  .profiles-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="nav">
-  <a href="https://morfeoacademy.com" class="nav-logo">
-    <div class="nav-logo-dot"></div>
-    <span>Morfeo <em>Agency</em></span>
-  </a>
-  <a href="#contacto" class="nav-cta">Hablemos</a>
+<nav>
+  <div class="nav-left">
+    <div class="nav-dot"></div>
+    <span class="nav-brand">Morfeo <em>Agency</em></span>
+    <span class="nav-badge">Directorio</span>
+  </div>
+  <div class="nav-actions">
+    <a href="/registro" class="nav-link">¿Sos talento?</a>
+    <a href="/registro" class="nav-cta">Sumarte al equipo →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Morfeo Agency</div>
-  <h1>
-    Potenciá tu equipo,<br>
-    producí y escalá<br>
-    <em>sin fricciones.</em>
-  </h1>
-  <p class="hero-sub">
-    El sistema de contenido con IA operado por el staff más entrenado de Morfeo. Menos tiempo. Menos costo. Más resultado.
-  </p>
-  <div class="hero-actions">
-    <a href="#contacto" class="btn-lime">Hablemos de tu proyecto</a>
-    <a href="#servicios" class="btn-outline">Ver servicios →</a>
+  <h1>Talento creativo<br>que domina <em>la IA.</em></h1>
+  <p class="hero-sub">Especialistas formados en el programa de Morfeo disponibles para tus proyectos de contenido.</p>
+  <div class="hero-ctas">
+    <a href="#directorio" class="btn-lime">Ver talentos disponibles</a>
+    <a href="mailto:hola@morfeoacademy.com" class="btn-ghost">Hablar con el equipo →</a>
   </div>
 </section>
 
-<!-- TRUST STRIP -->
-<div class="trust-strip">
-  <div class="trust-item">
-    <span class="num">−60%</span>
-    <span>tiempo de producción</span>
-  </div>
-  <div class="trust-item">
-    <span class="num">−40%</span>
-    <span>costo vs agencia tradicional</span>
-  </div>
-  <div class="trust-item">
-    <span class="num">+300</span>
-    <span>marcas trabajadas por el equipo</span>
-  </div>
-  <div class="trust-item">
-    <span class="num">100%</span>
-    <span>talento humano + IA</span>
-  </div>
+<!-- FILTERS -->
+<div class="filters-bar" id="directorio">
+  <button class="filter-pill active" data-filter="all">Todos</button>
+  <button class="filter-pill" data-filter="Social Ads (Performance)">Social Ads</button>
+  <button class="filter-pill" data-filter="UGC con IA">UGC</button>
+  <button class="filter-pill" data-filter="Producción Audiovisual IA">Video IA</button>
+  <button class="filter-pill" data-filter="E-commerce (Producto)">E-commerce</button>
+  <button class="filter-pill" data-filter="Automatizaciones de Contenido">Automatizaciones</button>
+  <button class="filter-pill" data-filter="Moda & Editorial">Moda</button>
 </div>
 
-<!-- VS SECTION -->
-<section class="vs-section">
-  <div class="section-label">Por qué Agency</div>
-  <div class="vs-grid">
-    <div class="vs-col bad">
-      <h4>Agencia tradicional</h4>
-      <div class="vs-item">
-        <div class="vs-icon x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span>Semanas de onboarding antes de producir</span>
-      </div>
-      <div class="vs-item">
-        <div class="vs-icon x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span>Equipos sin formación en IA</span>
-      </div>
-      <div class="vs-item">
-        <div class="vs-icon x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span>Costos fijos altos por estructura</span>
-      </div>
-      <div class="vs-item">
-        <div class="vs-icon x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span>Revisions infinitas, timelines que no se cumplen</span>
-      </div>
-      <div class="vs-item">
-        <div class="vs-icon x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span>No escala sin aumentar headcount</span>
-      </div>
-    </div>
-    <div class="vs-divider">
-      <div class="vs-badge">VS</div>
-    </div>
-    <div class="vs-col good">
-      <h4 class="lime">Morfeo Agency</h4>
-      <div class="vs-item good-item">
-        <div class="vs-icon ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Sistemas ya armados, empezás a producir en días</span>
-      </div>
-      <div class="vs-item good-item">
-        <div class="vs-icon ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Especialistas formados en el mejor programa de IA creativa</span>
-      </div>
-      <div class="vs-item good-item">
-        <div class="vs-icon ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Costo predecible, sin sorpresas al final del mes</span>
-      </div>
-      <div class="vs-item good-item">
-        <div class="vs-icon ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Workflows definidos, entregables claros, timelines reales</span>
-      </div>
-      <div class="vs-item good-item">
-        <div class="vs-icon ok"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span>Escala con IA sin sumar personas al equipo</span>
-      </div>
+<!-- GRID -->
+<section class="grid-section">
+  <div class="grid-meta">
+    <div class="grid-count"><span id="profileCount">—</span> talentos disponibles</div>
+  </div>
+  <div class="profiles-grid" id="profilesGrid">
+    <!-- cards injected by JS -->
+    <div class="empty-state show" id="emptyState">
+      <h3>Cargando perfiles...</h3>
+      <p>Un momento.</p>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services-section" id="servicios">
-  <div class="services-inner">
-    <div class="services-header">
-      <h2>Lo que <em>hacemos</em><br>por tu marca</h2>
-    </div>
-    <div class="filter-pills">
-      <button class="pill active" data-filter="all">Todos</button>
-      <button class="pill" data-filter="social">Social Ads</button>
-      <button class="pill" data-filter="ugc">UGC</button>
-      <button class="pill" data-filter="av">Producción Audiovisual</button>
-      <button class="pill" data-filter="auto">Automatizaciones</button>
-      <button class="pill" data-filter="brand">Branding IA</button>
-    </div>
-    <div class="services-grid">
-      <div class="service-card" data-cat="social auto">
-        <div class="service-tag">Social Ads</div>
-        <h3>Campañas de Performance con IA</h3>
-        <p>Creamos sistemas de ads que se generan, testean y optimizan solos. Copy, visual y distribución en un solo flujo.</p>
-      </div>
-      <div class="service-card" data-cat="ugc">
-        <div class="service-tag">UGC</div>
-        <h3>Contenido UGC a Escala</h3>
-        <p>Videos de creators virtuales y reales para tus campañas. Decenas de variaciones por semana sin costos de producción tradicional.</p>
-      </div>
-      <div class="service-card" data-cat="av">
-        <div class="service-tag">Audiovisual IA</div>
-        <h3>Producción de Video con IA</h3>
-        <p>Comerciales, reels y contenido cinematográfico generado con los modelos más avanzados. Calidad de producción, velocidad de startup.</p>
-      </div>
-      <div class="service-card" data-cat="auto">
-        <div class="service-tag">Automatizaciones</div>
-        <h3>Sistemas de Contenido Automatizados</h3>
-        <p>Diseñamos e implementamos el flujo completo: desde el brief hasta la publicación. Tu equipo supervisa, la IA ejecuta.</p>
-      </div>
-      <div class="service-card" data-cat="brand">
-        <div class="service-tag">Branding IA</div>
-        <h3>Identidad Visual Generativa</h3>
-        <p>Activos de marca, fotos de producto y materiales gráficos generados a demanda con consistencia de identidad.</p>
-      </div>
-      <div class="service-card" data-cat="social ugc">
-        <div class="service-tag">Social Ads + UGC</div>
-        <h3>Estrategia de Contenido Orgánico</h3>
-        <p>Plan de contenido mensual ejecutado por el equipo Morfeo. Calendarios, copies, visuales y análisis de performance incluidos.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how-section">
-  <div class="section-label">Cómo funciona</div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h4>Brief & diagnóstico</h4>
-      <p>Entendemos tu marca, objetivos y stack actual. En 48hs tenés una propuesta concreta, no una presentación genérica.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h4>Diseño del sistema</h4>
-      <p>Armamos el flujo de producción a medida. Qué tools, qué automatizaciones, qué roles humanos intervienen y cuándo.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h4>Producción continua</h4>
-      <p>El equipo ejecuta. Vos recibís entregables según el calendario pactado. Sin sorpresas, sin excusas.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h4>Iteración y escala</h4>
-      <p>Medimos resultados, ajustamos el sistema y escalamos lo que funciona. El flujo mejora con el tiempo, no al revés.</p>
-    </div>
-  </div>
-</section>
-
-<!-- DIFFERENTIATORS -->
-<section class="diff-section">
-  <div class="diff-inner">
-    <div class="diff-text">
-      <div class="section-label">Nuestro diferencial</div>
-      <h2>No somos un tool.<br>Somos el equipo que<br><em>lo opera.</em></h2>
-      <p>Loop y Labs te dan automatizaciones. Morfeo Agency te da el sistema completo con el talento entrenado para hacerlo funcionar para tu negocio.</p>
-      <p>La IA reduce el costo operativo. El criterio humano garantiza la calidad. Esa combinación es lo que produce resultados reales.</p>
-    </div>
-    <div class="diff-list">
-      <div class="diff-item">
-        <div class="diff-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div>
-          <h5>Staff formado en Morfeo</h5>
-          <p>Especialistas que completaron el programa más completo de IA creativa en LATAM.</p>
-        </div>
-      </div>
-      <div class="diff-item">
-        <div class="diff-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 20 9"/><path d="M20 14.5V9l-7-7H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8"/><path d="m17 17 4 4"/><circle cx="17" cy="17" r="3"/></svg>
-        </div>
-        <div>
-          <h5>Sistemas, no proyectos sueltos</h5>
-          <p>Diseñamos flujos que funcionan mes a mes, no entregas únicas que hay que rehacer.</p>
-        </div>
-      </div>
-      <div class="diff-item">
-        <div class="diff-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        </div>
-        <div>
-          <h5>Escala sin aumentar costos fijos</h5>
-          <p>Más volumen, misma estructura. La IA absorbe la carga operativa a medida que crecés.</p>
-        </div>
-      </div>
-      <div class="diff-item">
-        <div class="diff-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div>
-          <h5>Velocidad de ejecución real</h5>
-          <p>Los sistemas ya están armados. Tu proyecto no financia el setup — arrancamos desde el día uno.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" id="contacto">
-  <div class="section-label" style="justify-content:center">Contacto</div>
-  <h2>¿Listo para producir<br><em>sin fricciones?</em></h2>
-  <p>Hablemos 20 minutos. Te mostramos el sistema, vemos si tiene sentido para tu marca, y si encaja arrancamos.</p>
-  <div class="hero-actions">
-    <a href="https://wa.me/message/MORFEO_WA_LINK" class="btn-lime" id="wa-cta">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Hablar por WhatsApp
-    </a>
-    <a href="mailto:hola@morfeoacademy.com" class="btn-outline">Enviar email →</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Morfeo Academy · Agency</p>
-  <div style="display:flex;gap:24px">
-    <a href="https://morfeoacademy.com">morfeoacademy.com</a>
-    <a href="https://instagram.com/morfeoacademy">@morfeoacademy</a>
-  </div>
-</footer>
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>¿Sos especialista<br>en <em>contenido con IA?</em></h2>
+  <p>Si completaste el programa de Morfeo o tenés experiencia en sistemas de contenido, sumá tu perfil al directorio.</p>
+  <a href="/registro" class="btn-lime">Aplicar al directorio →</a>
+</div>
 
 <script>
-  // Nav scroll
-  const nav = document.getElementById('nav')
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40)
-  }, { passive: true })
+const SUPABASE_URL = 'https://qbcoghkvefubgkxtrlyl.supabase.co'
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiY29naGt2ZWZ1YmdreHRybHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzMwMDgsImV4cCI6MjA5MDA0OTAwOH0.XGxmTlqHK14PenWGMfr12IYFIYf1B2jLp4YmOjz3aA8'
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
 
-  // Filter pills
-  const pills = document.querySelectorAll('.pill')
-  const cards = document.querySelectorAll('.service-card')
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('active'))
-      pill.classList.add('active')
-      const filter = pill.dataset.filter
-      cards.forEach(card => {
-        if (filter === 'all') {
-          card.style.display = ''
-        } else {
-          const cats = (card.dataset.cat || '').split(' ')
-          card.style.display = cats.includes(filter) ? '' : 'none'
-        }
-      })
-    })
-  })
+const availMap = {
+  'Full-time freelance': { label: 'Full-time', cls: 'avail-full' },
+  'Part-time (tengo otro trabajo)': { label: 'Part-time', cls: 'avail-part' },
+  'Proyectos puntuales / fines de semana': { label: 'Proyectos', cls: 'avail-proj' },
+}
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'))
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }) }
+function initials(nombre) {
+  return nombre.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase()
+}
+
+function renderCard(p) {
+  const avail = availMap[p.disponibilidad] || { label: p.disponibilidad, cls: 'avail-proj' }
+  const esp = (p.especialidades || []).slice(0,4)
+  const rubro = (p.rubro || []).join(', ')
+
+  return `
+  <div class="profile-card" data-esp='${JSON.stringify(p.especialidades || [])}'>
+    <div class="card-header">
+      <div class="card-avatar">${initials(p.nombre)}</div>
+      <span class="card-avail ${avail.cls}">${avail.label}</span>
+    </div>
+    <div class="card-name">${p.nombre}</div>
+    <div class="card-location">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      ${p.ubicacion || 'Argentina'}
+    </div>
+    <div class="card-tags">
+      ${esp.map((e, i) => `<span class="tag${i === 0 ? ' primary' : ''}">${e}</span>`).join('')}
+    </div>
+    ${rubro ? `<div class="card-rubro">Venía de: ${rubro}</div>` : ''}
+    <div class="card-footer">
+      <div>
+        <div class="card-cobro">${p.modelo_cobro || 'A consultar'}</div>
+        ${p.portfolio_url ? `<a href="${p.portfolio_url}" target="_blank" class="view-portfolio" style="margin-top:6px">Ver portfolio <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>` : ''}
+      </div>
+      <div class="card-links">
+        ${p.linkedin ? `<a href="${p.linkedin}" target="_blank" class="card-link" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>` : ''}
+        ${p.instagram ? `<a href="${p.instagram}" target="_blank" class="card-link" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>` : ''}
+        ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" class="card-link" title="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34l-.01-8.69a8.17 8.17 0 0 0 4.78 1.52V4.68a4.85 4.85 0 0 1-1-.01z"/></svg></a>` : ''}
+      </div>
+    </div>
+  </div>`
+}
+
+let allProfiles = []
+
+async function loadProfiles() {
+  const { data, error } = await supabase
+    .from('talent_profiles')
+    .select('*')
+    .eq('visible', true)
+    .order('created_at', { ascending: false })
+
+  const grid = document.getElementById('profilesGrid')
+  const empty = document.getElementById('emptyState')
+  const count = document.getElementById('profileCount')
+
+  if (error || !data || !data.length) {
+    empty.innerHTML = '<h3>Aún no hay perfiles</h3><p>Sé el primero en <a href="/registro" style="color:var(--lime)">aplicar al directorio</a>.</p>'
+    empty.classList.add('show')
+    count.textContent = '0'
+    return
+  }
+
+  allProfiles = data
+  count.textContent = data.length
+  empty.classList.remove('show')
+  grid.insertAdjacentHTML('afterbegin', data.map(renderCard).join(''))
+}
+
+// Filters
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'))
+    pill.classList.add('active')
+    const filter = pill.dataset.filter
+    const cards = document.querySelectorAll('.profile-card')
+    let visible = 0
+    cards.forEach(card => {
+      const esp = JSON.parse(card.dataset.esp || '[]')
+      const show = filter === 'all' || esp.includes(filter)
+      card.style.display = show ? '' : 'none'
+      if (show) visible++
     })
+    document.getElementById('profileCount').textContent = visible
   })
+})
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'))
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }) }
+  })
+})
+
+loadProfiles()
 </script>
 </body>
 </html>
