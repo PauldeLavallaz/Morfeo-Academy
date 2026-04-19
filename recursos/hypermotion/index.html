@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypermotion · Guía · Morfeo Academy</title>
+<meta name="description" content="Carousels animados con Claude Code + HyperFrames. Qué es, cómo funciona, y el prompt exacto para copiar y pegar en Claude Code.">
+<meta property="og:title" content="Hypermotion · Morfeo Academy">
+<meta property="og:description" content="7 slides, 7 MP4, un loop infinito en tu feed. Con Claude Code + HyperFrames.">
+<meta property="og:image" content="/recursos/hypermotion/slides/slide-01-alt.png">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F0EAD6;
+    --cream-2: #E8DFC5;
+    --ink: #171717;
+    --ink-muted: #5A5A5A;
+    --coral: #D96B52;
+    --coral-dk: #B8553E;
+    --coral-lt: #E8876B;
+    --black: #0A0A0A;
+    --border: #D8CFB3;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink);
+    -webkit-font-smoothing: antialiased; line-height: 1.6; }
+  .serif { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: var(--coral-dk); text-decoration: none; border-bottom: 1px solid currentColor; }
+  em { color: var(--coral-dk); font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .nav { padding: 18px 28px; display: flex; align-items: center; justify-content: space-between;
+    max-width: 1180px; margin: 0 auto; font-size: 14px; position: sticky; top: 0; z-index: 50;
+    background: rgba(240,234,214,0.92); backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-brand { font-weight: 600; letter-spacing: -0.2px; }
+  .nav-brand em { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--coral); border: none; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted);
+    letter-spacing: 1px; text-transform: uppercase; border: none; }
+  .nav-back:hover { color: var(--coral); }
+
+  .section { padding: 80px 28px; border-bottom: 1px solid var(--border); }
+  .section.dark { background: var(--black); color: #fff; border-bottom-color: transparent; }
+  .section.dark em { color: var(--coral); }
+  .section.dark strong { color: #fff; }
+  .section.gradient {
+    background: linear-gradient(165deg, var(--coral-dk) 0%, var(--coral) 55%, var(--coral-lt) 100%);
+    color: var(--black); border-bottom-color: transparent;
+  }
+  .section.gradient em, .section.gradient strong { color: var(--black); }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  .wrap-wide { max-width: 1040px; margin: 0 auto; }
+
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--coral); margin-bottom: 20px; display: block; }
+  .dark .eyebrow { color: var(--coral-lt); }
+  .gradient .eyebrow { color: var(--black); opacity: 0.6; }
+
+  h1 { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 400; font-size: 72px; line-height: 0.98; letter-spacing: -2.5px; margin-bottom: 24px; }
+  h2 { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 400; font-size: 52px; line-height: 1.02; letter-spacing: -1.8px; margin-bottom: 20px; }
+  h3 { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 400; font-size: 32px; line-height: 1.1; letter-spacing: -0.9px; margin: 40px 0 14px; }
+  .lede { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: 22px;
+    line-height: 1.4; color: var(--ink-muted); margin-bottom: 32px; }
+  .dark .lede { color: rgba(255,255,255,0.7); }
+  p { margin-bottom: 18px; font-size: 16px; }
+
+  pre { background: var(--black); color: var(--coral-lt); padding: 22px 24px; border-radius: 12px;
+    overflow-x: auto; margin: 18px 0 28px; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.65; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    white-space: pre-wrap; word-break: break-word; }
+  pre .c { color: rgba(255,255,255,0.4); font-style: italic; }
+  pre .k { color: #FEBC2E; }
+  pre .v { color: #fff; }
+  code.inline { background: rgba(10,10,10,0.08); color: var(--coral-dk); padding: 2px 8px;
+    border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .dark code.inline { background: rgba(255,255,255,0.1); color: var(--coral-lt); }
+
+  .callout { border-left: 3px solid var(--coral); margin: 24px 0;
+    background: rgba(217,107,82,0.08); padding: 16px 20px; border-radius: 4px; }
+  .callout .label { font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 1.2px; color: var(--coral-dk);
+    margin-bottom: 6px; font-weight: 600; display: block; }
+  .callout p { margin: 0; font-size: 14.5px; }
+  .dark .callout { background: rgba(217,107,82,0.13); }
+  .dark .callout .label { color: var(--coral-lt); }
+  .dark .callout p { color: rgba(255,255,255,0.85); }
+
+  /* Window mockup */
+  .window { background: var(--black); border-radius: 22px; padding: 72px 28px 56px;
+    position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4); text-align: center; margin: 32px 0 44px; }
+  .window .lights { position: absolute; top: 18px; left: 22px; display: flex; gap: 7px; }
+  .window .lights span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .window-text { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-style: italic;
+    font-weight: 500; color: var(--coral); font-size: 92px; letter-spacing: -3.5px; line-height: 0.95;
+    white-space: nowrap; }
+
+  .cover { padding: 100px 28px 80px; text-align: center; }
+  .cover h1 { font-size: 64px; letter-spacing: -2.2px; }
+
+  /* Embedded animated slides rail */
+  .slide-rail { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin: 36px 0 10px; }
+  .slide-rail .slot { position: relative; aspect-ratio: 1080 / 1350; border-radius: 12px;
+    overflow: hidden; background: #0A0A0A; border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 14px 28px -12px rgba(0,0,0,0.4); }
+  .slide-rail .slot iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .slide-rail .slot .tag { position: absolute; top: 6px; left: 6px; z-index: 2;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
+    font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 600;
+    color: var(--ink); padding: 2px 5px; border-radius: 3px; letter-spacing: 0.5px; }
+  .rail-caption { font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: rgba(255,255,255,0.55); text-align: center; margin-top: 6px;
+    letter-spacing: 0.8px; text-transform: uppercase; }
+
+  /* Copy-paste box */
+  .copy-box { position: relative; }
+  .copy-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 3;
+    background: var(--coral); color: #fff; border: 0; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; padding: 6px 12px; border-radius: 6px;
+    transition: background 0.2s, transform 0.12s;
+  }
+  .copy-btn:hover { background: var(--coral-dk); }
+  .copy-btn:active { transform: scale(0.96); }
+  .copy-btn.done { background: #4ADE80; color: var(--black); }
+
+  /* CTA gradient stack */
+  .stack { text-align: center; }
+  .stack .l1 { font-family: 'Fraunces', serif; font-size: 44px; letter-spacing: -1.6px; line-height: 0.98; color: var(--black); }
+  .stack .l2 { display: flex; align-items: baseline; justify-content: center; gap: 10px; line-height: 1; margin: 4px 0; font-family: 'Fraunces', serif; }
+  .stack .l2 .sm { font-size: 44px; letter-spacing: -1.6px; color: var(--black); }
+  .stack .l2 .big { font-style: italic; font-size: 104px; font-weight: 500; letter-spacing: -4px; color: var(--cream); text-shadow: 0 2px 14px rgba(10,10,10,0.2); }
+  .stack .l3 { font-family: 'Fraunces', serif; font-size: 40px; letter-spacing: -1.4px; color: var(--black); }
+  .keyword-chip {
+    display: inline-block; background: var(--black); color: var(--coral);
+    padding: 3px 10px; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.8px;
+  }
+
+  .footer { padding: 50px 28px; text-align: center; background: var(--black); color: rgba(255,255,255,0.55); font-size: 13px; }
+  .footer a { color: #fff; border-bottom-color: rgba(255,255,255,0.35); }
+
+  @media (max-width: 760px) {
+    h1 { font-size: 48px; letter-spacing: -1.5px; }
+    h2 { font-size: 36px; letter-spacing: -1px; }
+    h3 { font-size: 24px; }
+    .cover h1 { font-size: 44px; }
+    .window-text { font-size: 56px; letter-spacing: -2px; }
+    .section { padding: 60px 24px; }
+    .slide-rail { grid-template-columns: repeat(3, 1fr); }
+    .slide-rail .slot:nth-child(n+7) { display: none; }
+    .stack .l1, .stack .l3 { font-size: 34px; }
+    .stack .l2 .sm { font-size: 34px; }
+    .stack .l2 .big { font-size: 76px; }
+  }
+  @media (max-width: 520px) {
+    .slide-rail { grid-template-columns: repeat(2, 1fr); }
+    .slide-rail .slot:nth-child(n+5) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">Morfeo <em>Academy</em></div>
+  <a class="nav-back" href="/recursos">← Recursos</a>
+</nav>
+
+<!-- ═══════════ COVER ═══════════ -->
+<section class="section cover">
+  <div class="wrap">
+    <span class="eyebrow">Guía · Abril 2026 · Morfeo Academy</span>
+    <div class="serif" style="font-size:36px; margin-bottom:12px; color:var(--ink); letter-spacing:-0.8px;">Guía completa de</div>
+    <div class="window">
+      <div class="lights"><span style="background:#FF5F57;"></span><span style="background:#FEBC2E;"></span><span style="background:#28C840;"></span></div>
+      <div class="window-text">Hypermotion</div>
+    </div>
+    <p class="lede" style="margin-top:8px;">Tus carousels ya no son imágenes quietas — son <em>7 videos chiquitos</em> que loopean solos en tu feed.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 1 · QUÉ ES ═══════════ -->
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">01 · Qué es Hypermotion</span>
+    <h2>Carousels, pero <em>vivos.</em></h2>
+    <p class="lede">No es un producto nuevo. Es la combinación de dos herramientas que ya existen, usadas de una forma que nadie está usando todavía.</p>
+    <p>En vez de publicar 7 imágenes estáticas, publicás <strong>7 videos chiquitos</strong> — uno por slide. Cada uno dura 3 a 5 segundos y loopea solo. Cuando alguien scrollea tu post en el feed, no ve carousel, ve 7 reels apilados.</p>
+    <p>El resultado es que el ojo del usuario se queda <em>pegado</em>. Cada slide es un hook nuevo. El watch time se multiplica por 7.</p>
+    <div class="callout">
+      <span class="label">La verdad incómoda</span>
+      <p>El contenido estático ya tocó techo. En 2026, si tu carousel no se mueve en las primeras 0.5s, perdiste. Hypermotion es la forma más barata de competir con reels sin producir reels.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 2 · CLAUDE CODE ═══════════ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">02 · La herramienta 1/2</span>
+    <h2>Claude Code <em>diseña webs.</em></h2>
+    <p class="lede">Ya lo sabés, pero vale recordarlo: Claude Code no es solo para programar apps.</p>
+    <p>Le pedís un carousel en un prompt, y te arma el <strong>HTML + CSS</strong> completo. Colores, tipografías, layout, espacios, jerarquía visual — todo lo que haría un diseñador junior, pero en 3 minutos y sin abrir Figma.</p>
+    <p>Es la base del workflow: Claude Code es el <em>diseñador</em>. Vos le pasás un brief, él te devuelve un archivo HTML abierto en el browser. Todavía no hay movimiento — pero ya tenés las 7 slides del carousel, visualmente perfectas.</p>
+    <div class="callout">
+      <span class="label">Pro tip</span>
+      <p>Cuanto más específico el brief (marca, tono, keywords, formato), más afilado el output. Claude Code no adivina — replica tu gusto si se lo mostrás.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 · HYPERFRAMES ═══════════ -->
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">03 · La herramienta 2/2</span>
+    <h2>HyperFrames hace <em>los videos.</em></h2>
+    <p class="lede">Es open-source de HeyGen. Convierte HTML en MP4. Punto.</p>
+    <p>La lógica es simple: <strong>HyperFrames</strong> agarra el HTML que te generó Claude Code, le agrega animaciones (texto que entra, objetos que se mueven, loops), y lo renderiza como video MP4. No hay After Effects. No hay Premiere. Sin editar frame por frame.</p>
+    <p>Internamente usa <em>Playwright + ffmpeg + GSAP</em>, pero vos nunca los tocás. Desde tu punto de vista es un solo comando:</p>
+    <pre><span class="c"># renderear HTML a MP4</span>
+$ <span class="k">hyperframes render</span> slide-01.html --out slide-01.mp4</pre>
+    <p>Repo: <a href="https://github.com/heygen-com/hyperframes" target="_blank">github.com/heygen-com/hyperframes</a> · Docs: <a href="https://hyperframes.heygen.com/guides/prompting" target="_blank">hyperframes.heygen.com</a></p>
+  </div>
+</section>
+
+<!-- ═══════════ 4 · LA COMBINACIÓN = RESULTADOS ═══════════ -->
+<section class="section">
+  <div class="wrap-wide">
+    <div class="wrap">
+      <span class="eyebrow">04 · Resultados</span>
+      <h2>Combinalas y tenés <em>magia.</em></h2>
+      <p class="lede">Claude Code arma. HyperFrames anima. IG lo loopea. Este mismo carousel que estás por ver es el resultado.</p>
+    </div>
+    <div style="background: var(--black); border-radius: 20px; padding: 36px 24px 20px; margin: 32px 0 12px;">
+      <div class="slide-rail">
+        <div class="slot"><span class="tag">01</span><iframe src="./slides-html/slide-01-alt.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">02</span><iframe src="./slides-html/slide-02-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">03</span><iframe src="./slides-html/slide-03-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">04</span><iframe src="./slides-html/slide-04-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">05</span><iframe src="./slides-html/slide-05-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">06</span><iframe src="./slides-html/slide-06-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">07</span><iframe src="./slides-html/slide-07-v1.animated.html" loading="lazy"></iframe></div>
+      </div>
+      <div class="rail-caption">Los 7 slides del carousel · cada uno loopea independiente</div>
+    </div>
+    <div class="wrap">
+      <p style="margin-top:24px;">Cada slide se renderiza a un MP4 separado (1080×1350). Subís los 7 como carousel desde el celu — IG los trata como videos en loop dentro del carousel. El usuario swipea y cada tile sigue animando solo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · BONUS MOTIONSITES ═══════════ -->
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">05 · Bonus · Nivel pro</span>
+    <h2>¿Querés animaciones <em>más locas?</em></h2>
+    <p class="lede">motionsites.ai es una biblioteca gigante de prompts visuales, cada uno listo para pegar en Claude Code.</p>
+    <p>Vas a <a href="https://motionsites.ai" target="_blank">motionsites.ai</a>, elegís una animación que te guste — <strong>3D, liquid glass, particles, scroll-driven, kinetic typography</strong> — y copiás el prompt. Lo pegás en Claude Code encima del carousel base, y Claude te reescribe el HTML con ese efecto aplicado.</p>
+    <p>Así pasás de un carousel <em>lindo</em> a uno que parece de agencia. En 10 minutos, sin tocar Three.js ni WebGL.</p>
+    <div class="callout">
+      <span class="label">Ejemplos reales</span>
+      <p>Un hero con liquid-glass pill. Un fondo de partículas que reaccionan al scroll. Text sobre video en loop. Cards con hover 3D. Todo accesible via un prompt de 15 líneas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 6 · PARA COPIAR Y PEGAR ═══════════ -->
+<section class="section" style="background: var(--cream-2);">
+  <div class="wrap">
+    <span class="eyebrow" style="color: var(--coral-dk);">06 · Para copiar y pegar en Claude Code</span>
+    <h2>Arrancá <em>ahora.</em></h2>
+    <p class="lede">Dos comandos para instalar. Un prompt para empezar. Eso es todo.</p>
+
+    <h3 style="margin-top: 28px;">Paso 1 · Instalar HyperFrames</h3>
+    <p>Corré esto en tu terminal (o pedile a Claude Code que lo corra por vos):</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy="npx skills add heygen-com/hyperframes
+hyperframes doctor">Copiar</button>
+<pre><span class="c"># agrega la skill de HyperFrames a Claude Code</span>
+$ <span class="k">npx skills add heygen-com/hyperframes</span>
+
+<span class="c"># valida que tengas Node, ffmpeg y Playwright</span>
+$ <span class="k">hyperframes doctor</span></pre>
+    </div>
+
+    <h3>Paso 2 · Pegá este prompt en Claude Code</h3>
+    <p>Este es el prompt de inicio. Cambiá <code class="inline">[TU TEMA]</code> por el tema de tu carousel y <code class="inline">[TU MARCA]</code> por tu handle:</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy='Quiero armar un carousel animado de 7 slides para Instagram usando el workflow "Hypermotion" (Claude Code + HyperFrames).
+
+Tema: [TU TEMA]
+Marca: [TU MARCA]
+Formato: 7 slides, 1080x1350 cada uno, paleta cálida (cream + coral + acentos).
+
+Antes de escribir código, proponeme el build plan:
+- slide 1 (cover): headline + subtítulo + CTA "swipe"
+- slides 2-6: 5 tips con 1 concepto por slide, headline corto con palabra italic de énfasis
+- slide 7 (CTA): keyword en MAYÚSCULA para DM
+
+Reglas:
+- HTML + CSS puro, tipografía Fraunces + Inter + JetBrains Mono (Google Fonts)
+- Cada slide tiene que verse bien quieto antes de animar
+- Al final vas a generar también compositions/ por slide con timelines GSAP
+- Export a MP4 via `hyperframes render --per-slide`
+
+Esperá mi aprobación del build plan antes de escribir código.'>Copiar prompt</button>
+<pre><span class="c"># pegá esto tal cual en Claude Code</span>
+
+Quiero armar un carousel animado de 7 slides para Instagram
+usando el workflow "Hypermotion" (Claude Code + HyperFrames).
+
+<span class="k">Tema:</span>   <span class="v">[TU TEMA]</span>
+<span class="k">Marca:</span>  <span class="v">[TU MARCA]</span>
+<span class="k">Formato:</span> <span class="v">7 slides, 1080×1350 cada uno,</span>
+<span class="k">        </span> <span class="v">paleta cálida (cream + coral + acentos).</span>
+
+Antes de escribir código, proponeme el build plan:
+  <span class="k">slide 1</span> <span class="c">(cover):</span>   <span class="v">headline + subtítulo + CTA "swipe"</span>
+  <span class="k">slides 2-6</span>:        <span class="v">5 tips, 1 concepto por slide,</span>
+                      <span class="v">headline corto con palabra italic</span>
+                      <span class="v">de énfasis</span>
+  <span class="k">slide 7</span> <span class="c">(CTA):</span>     <span class="v">keyword en MAYÚSCULA para DM</span>
+
+Reglas:
+  • HTML + CSS puro, fonts: Fraunces + Inter + JetBrains Mono
+  • Cada slide se ve bien quieto antes de animar
+  • Al final también generás compositions/ por slide con GSAP
+  • Export a MP4 via <span class="k">hyperframes render --per-slide</span>
+
+Esperá mi aprobación del build plan antes de escribir código.</pre>
+    </div>
+
+    <h3>Paso 3 · Iterar y exportar</h3>
+    <p>Claude Code te va a tirar el plan. Lo revisás, pedís cambios si querés. Cuando esté aprobado:</p>
+    <ol style="margin:18px 0 24px 28px;">
+      <li>Claude Code genera <code class="inline">generate.py</code> → 7 slides HTML listos para ver en el browser.</li>
+      <li>Revisás los 7 quietos. Si alguno no convierte, lo cambiás <em>antes</em> de animar.</li>
+      <li>Claude Code arma las 7 <code class="inline">compositions/</code> con timelines GSAP.</li>
+      <li>Corrés <code class="inline">hyperframes render --per-slide</code> y exportás los 7 MP4.</li>
+      <li>Subís los 7 MP4 a IG como carousel normal. IG les pone loop.</li>
+    </ol>
+    <div class="callout">
+      <span class="label">Tiempo real</span>
+      <p>Setup: 5 min (una vez en tu vida). Carousel desde cero: 20-30 min con Claude Code. Cada carousel siguiente: 10-15 min porque reutilizás el template.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 · CTA ═══════════ -->
+<section class="section gradient">
+  <div class="wrap" style="text-align:center;">
+    <span class="eyebrow">Cierre</span>
+    <div class="stack">
+      <div class="l1">¿Querés</div>
+      <div class="l2"><span class="sm">más recursos</span></div>
+      <div class="l3"><em style="color: var(--cream);">como este?</em></div>
+    </div>
+    <p style="max-width:480px; margin: 28px auto 0; color: rgba(10,10,10,0.8);">
+      Seguime en <strong><a href="https://instagram.com/morfeoacademy" target="_blank" style="color:var(--black); border-bottom-color:var(--black);">@morfeoacademy</a></strong> — carousels animados, prompts reales, setups que uso todos los días para producir contenido con Claude.
+    </p>
+    <p style="max-width:480px; margin: 20px auto 0; color: rgba(10,10,10,0.8);">
+      O comentá <span class="keyword-chip">HYPERMOTION</span> en el post original y te mandamos la guía directo al DM.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p style="font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: #fff; margin-bottom: 10px;">Hypermotion — Guía v1</p>
+  <p>Por <a href="https://instagram.com/morfeoacademy" target="_blank">@morfeoacademy</a> · Hecho con <a href="/">Claude Code</a> + <a href="https://github.com/heygen-com/hyperframes" target="_blank">HyperFrames</a> · Abril 2026</p>
+  <p style="margin-top:16px; font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:1px; text-transform:uppercase;">Gratis · Compartila</p>
+</footer>
+
+<script>
+  // Copy-to-clipboard for copy-btn elements
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy');
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = '✓ Copiado';
+        btn.classList.add('done');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('done'); }, 1800);
+      } catch (e) {
+        btn.textContent = 'Error — copiá manualmente';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
