@@ -130,15 +130,51 @@
   .window .chip-dots span:nth-child(2)::before { background: var(--violet); }
   .window .chip-dots span:nth-child(3)::before { background: var(--green); }
 
-  .cover { padding: 100px 28px 80px; text-align: center; }
+  /* ── Cover (carousel-inspired: dot grid + warm vignette + floating pills) ── */
+  .cover { padding: 104px 28px 112px; text-align: center; position: relative; overflow: hidden; }
+  .cover::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, rgba(23,23,23,0.14) 1px, transparent 1.5px);
+    background-size: 18px 18px;
+    opacity: 0.45;
+    mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 35%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 35%, transparent 95%);
+  }
+  .cover::after {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle 520px at 92% 10%, rgba(217,107,82,0.12), transparent 65%),
+      radial-gradient(circle 440px at 6% 92%,  rgba(167,139,250,0.08), transparent 65%),
+      radial-gradient(circle 380px at 14% 8%,  rgba(228,184,102,0.14), transparent 70%);
+  }
+  .cover > .wrap { position: relative; z-index: 2; }
+  .cover-pill {
+    position: absolute; display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 13px; background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.06); border-radius: 100px;
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--ink);
+    white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 2;
+  }
+  .cover-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .cover-pill.p-tl { top: 40px;  left: 6%;  transform: rotate(-4deg); }
+  .cover-pill.p-tr { top: 70px;  right: 6%; transform: rotate(3deg);  }
+  .cover-pill.p-bl { bottom: 60px; left: 6%; transform: rotate(3deg);  }
+  .cover-pill.p-br { bottom: 40px; right: 6%; transform: rotate(-3deg); }
+  .cover-pill.c-coral::before  { background: var(--coral); }
+  .cover-pill.c-violet::before { background: #A78BFA; }
+  .cover-pill.c-green::before  { background: #4ADE80; }
+  .cover-pill.c-yellow::before { background: #FEBC2E; }
+  @media (max-width: 720px) {
+    .cover-pill { display: none; }
+  }
   .cover h1 { font-size: 64px; letter-spacing: -2.2px; }
 
   /* Embedded animated slides rail */
-  .slide-rail { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin: 36px 0 10px; }
+  .slide-rail { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 36px 0 10px; }
   .slide-rail .slot { position: relative; aspect-ratio: 1080 / 1350; border-radius: 12px;
     overflow: hidden; background: #0A0A0A; border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 14px 28px -12px rgba(0,0,0,0.4); }
-  .slide-rail .slot iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .slide-rail .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .slide-rail .slot .tag { position: absolute; top: 6px; left: 6px; z-index: 2;
     background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
     font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 600;
@@ -204,6 +240,12 @@
 
 <!-- ═══════════ COVER ═══════════ -->
 <section class="section cover">
+  <!-- floating multicolor pills (estilo carousel cover) -->
+  <span class="cover-pill p-tl c-coral">GSAP</span>
+  <span class="cover-pill p-tr c-violet">/render</span>
+  <span class="cover-pill p-bl c-green">6 MP4</span>
+  <span class="cover-pill p-br c-coral">HTML</span>
+
   <div class="wrap">
     <span class="eyebrow">Guía · Abril 2026 · Morfeo Academy</span>
     <div class="serif" style="font-size:36px; margin-bottom:12px; color:var(--ink); letter-spacing:-0.8px;">Guía completa de</div>
@@ -272,12 +314,12 @@ $ <span class="k">hyperframes render</span> slide-01.html --out slide-01.mp4</pr
     </div>
     <div style="background: var(--black); border-radius: 20px; padding: 36px 24px 20px; margin: 32px 0 12px;">
       <div class="slide-rail">
-        <div class="slot"><span class="tag">01</span><iframe src="./slides-html/slide-01-alt.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">02</span><iframe src="./slides-html/slide-02-v1.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">03</span><iframe src="./slides-html/slide-03-v1.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">04</span><iframe src="./slides-html/slide-04-v1.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">05</span><iframe src="./slides-html/slide-05-v1.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">06</span><iframe src="./slides-html/slide-06-v1.animated.html" loading="lazy"></iframe></div>
+        <div class="slot"><span class="tag">01</span><img src="./slides/slide-01-alt.png" alt="Slide 01 — Cover" loading="lazy"></div>
+        <div class="slot"><span class="tag">02</span><img src="./slides/slide-02-v1.png" alt="Slide 02 — Claude Code" loading="lazy"></div>
+        <div class="slot"><span class="tag">03</span><img src="./slides/slide-03-v1.png" alt="Slide 03 — HyperFrames" loading="lazy"></div>
+        <div class="slot"><span class="tag">04</span><img src="./slides/slide-04-v1.png" alt="Slide 04 — Combinación" loading="lazy"></div>
+        <div class="slot"><span class="tag">05</span><img src="./slides/slide-05-v1.png" alt="Slide 05 — Bonus" loading="lazy"></div>
+        <div class="slot"><span class="tag">06</span><img src="./slides/slide-06-v1.png" alt="Slide 06 — CTA" loading="lazy"></div>
       </div>
       <div class="rail-caption">Los 6 slides del carousel · cada uno loopea independiente</div>
     </div>
