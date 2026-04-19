@@ -131,24 +131,33 @@
     align-items: center;
     border-bottom: 1px solid var(--border);
   }
+  /* Window-mini — LIGHT theme (matches main guides) */
   .window-mini {
-    background: var(--black);
+    background: #FFFFFF;
+    border: 1px solid rgba(23,23,23,0.08);
     border-radius: 16px;
-    padding: 34px 20px 26px;
+    padding: 44px 20px 26px;
     position: relative;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    transform: rotate(-0.6deg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 22px 44px -16px rgba(23,23,23,0.22),
+      0 8px 18px -6px rgba(23,23,23,0.12);
     width: 100%;
     max-width: 260px;
   }
+  .window-mini::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 28px;
+    background: linear-gradient(to bottom, #FAF6EC 0%, #FFFFFF 100%);
+    border-bottom: 1px solid rgba(23,23,23,0.06);
+    border-top-left-radius: 16px; border-top-right-radius: 16px;
+  }
   .window-mini .lights {
-    position: absolute;
-    top: 10px;
-    left: 12px;
-    display: flex;
-    gap: 4px;
+    position: absolute; top: 9px; left: 11px; display: flex; gap: 5px; z-index: 2;
   }
   .window-mini .lights span {
-    width: 7px; height: 7px; border-radius: 50%; display: inline-block;
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
   }
   .window-mini-text {
     font-family: 'Fraunces', serif;
@@ -160,6 +169,8 @@
     letter-spacing: -1.3px;
     line-height: 1;
     text-align: center;
+    position: relative;
+    z-index: 2;
   }
   .card-body { padding: 26px 28px 28px; flex: 1; display: flex; flex-direction: column; }
   .card-meta {
