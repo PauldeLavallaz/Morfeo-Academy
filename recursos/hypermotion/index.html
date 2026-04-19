@@ -6,7 +6,7 @@
 <title>Hypermotion · Guía · Morfeo Academy</title>
 <meta name="description" content="Carousels animados con Claude Code + HyperFrames. Qué es, cómo funciona, y el prompt exacto para copiar y pegar en Claude Code.">
 <meta property="og:title" content="Hypermotion · Morfeo Academy">
-<meta property="og:description" content="7 slides, 7 MP4, un loop infinito en tu feed. Con Claude Code + HyperFrames.">
+<meta property="og:description" content="6 slides, 6 MP4, un loop infinito en tu feed. Con Claude Code + HyperFrames.">
 <meta property="og:image" content="/recursos/hypermotion/slides/slide-01-alt.png">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
@@ -93,14 +93,42 @@
   .dark .callout .label { color: var(--coral-lt); }
   .dark .callout p { color: rgba(255,255,255,0.85); }
 
-  /* Window mockup */
-  .window { background: var(--black); border-radius: 22px; padding: 72px 28px 56px;
-    position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4); text-align: center; margin: 32px 0 44px; }
-  .window .lights { position: absolute; top: 18px; left: 22px; display: flex; gap: 7px; }
-  .window .lights span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  /* Window mockup — LIGHT theme */
+  .window { background: #FFFFFF; border: 1px solid rgba(23,23,23,0.08); border-radius: 22px;
+    padding: 62px 28px 52px; position: relative; text-align: center; margin: 32px auto 44px;
+    transform: rotate(-0.6deg);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 34px 70px -18px rgba(23,23,23,0.28),
+      0 14px 30px -10px rgba(23,23,23,0.14); }
+  .window::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 40px;
+    background: linear-gradient(to bottom, #FAF6EC 0%, #FFFFFF 100%);
+    border-bottom: 1px solid rgba(23,23,23,0.06);
+    border-top-left-radius: 22px; border-top-right-radius: 22px; }
+  .window .lights { position: absolute; top: 14px; left: 16px; display: flex; gap: 7px; z-index: 2; }
+  .window .lights span { width: 12px; height: 12px; border-radius: 50%; display: inline-block;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06); }
+  .window .url { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); z-index: 2;
+    background: var(--cream); border: 1px solid rgba(23,23,23,0.07); padding: 4px 14px; border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); letter-spacing: 0.4px; }
+  .window .url .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral); margin-right: 6px; vertical-align: 1px;
+    box-shadow: 0 0 0 2px rgba(217,107,82,0.18); }
+  .window .win-eyebrow { display: inline-flex; align-items: center; gap: 7px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+    color: var(--coral); letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 12px; }
+  .window .win-eyebrow::after { content: "NEW"; background: var(--coral); color: #fff;
+    padding: 1px 6px; border-radius: 3px; font-size: 8px; letter-spacing: 0.6px; }
   .window-text { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-style: italic;
     font-weight: 500; color: var(--coral); font-size: 92px; letter-spacing: -3.5px; line-height: 0.95;
-    white-space: nowrap; }
+    white-space: nowrap; position: relative; z-index: 2; }
+  .window .chip-dots { margin-top: 22px; display: flex; justify-content: center; gap: 8px; }
+  .window .chip-dots span { display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 100px; background: rgba(240,234,214,0.7);
+    border: 1px solid rgba(23,23,23,0.06); font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 500; color: var(--ink); }
+  .window .chip-dots span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; }
+  .window .chip-dots span:nth-child(1)::before { background: var(--coral); }
+  .window .chip-dots span:nth-child(2)::before { background: var(--violet); }
+  .window .chip-dots span:nth-child(3)::before { background: var(--green); }
 
   .cover { padding: 100px 28px 80px; text-align: center; }
   .cover h1 { font-size: 64px; letter-spacing: -2.2px; }
@@ -181,9 +209,12 @@
     <div class="serif" style="font-size:36px; margin-bottom:12px; color:var(--ink); letter-spacing:-0.8px;">Guía completa de</div>
     <div class="window">
       <div class="lights"><span style="background:#FF5F57;"></span><span style="background:#FEBC2E;"></span><span style="background:#28C840;"></span></div>
+      <div class="url"><span class="dot"></span>hypermotion.morfeoacademy.com</div>
+      <div class="win-eyebrow">Launch</div>
       <div class="window-text">Hypermotion</div>
+      <div class="chip-dots"><span>Claude Code</span><span>HyperFrames</span><span>motionsites.ai</span></div>
     </div>
-    <p class="lede" style="margin-top:8px;">Tus carousels ya no son imágenes quietas — son <em>7 videos chiquitos</em> que loopean solos en tu feed.</p>
+    <p class="lede" style="margin-top:8px;">Tus carousels ya no son imágenes quietas — son <em>6 videos chiquitos</em> que loopean solos en tu feed.</p>
   </div>
 </section>
 
@@ -193,7 +224,7 @@
     <span class="eyebrow">01 · Qué es Hypermotion</span>
     <h2>Carousels, pero <em>vivos.</em></h2>
     <p class="lede">No es un producto nuevo. Es la combinación de dos herramientas que ya existen, usadas de una forma que nadie está usando todavía.</p>
-    <p>En vez de publicar 7 imágenes estáticas, publicás <strong>7 videos chiquitos</strong> — uno por slide. Cada uno dura 3 a 5 segundos y loopea solo. Cuando alguien scrollea tu post en el feed, no ve carousel, ve 7 reels apilados.</p>
+    <p>En vez de publicar 6 imágenes estáticas, publicás <strong>6 videos chiquitos</strong> — uno por slide. Cada uno dura 3 a 5 segundos y loopea solo. Cuando alguien scrollea tu post en el feed, no ve carousel, ve 6 reels apilados.</p>
     <p>El resultado es que el ojo del usuario se queda <em>pegado</em>. Cada slide es un hook nuevo. El watch time se multiplica por 7.</p>
     <div class="callout">
       <span class="label">La verdad incómoda</span>
@@ -205,11 +236,11 @@
 <!-- ═══════════ 2 · CLAUDE CODE ═══════════ -->
 <section class="section">
   <div class="wrap">
-    <span class="eyebrow">02 · La herramienta 1/2</span>
-    <h2>Claude Code <em>diseña webs.</em></h2>
+    <span class="eyebrow">02 · Paso 1</span>
+    <h2>Claude Code diseña <em>tu idea.</em></h2>
     <p class="lede">Ya lo sabés, pero vale recordarlo: Claude Code no es solo para programar apps.</p>
     <p>Le pedís un carousel en un prompt, y te arma el <strong>HTML + CSS</strong> completo. Colores, tipografías, layout, espacios, jerarquía visual — todo lo que haría un diseñador junior, pero en 3 minutos y sin abrir Figma.</p>
-    <p>Es la base del workflow: Claude Code es el <em>diseñador</em>. Vos le pasás un brief, él te devuelve un archivo HTML abierto en el browser. Todavía no hay movimiento — pero ya tenés las 7 slides del carousel, visualmente perfectas.</p>
+    <p>Es la base del workflow: Claude Code es el <em>diseñador</em>. Vos le pasás un brief, él te devuelve un archivo HTML abierto en el browser. Todavía no hay movimiento — pero ya tenés las 6 slides del carousel, visualmente perfectas.</p>
     <div class="callout">
       <span class="label">Pro tip</span>
       <p>Cuanto más específico el brief (marca, tono, keywords, formato), más afilado el output. Claude Code no adivina — replica tu gusto si se lo mostrás.</p>
@@ -247,12 +278,11 @@ $ <span class="k">hyperframes render</span> slide-01.html --out slide-01.mp4</pr
         <div class="slot"><span class="tag">04</span><iframe src="./slides-html/slide-04-v1.animated.html" loading="lazy"></iframe></div>
         <div class="slot"><span class="tag">05</span><iframe src="./slides-html/slide-05-v1.animated.html" loading="lazy"></iframe></div>
         <div class="slot"><span class="tag">06</span><iframe src="./slides-html/slide-06-v1.animated.html" loading="lazy"></iframe></div>
-        <div class="slot"><span class="tag">07</span><iframe src="./slides-html/slide-07-v1.animated.html" loading="lazy"></iframe></div>
       </div>
-      <div class="rail-caption">Los 7 slides del carousel · cada uno loopea independiente</div>
+      <div class="rail-caption">Los 6 slides del carousel · cada uno loopea independiente</div>
     </div>
     <div class="wrap">
-      <p style="margin-top:24px;">Cada slide se renderiza a un MP4 separado (1080×1350). Subís los 7 como carousel desde el celu — IG los trata como videos en loop dentro del carousel. El usuario swipea y cada tile sigue animando solo.</p>
+      <p style="margin-top:24px;">Cada slide se renderiza a un MP4 separado (1080×1350). Subís los 6 como carousel desde el celu — IG los trata como videos en loop dentro del carousel. El usuario swipea y cada tile sigue animando solo.</p>
     </div>
   </div>
 </section>
@@ -294,11 +324,11 @@ $ <span class="k">hyperframes doctor</span></pre>
     <h3>Paso 2 · Pegá este prompt en Claude Code</h3>
     <p>Este es el prompt de inicio. Cambiá <code class="inline">[TU TEMA]</code> por el tema de tu carousel y <code class="inline">[TU MARCA]</code> por tu handle:</p>
     <div class="copy-box">
-      <button class="copy-btn" data-copy='Quiero armar un carousel animado de 7 slides para Instagram usando el workflow "Hypermotion" (Claude Code + HyperFrames).
+      <button class="copy-btn" data-copy='Quiero armar un carousel animado de 6 slides para Instagram usando el workflow "Hypermotion" (Claude Code + HyperFrames).
 
 Tema: [TU TEMA]
 Marca: [TU MARCA]
-Formato: 7 slides, 1080x1350 cada uno, paleta cálida (cream + coral + acentos).
+Formato: 6 slides, 1080x1350 cada uno, paleta cálida (cream + coral + acentos).
 
 Antes de escribir código, proponeme el build plan:
 - slide 1 (cover): headline + subtítulo + CTA "swipe"
@@ -314,12 +344,12 @@ Reglas:
 Esperá mi aprobación del build plan antes de escribir código.'>Copiar prompt</button>
 <pre><span class="c"># pegá esto tal cual en Claude Code</span>
 
-Quiero armar un carousel animado de 7 slides para Instagram
+Quiero armar un carousel animado de 6 slides para Instagram
 usando el workflow "Hypermotion" (Claude Code + HyperFrames).
 
 <span class="k">Tema:</span>   <span class="v">[TU TEMA]</span>
 <span class="k">Marca:</span>  <span class="v">[TU MARCA]</span>
-<span class="k">Formato:</span> <span class="v">7 slides, 1080×1350 cada uno,</span>
+<span class="k">Formato:</span> <span class="v">6 slides, 1080×1350 cada uno,</span>
 <span class="k">        </span> <span class="v">paleta cálida (cream + coral + acentos).</span>
 
 Antes de escribir código, proponeme el build plan:
@@ -341,11 +371,11 @@ Esperá mi aprobación del build plan antes de escribir código.</pre>
     <h3>Paso 3 · Iterar y exportar</h3>
     <p>Claude Code te va a tirar el plan. Lo revisás, pedís cambios si querés. Cuando esté aprobado:</p>
     <ol style="margin:18px 0 24px 28px;">
-      <li>Claude Code genera <code class="inline">generate.py</code> → 7 slides HTML listos para ver en el browser.</li>
+      <li>Claude Code genera <code class="inline">generate.py</code> → 6 slides HTML listos para ver en el browser.</li>
       <li>Revisás los 7 quietos. Si alguno no convierte, lo cambiás <em>antes</em> de animar.</li>
       <li>Claude Code arma las 7 <code class="inline">compositions/</code> con timelines GSAP.</li>
-      <li>Corrés <code class="inline">hyperframes render --per-slide</code> y exportás los 7 MP4.</li>
-      <li>Subís los 7 MP4 a IG como carousel normal. IG les pone loop.</li>
+      <li>Corrés <code class="inline">hyperframes render --per-slide</code> y exportás los 6 MP4.</li>
+      <li>Subís los 6 MP4 a IG como carousel normal. IG les pone loop.</li>
     </ol>
     <div class="callout">
       <span class="label">Tiempo real</span>

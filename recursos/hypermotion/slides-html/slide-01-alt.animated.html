@@ -245,11 +245,11 @@
       <div class="footer-row">
         <span class="brand">@morfeoacademy</span>
         <span class="divider"></span>
-        <span class="hype">5 TIPS · SWIPE →</span>
+        <span class="hype">GUÍA · SWIPE →</span>
       </div>
       <div class="progress">
         <div class="track"><div class="fill"></div></div>
-        <span class="count">01/07</span>
+        <span class="count">01/06</span>
       </div>
     </div>
   </div>
@@ -282,62 +282,62 @@
       gsap.set('.wave span', { scaleY: 0.2 });
       gsap.set('.progress .fill', { width: '0%' });
 
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8, defaults: { ease: 'power2.out' } });
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6, defaults: { ease: 'power2.out' } });
 
-      // Cards drift in (drone-over-canvas beat)
-      tl.to('.peek-1', { x: 0, y: 0, rotate: -6, opacity: 1, scale: 1, duration: 0.7 }, 0)
-        .to('.peek-2', { x: 0, y: 0, rotate: 5,  opacity: 1, scale: 1, duration: 0.7 }, 0.08)
-        .to('.peek-4', { x: 0, y: 0, rotate: -4, opacity: 1, scale: 1, duration: 0.7 }, 0.16)
-        .to('.peek-3', { x: 0, y: 0, rotate: 4,  opacity: 1, scale: 1, duration: 0.7 }, 0.24);
+      // Cards drift in RAPIDO (intermedio entre V1 y V2) — antes 0.7s, ahora 0.4s
+      tl.to('.peek-1', { x: 0, y: 0, rotate: -6, opacity: 1, scale: 1, duration: 0.4 }, 0)
+        .to('.peek-2', { x: 0, y: 0, rotate: 5,  opacity: 1, scale: 1, duration: 0.4 }, 0.05)
+        .to('.peek-4', { x: 0, y: 0, rotate: -4, opacity: 1, scale: 1, duration: 0.4 }, 0.1)
+        .to('.peek-3', { x: 0, y: 0, rotate: 4,  opacity: 1, scale: 1, duration: 0.4 }, 0.15);
 
-      // Hero card overshoots in
-      tl.to('.hero-card', { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.4)' }, 0.4)
-        .to('.hero-title', { y: 0, opacity: 1, duration: 0.55 }, 0.75)
-        .to('.hero-sub',   { y: 0, opacity: 1, duration: 0.5 }, 0.95);
+      // Hero card overshoot (más temprano + más rápido)
+      tl.to('.hero-card', { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 0.2)
+        .to('.hero-title', { y: 0, opacity: 1, duration: 0.35 }, 0.4)
+        .to('.hero-sub',   { y: 0, opacity: 1, duration: 0.3 }, 0.55);
 
       // Underline draws
-      tl.to('.underline-svg path', { strokeDashoffset: 0, duration: 0.7, ease: 'power1.inOut' }, 1.1);
+      tl.to('.underline-svg path', { strokeDashoffset: 0, duration: 0.5, ease: 'power1.inOut' }, 0.65);
 
       // Play mark pops
-      tl.to('.play-mark', { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(2)' }, 1.2);
+      tl.to('.play-mark', { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(2)' }, 0.75);
 
       // Diagram nodes cascade
       tl.to('.diagram .node, .diagram .arrow', {
-          opacity: 1, scale: 1, duration: 0.35, stagger: 0.08, ease: 'back.out(1.7)'
-        }, 1.3);
+          opacity: 1, scale: 1, duration: 0.28, stagger: 0.06, ease: 'back.out(1.7)'
+        }, 0.8);
 
-      // Audio waveform bounces (after hero settles)
+      // Audio waveform bounces (antes en 0.6, ahora en 0.35)
       const bars = qa('.wave span');
       const targets = [0.3, 0.55, 0.85, 0.65, 0.42, 0.72, 0.5, 0.88, 0.6, 0.35];
       bars.forEach((b, i) => {
-        tl.to(b, { scaleY: targets[i], duration: 0.25, ease: 'power2.out' }, 0.6 + i * 0.04);
+        tl.to(b, { scaleY: targets[i], duration: 0.2, ease: 'power2.out' }, 0.35 + i * 0.03);
       });
       // Waveform idle pulse
       bars.forEach((b, i) => {
-        tl.to(b, { scaleY: '+=0.2', duration: 0.35, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 2.0 + i * 0.03);
+        tl.to(b, { scaleY: '+=0.2', duration: 0.32, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 1.3 + i * 0.025);
       });
 
-      // Peek-3 shapes rotate gently while on-screen
-      tl.to('.peek-3 .shape-orb', { rotation: 360, duration: 2.4, ease: 'none' }, 1.5);
-      tl.to('.peek-3 .shape-tri', { rotation: '+=30', duration: 1.4, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 1.6);
-      tl.to('.peek-3 .shape-square', { rotation: '+=90', duration: 1.6, ease: 'power1.inOut' }, 1.7);
+      // Peek-3 shapes rotate
+      tl.to('.peek-3 .shape-orb', { rotation: 360, duration: 2.0, ease: 'none' }, 0.9);
+      tl.to('.peek-3 .shape-tri', { rotation: '+=30', duration: 1.1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 1.0);
+      tl.to('.peek-3 .shape-square', { rotation: '+=90', duration: 1.3, ease: 'power1.inOut' }, 1.05);
 
-      // Orange standout: title em pulse
+      // Title em pulse (más temprano para remarcar "se mueven")
       tl.to('.hero-title em', { color: '#FF3D00', scale: 1.03, transformOrigin: 'left center',
-        yoyo: true, repeat: 1, duration: 0.35, ease: 'power2.inOut' }, 2.2);
+        yoyo: true, repeat: 1, duration: 0.32, ease: 'power2.inOut' }, 1.4);
 
       // Wordmark dot breathes
-      tl.to('.wordmark-dot', { boxShadow: '0 0 0 6px rgba(255,107,53,0.28)', duration: 0.6,
-        yoyo: true, repeat: 3, ease: 'sine.inOut' }, 0.2);
+      tl.to('.wordmark-dot', { boxShadow: '0 0 0 6px rgba(255,107,53,0.28)', duration: 0.55,
+        yoyo: true, repeat: 3, ease: 'sine.inOut' }, 0.15);
 
-      // Progress fills with slide duration
-      tl.to('.progress .fill', { width: '14.2%', duration: 1.0, ease: 'power1.inOut' }, 1.5);
+      // Progress fills
+      tl.to('.progress .fill', { width: '16.67%', duration: 0.9, ease: 'power1.inOut' }, 0.9);
 
-      // Hold on the composed frame
-      tl.to({}, { duration: 0.8 }, '>');
+      // Hold más corto (era 0.8 → 0.5)
+      tl.to({}, { duration: 0.5 }, '>');
 
-      // Exit sequence (subtle settle)
-      tl.to('.play-mark', { scale: 1.15, duration: 0.25, yoyo: true, repeat: 1, ease: 'power1.inOut' }, '>-0.3');
+      // Exit sequence
+      tl.to('.play-mark', { scale: 1.15, duration: 0.22, yoyo: true, repeat: 1, ease: 'power1.inOut' }, '>-0.25');
     });
   });
 </script>
