@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia de Prompting para Kling · Morfeo Academy</title>
+<meta name="description" content="La estructura practica para escribir prompts mejores en Kling: formula, errores a evitar y 5 templates listos para copiar.">
+<meta property="og:title" content="Guia de Prompting para Kling · Morfeo Academy">
+<meta property="og:description" content="La estructura que usamos para pedir direccion, look y movimiento sin escribir prompts eternos.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F0EAD6;
+    --cream-2: #E8DFC5;
+    --ink: #171717;
+    --ink-muted: #5A5A5A;
+    --coral: #D96B52;
+    --coral-dk: #B8553E;
+    --coral-lt: #E8876B;
+    --black: #0A0A0A;
+    --violet: #A78BFA;
+    --green: #4ADE80;
+    --yellow: #FEBC2E;
+    --border: #D8CFB3;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .serif { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: var(--coral-dk); text-decoration: none; border-bottom: 1px solid currentColor; }
+  em { color: var(--coral-dk); font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .nav {
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1180px;
+    margin: 0 auto;
+    font-size: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(240,234,214,0.92);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { font-weight: 600; letter-spacing: -0.2px; }
+  .nav-brand em {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--coral);
+    border: none;
+  }
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+  }
+  .nav-back:hover { color: var(--coral); }
+
+  .section {
+    padding: 80px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section.dark {
+    background: var(--black);
+    color: #fff;
+    border-bottom-color: transparent;
+  }
+  .section.dark em { color: var(--coral); }
+  .section.dark strong { color: #fff; }
+  .section.gradient {
+    background: linear-gradient(165deg, var(--coral-dk) 0%, var(--coral) 55%, var(--coral-lt) 100%);
+    color: var(--black);
+    border-bottom-color: transparent;
+  }
+  .section.gradient em,
+  .section.gradient strong { color: var(--black); }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  .wrap-wide { max-width: 1020px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .dark .eyebrow { color: var(--coral-lt); }
+  .gradient .eyebrow { color: rgba(10,10,10,0.6); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 0.98;
+    letter-spacing: -2.5px;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 1.02;
+    letter-spacing: -1.8px;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.08;
+    letter-spacing: -0.9px;
+    margin: 36px 0 14px;
+  }
+  p { margin-bottom: 18px; font-size: 16px; }
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+  }
+  .dark .lede { color: rgba(255,255,255,0.72); }
+  .gradient .lede { color: rgba(10,10,10,0.75); }
+
+  .window {
+    background: #FFFFFF;
+    border: 1px solid rgba(23,23,23,0.08);
+    border-radius: 22px;
+    padding: 62px 28px 52px;
+    position: relative;
+    text-align: center;
+    margin: 32px auto 44px;
+    transform: rotate(-0.6deg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.95) inset,
+      0 34px 70px -18px rgba(23,23,23,0.28),
+      0 14px 30px -10px rgba(23,23,23,0.14);
+  }
+  .window::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, #FAF6EC 0%, #FFFFFF 100%);
+    border-bottom: 1px solid rgba(23,23,23,0.06);
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+  }
+  .window .lights {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    display: flex;
+    gap: 7px;
+    z-index: 2;
+  }
+  .window .lights span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+  }
+  .window .url {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: var(--cream);
+    border: 1px solid rgba(23,23,23,0.07);
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.4px;
+  }
+  .window .url .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--coral);
+    margin-right: 6px;
+    vertical-align: 1px;
+    box-shadow: 0 0 0 2px rgba(217,107,82,0.18);
+  }
+  .window .win-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--coral);
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .window .win-eyebrow::after {
+    content: "PROMPT PACK";
+    background: var(--coral);
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .window-text {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--coral);
+    font-size: 88px;
+    letter-spacing: -3.5px;
+    line-height: 0.92;
+    position: relative;
+    z-index: 2;
+  }
+  .window-sub {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .window .chip-dots {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .window .chip-dots span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(240,234,214,0.7);
+    border: 1px solid rgba(23,23,23,0.06);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .window .chip-dots span::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+  .window .chip-dots span:nth-child(1)::before { background: var(--coral); }
+  .window .chip-dots span:nth-child(2)::before { background: var(--violet); }
+  .window .chip-dots span:nth-child(3)::before { background: var(--green); }
+
+  .cover {
+    padding: 104px 28px 112px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, rgba(23,23,23,0.14) 1px, transparent 1.5px);
+    background-size: 18px 18px;
+    opacity: 0.45;
+    mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 35%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 35%, transparent 95%);
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle 520px at 92% 10%, rgba(217,107,82,0.12), transparent 65%),
+      radial-gradient(circle 440px at 6% 92%, rgba(167,139,250,0.08), transparent 65%),
+      radial-gradient(circle 380px at 14% 8%, rgba(254,188,46,0.12), transparent 70%);
+  }
+  .cover > .wrap { position: relative; z-index: 2; }
+  .cover-pill {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 13px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index: 2;
+  }
+  .cover-pill::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cover-pill.p-tl { top: 44px; left: 6%; transform: rotate(-4deg); }
+  .cover-pill.p-tr { top: 76px; right: 6%; transform: rotate(3deg); }
+  .cover-pill.p-bl { bottom: 66px; left: 6%; transform: rotate(3deg); }
+  .cover-pill.p-br { bottom: 40px; right: 6%; transform: rotate(-3deg); }
+  .cover-pill.c-coral::before { background: var(--coral); }
+  .cover-pill.c-violet::before { background: var(--violet); }
+  .cover-pill.c-green::before { background: var(--green); }
+  .cover-pill.c-yellow::before { background: var(--yellow); }
+
+  .compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 30px 0 22px;
+  }
+  .compare-card {
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+  }
+  .compare-card.light {
+    background: #fff;
+    border-color: var(--border);
+  }
+  .compare-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .compare-card.bad .compare-label { color: #FF8C82; }
+  .compare-card.good .compare-label { color: var(--green); }
+  .compare-card p:last-child { margin-bottom: 0; }
+
+  .callout {
+    border-left: 3px solid var(--coral);
+    margin: 24px 0;
+    background: rgba(217,107,82,0.08);
+    padding: 16px 20px;
+    border-radius: 4px;
+  }
+  .callout .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--coral-dk);
+    margin-bottom: 6px;
+    font-weight: 600;
+    display: block;
+  }
+  .callout p { margin: 0; font-size: 14.5px; }
+  .dark .callout {
+    background: rgba(217,107,82,0.13);
+  }
+  .dark .callout .label { color: var(--coral-lt); }
+  .dark .callout p { color: rgba(255,255,255,0.85); }
+
+  .check-item {
+    display: flex;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 34px;
+    color: var(--coral);
+    min-width: 44px;
+    line-height: 0.95;
+  }
+  .check-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .check-desc {
+    font-size: 14.5px;
+    color: var(--ink-muted);
+  }
+
+  pre {
+    background: var(--black);
+    color: var(--coral-lt);
+    padding: 22px 24px;
+    border-radius: 14px;
+    overflow-x: auto;
+    margin: 18px 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.68;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  code.inline {
+    background: rgba(10,10,10,0.08);
+    color: var(--coral-dk);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .dark code.inline {
+    background: rgba(255,255,255,0.1);
+    color: var(--coral-lt);
+  }
+
+  .copy-box { position: relative; }
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    background: var(--coral);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.12s;
+  }
+  .copy-btn:hover { background: var(--coral-dk); }
+  .copy-btn:active { transform: scale(0.96); }
+  .copy-btn.done { background: var(--green); color: var(--black); }
+
+  .template-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .template-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 56px;
+    color: var(--coral);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .template-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.08;
+    letter-spacing: -0.8px;
+    color: var(--ink);
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .score-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+  }
+  .score-card .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--coral-lt);
+  }
+  .score-card .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 6px rgba(217,107,82,0.16);
+  }
+  .score-card p {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255,255,255,0.78);
+  }
+
+  .stack { text-align: center; }
+  .stack .l1,
+  .stack .l3 {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    letter-spacing: -1.6px;
+    line-height: 0.98;
+    color: var(--black);
+  }
+  .stack .l2 {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+    line-height: 1;
+    margin: 4px 0;
+    font-family: 'Fraunces', serif;
+  }
+  .stack .l2 .sm {
+    font-size: 44px;
+    letter-spacing: -1.6px;
+    color: var(--black);
+  }
+  .stack .l2 .big {
+    font-style: italic;
+    font-size: 102px;
+    font-weight: 500;
+    letter-spacing: -4px;
+    color: var(--cream);
+    text-shadow: 0 2px 14px rgba(10,10,10,0.2);
+  }
+  .keyword-chip {
+    display: inline-block;
+    background: var(--black);
+    color: var(--coral);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+  }
+
+  .footer {
+    padding: 50px 28px;
+    text-align: center;
+    background: var(--black);
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+  }
+  .footer a {
+    color: #fff;
+    border-bottom-color: rgba(255,255,255,0.35);
+  }
+
+  @media (max-width: 760px) {
+    h1 { font-size: 48px; letter-spacing: -1.5px; }
+    h2 { font-size: 36px; letter-spacing: -1px; }
+    h3 { font-size: 24px; }
+    .cover { padding: 88px 24px 92px; }
+    .window-text { font-size: 54px; letter-spacing: -2.1px; }
+    .section { padding: 60px 24px; }
+    .compare,
+    .score-grid { grid-template-columns: 1fr; }
+    .stack .l1,
+    .stack .l3 { font-size: 34px; }
+    .stack .l2 .sm { font-size: 34px; }
+    .stack .l2 .big { font-size: 72px; }
+    .cover-pill { display: none; }
+  }
+  @media (max-width: 520px) {
+    .window .url { max-width: calc(100% - 80px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .template-head { display: block; }
+    .template-num { display: block; margin-bottom: 8px; }
+    .copy-btn {
+      position: static;
+      display: inline-flex;
+      margin-bottom: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">Morfeo <em>Academy</em></div>
+  <a class="nav-back" href="/recursos">← Recursos</a>
+</nav>
+
+<section class="section cover">
+  <span class="cover-pill p-tl c-coral">Subject first</span>
+  <span class="cover-pill p-tr c-violet">Lens + motion</span>
+  <span class="cover-pill p-bl c-green">Less ambiguity</span>
+  <span class="cover-pill p-br c-yellow">Prompt pack</span>
+
+  <div class="wrap">
+    <span class="eyebrow">Guia · Abril 2026 · Morfeo Academy</span>
+    <div class="serif" style="font-size:36px; margin-bottom:12px; color:var(--ink); letter-spacing:-0.8px;">Guia practica de</div>
+    <div class="window">
+      <div class="lights"><span style="background:#FF5F57;"></span><span style="background:#FEBC2E;"></span><span style="background:#28C840;"></span></div>
+      <div class="url"><span class="dot"></span>kling.prompting.guide</div>
+      <div class="win-eyebrow">Editorial system</div>
+      <div class="window-text">Prompting<br>para Kling</div>
+      <div class="window-sub">Estructura, ritmo y direccion sin escribir una novela</div>
+      <div class="chip-dots"><span>Structure</span><span>Motion</span><span>Restraint</span></div>
+    </div>
+    <p class="lede">Si tu prompt suena generico, el clip sale generico. Esta es la estructura que usamos para pedir <em>direccion, look y movimiento</em> sin tirar veinte lineas al azar.</p>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">01 · El error base</span>
+    <h2>Kling no lee deseos. <em>Lee decisiones.</em></h2>
+    <p class="lede">La mayoria de los prompts fallan por una razon simple: describen una idea, pero no toman decisiones visuales.</p>
+    <p>Decir <code class="inline">quiero un video cinematico de una creadora mostrando un producto</code> no alcanza. Eso expresa intencion, pero no direccion. A Kling le sirve mucho mas cuando definis <strong>quien</strong> aparece, <strong>que</strong> hace, <strong>donde</strong> ocurre, <strong>como</strong> se mueve la camara y <strong>que no queres</strong>.</p>
+
+    <div class="compare">
+      <div class="compare-card bad">
+        <span class="compare-label">Prompt flojo</span>
+        <p>Una chica mostrando un serum en un bano lindo, estilo premium, iluminacion suave, video aesthetic.</p>
+      </div>
+      <div class="compare-card good">
+        <span class="compare-label">Prompt util</span>
+        <p>Vertical 9:16. Creator femenina de 28 anos sostiene un serum transparente frente al espejo del bano. Sonrie apenas, gira el frasco para atrapar el reflejo de la luz y lo acerca a camara. Camara handheld corta, micro push-in, movimiento estable. Luz suave de manana entrando desde la izquierda, highlights limpios sobre vidrio, fondo ordenado, look editorial de skincare. Sin texto, sin manos extra, sin distorsion facial.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="label">Regla corta</span>
+      <p>Si al leer el prompt no podes imaginar el primer segundo del clip, todavia no esta listo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">02 · La formula</span>
+    <h2>La estructura de 6 capas que ordena casi cualquier prompt.</h2>
+    <p class="lede">No hace falta escribir mas. Hace falta acomodar mejor la informacion.</p>
+
+    <div class="check-item">
+      <div class="check-num">01</div>
+      <div>
+        <div class="check-title">Sujeto</div>
+        <div class="check-desc">Quien o que aparece. Edad, energia, vestuario, material o tipo de producto si eso afecta el look.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">02</div>
+      <div>
+        <div class="check-title">Accion principal</div>
+        <div class="check-desc">Una sola accion clara. Levanta, gira, mira, camina, abre, deja, apoya. Si metes tres acciones fuertes en cuatro segundos, el modelo reparte mal la atencion.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">03</div>
+      <div>
+        <div class="check-title">Contexto fisico</div>
+        <div class="check-desc">Donde ocurre y que elementos importan alrededor. Cocina de luz natural, escritorio oscuro, pasillo de hotel, estudio blanco, calle mojada, etcetera.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">04</div>
+      <div>
+        <div class="check-title">Camara y movimiento</div>
+        <div class="check-desc">Vertical u horizontal, handheld o tripod, push-in o pan lateral, macro o mid shot. Aca se gana gran parte de la sensacion premium.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">05</div>
+      <div>
+        <div class="check-title">Luz y textura</div>
+        <div class="check-desc">Hora del dia, dureza o suavidad, reflejos, neblina, materialidad. No digas solo cinematico: deci que hace la luz.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">06</div>
+      <div>
+        <div class="check-title">Restricciones</div>
+        <div class="check-desc">Lo que queres evitar: texto, deformaciones, manos extra, movimientos bruscos, fondo desordenado, expresiones exageradas.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="label">Mental model</span>
+      <p>Escribi el prompt como si dieras una indicacion a un director de foto junior: concreto, visual y sin adjetivos vagos que nadie puede filmar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">03 · Template maestro</span>
+    <h2>El prompt base para arrancar <em>sin hoja en blanco.</em></h2>
+    <p>Copialo, reemplaza los corchetes y no agregues nada hasta que el primer render ya tenga buena direccion.</p>
+
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="master-prompt">Copiar</button>
+      <pre id="master-prompt">[FORMATO Y DURACION]
+Vertical 9:16, [duracion corta o media].
+
+[SUJETO]
+[Quien o que aparece], [edad o caracter], [vestuario o materialidad relevante].
+
+[ACCION]
+La accion principal es [accion concreta]. El gesto arranca en [primer momento] y termina en [cierre visual].
+
+[CONTEXTO]
+Ocurre en [espacio fisico]. Se ven [2 o 3 detalles del entorno que importan].
+
+[CAMARA]
+[Tipo de plano], [movimiento de camara], [ritmo], [estabilidad].
+
+[LUZ Y LOOK]
+[Hora del dia o fuente de luz], [textura], [paleta o sensacion], look [editorial / premium / raw / documentary].
+
+[RESTRICCIONES]
+Sin [texto], sin [deformaciones], sin [elementos distractores], sin [movimientos no deseados].</pre>
+    </div>
+
+    <div class="callout">
+      <span class="label">Uso recomendado</span>
+      <p>Primero ganale a la claridad. Despues, en una segunda pasada, afina estilo, micro-movimiento o detalles de set.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">04 · Qué poner y qué sacar</span>
+    <h2>La calidad sube cuando bajan las contradicciones.</h2>
+    <p class="lede">Muchos prompts no fallan por falta de ideas. Fallan por exceso de instrucciones peleandose entre si.</p>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>Una accion dominante</div>
+        <p>Si el sujeto abre, mira, sonrie, gira y apoya todo en el mismo clip, el resultado se vuelve torpe. Elegi una accion principal y una secundaria suave.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>Camara con verbo</div>
+        <p>No alcanza con <code class="inline">cinematic camera</code>. Funciona mejor <code class="inline">slow push-in</code>, <code class="inline">locked-off</code>, <code class="inline">subtle handheld drift</code> o <code class="inline">lateral tracking</code>.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>Luz filmable</div>
+        <p><code class="inline">soft morning light</code> o <code class="inline">hard noon shadows</code> le dicen algo al modelo. <code class="inline">super premium vibe</code> no tanto.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>Negativos utiles</div>
+        <p>No pongas una lista eterna. Quedate con los errores que mas te rompen el clip: texto, manos raras, glitch facial, objetos flotando, jitter fuerte.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="label">Atajo de revision</span>
+      <p>Si el prompt mezcla <em>documentary handheld</em> con <em>luxury studio macro</em> y encima pide una caminata, ya sabes por que el clip va a salir indeciso.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">05 · Prompt pack</span>
+    <h2>Cinco templates para no arrancar de cero.</h2>
+
+    <div class="template-head">
+      <div class="template-num">01</div>
+      <div class="template-title">Hero de producto beauty</div>
+    </div>
+    <p>Para frascos, skincare, suplementos, fragancias o cualquier producto chico que necesite verse premium y limpio.</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="prompt-1">Copiar</button>
+      <pre id="prompt-1">Vertical 9:16. Close-up editorial of a glass skincare serum bottle standing on a cream stone countertop. The bottle slowly rotates a few degrees as soft morning light crosses through the liquid, creating clean highlights and subtle shadows. Camera starts in a tight macro and makes a gentle push-in. Background is minimal, warm, premium, slightly out of focus. Luxury skincare campaign feel. No text, no extra objects, no warped reflections, no label distortion.</pre>
+    </div>
+
+    <div class="template-head">
+      <div class="template-num">02</div>
+      <div class="template-title">UGC selfie con producto</div>
+    </div>
+    <p>Para ads o reels donde queres sensacion de creator real, pero sin perder prolijidad visual.</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="prompt-2">Copiar</button>
+      <pre id="prompt-2">Vertical 9:16. Female creator, late 20s, holding a small product close to camera in a bright apartment kitchen. She smiles naturally, points to the product, then tilts it slightly so the packaging catches the light. Handheld selfie framing, subtle arm movement, believable micro-shake but still clean. Natural daylight from a nearby window, soft contrast, realistic skin texture, casual premium UGC look. No subtitles, no extra fingers, no logo distortion, no exaggerated facial expression.</pre>
+    </div>
+
+    <div class="template-head">
+      <div class="template-num">03</div>
+      <div class="template-title">B-roll editorial blanco y negro</div>
+    </div>
+    <p>Para una entrada mas seria, artistica o high-contrast, como el tipo de apoyo que usamos arriba del avatar.</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="prompt-3">Copiar</button>
+      <pre id="prompt-3">Vertical 9:16. Black and white editorial motion study of a hand opening a notebook on a dark desk. Slow deliberate movement, crisp contrast, soft grain, strong light from the side creating deep shadows and bright paper highlights. Camera locked in a medium close-up with a tiny forward drift. Minimal set, premium monochrome look, precise timing, no text, no clutter, no strobing, no surreal distortions.</pre>
+    </div>
+
+    <div class="template-head">
+      <div class="template-num">04</div>
+      <div class="template-title">Founder o experto a camara</div>
+    </div>
+    <p>Cuando queres autoridad y presencia, pero con mas cine que videollamada.</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="prompt-4">Copiar</button>
+      <pre id="prompt-4">Vertical 9:16. Founder in a dark neutral studio, framed from chest up, speaking directly to camera with calm confidence. Minimal hand gesture, small head movement, steady eye contact. Camera on tripod with a very subtle push-in. Soft key light from front-left, gentle shadow on the opposite side, premium documentary portrait look. Clean background, no text, no audience, no exaggerated gestures, no mouth distortion.</pre>
+    </div>
+
+    <div class="template-head">
+      <div class="template-num">05</div>
+      <div class="template-title">CTA final con gesto de cierre</div>
+    </div>
+    <p>Para el final del reel cuando queres que el clip acompañe una llamada a comentar o guardar.</p>
+    <div class="copy-box">
+      <button class="copy-btn" data-copy-target="prompt-5">Copiar</button>
+      <pre id="prompt-5">Vertical 9:16. Creator centered against a clean warm background, looking into camera and making a concise inviting hand gesture, then holding the pose for a beat. Mid shot, locked frame, slight natural body sway. Soft studio lighting, premium social reel aesthetic, clean composition with negative space around the subject for captions. No text in image, no props, no extra motion, no distorted hands, no sudden camera moves.</pre>
+    </div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">06 · Checklist final</span>
+    <h2>Antes de renderizar, pasalo por este filtro.</h2>
+    <p class="lede">Si respondes estas cinco preguntas con un si, el prompt ya esta bastante mas arriba que la media.</p>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿Veo el primer segundo?</div>
+        <p>Si no podes imaginar el arranque, todavia falta aterrizar accion o encuadre.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿La camara hace algo claro?</div>
+        <p>Quieta, handheld, push-in, pan lateral. Elegi una y defendela.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿La luz esta filmada?</div>
+        <p>Fuente, direccion y calidad. No solo mood words.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿Hay solo una accion principal?</div>
+        <p>Cuando todo quiere pasar al mismo tiempo, nada se lee bien.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿Los negativos son utiles?</div>
+        <p>No sumes basura. Deja solo lo que realmente te arruina el render.</p>
+      </div>
+      <div class="score-card">
+        <div class="head"><span class="dot"></span>¿Suena dirigible?</div>
+        <p>Si parece una bajada para un rodaje corto, vas bien. Si parece un wish list, no.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section gradient">
+  <div class="wrap stack">
+    <span class="eyebrow">Cierre</span>
+    <div class="l1">No gana el prompt</div>
+    <div class="l2"><span class="sm">mas</span><span class="big">largo</span></div>
+    <div class="l3">gana el prompt <span class="keyword-chip">mas claro</span></div>
+    <p class="lede" style="max-width:540px;margin:28px auto 0;">Guardate esta estructura, converti los templates a tu nicho y usa cada render como feedback para afinar una sola variable por vez.</p>
+  </div>
+</section>
+
+<section class="footer">
+  <p>Hecho por <a href="https://www.instagram.com/morfeoacademy/" target="_blank" rel="noreferrer">@morfeoacademy</a> para la seccion <a href="/recursos">Recursos</a>.</p>
+</section>
+
+<script>
+  const copyButtons = document.querySelectorAll('.copy-btn');
+
+  async function copyPrompt(button) {
+    const targetId = button.getAttribute('data-copy-target');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    try {
+      await navigator.clipboard.writeText(target.textContent.trim());
+      const original = button.textContent;
+      button.textContent = 'Copiado';
+      button.classList.add('done');
+      setTimeout(() => {
+        button.textContent = original;
+        button.classList.remove('done');
+      }, 1400);
+    } catch (error) {
+      button.textContent = 'Error';
+      setTimeout(() => {
+        button.textContent = 'Copiar';
+      }, 1400);
+    }
+  }
+
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', () => copyPrompt(button));
+  });
+</script>
+</body>
+</html>
