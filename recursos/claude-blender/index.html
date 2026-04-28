@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickstart · Claude x Blender · @morfeoacademy</title>
+<meta name="description" content="Guía rápida para conectar Claude con Blender de verdad: requisitos, instalación oficial en Claude Desktop, setup dentro de Blender y prompts para probarlo.">
+<meta property="og:title" content="Quickstart · Claude x Blender">
+<meta property="og:description" content="Cómo conectar Claude con Blender paso a paso y qué pedirle primero para que valga la pena.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { scroll-behavior: smooth; }
+  body { font-family: Inter, sans-serif; background: #F0EAD6; color: #171717; }
+  pre { font-family: 'JetBrains Mono', monospace; white-space: pre-wrap; }
+  em { font-style: italic; }
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <section style="padding:96px 28px 72px;background:#F0EAD6;color:#171717;position:relative;">
+    <div style="max-width:680px;margin:0 auto;text-align:center;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#D96B52;text-transform:uppercase;margin-bottom:22px;">Quickstart · Abril 2026 · Morfeo Academy</div>
+      <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:36px;letter-spacing:-0.8px;line-height:1;color:#171717;">Cómo conectar</div>
+
+      <div style="position:relative;background:#0A0A0A;border-radius:22px;padding:60px 28px 46px;margin:22px auto 24px;max-width:560px;box-shadow:0 18px 50px rgba(0,0,0,0.28);">
+        <div style="position:absolute;top:16px;left:20px;display:flex;gap:6px;">
+          <span style="width:10px;height:10px;background:#FF5F57;border-radius:50%;display:inline-block;"></span>
+          <span style="width:10px;height:10px;background:#FEBC2E;border-radius:50%;display:inline-block;"></span>
+          <span style="width:10px;height:10px;background:#28C840;border-radius:50%;display:inline-block;"></span>
+        </div>
+        <div style="position:absolute;top:16px;right:20px;display:flex;align-items:center;gap:5px;">
+          <span style="width:6px;height:6px;background:#28C840;border-radius:50%;display:inline-block;box-shadow:0 0 0 2.5px rgba(40,200,64,0.3);"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:#28C840;letter-spacing:1.4px;">CONNECTED</span>
+        </div>
+        <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:92px;color:#D96B52;letter-spacing:-3.4px;line-height:0.92;">Claude<br/>x Blender</div>
+      </div>
+
+      <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:19px;color:#5A5A5A;line-height:1.4;max-width:560px;margin:0 auto;">
+        El setup real del <em style="font-style:italic;color:#D96B52;">Blender Connector</em>: qué necesitás, cómo instalarlo y qué pedirle primero para que de verdad sirva.
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 28px;background:#0A0A0A;color:#fff;">
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#E8876B;text-transform:uppercase;margin-bottom:14px;">01 · Qué cambia de verdad</div>
+      <h2 style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:44px;letter-spacing:-1px;line-height:1.05;color:#fff;margin:0 0 22px 0;">
+        Claude deja de hablar <em style="font-style:italic;color:#D96B52;">sobre Blender</em> y empieza a mirar tu escena abierta.
+      </h2>
+      <p style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:400;font-size:18px;font-style:italic;line-height:1.55;color:rgba(255,255,255,0.72);margin:0 0 20px 0;">
+        El anuncio de Claude lo muestra bien: leer la escena, debuggear, crear tools nuevas o aplicar cambios en batch sin salir del chat.
+      </p>
+      <p style="font-family:Inter,sans-serif;font-size:16px;line-height:1.65;color:rgba(255,255,255,0.82);margin:0 0 18px 0;">
+        Según la guía oficial de Anthropic, el conector le da a Claude acceso a tu escena abierta a través de la Python API de Blender. Eso habilita tres cosas muy concretas: <strong style="color:#E8876B;">entender setups complejos</strong>, <strong style="color:#E8876B;">hacer cambios repetitivos en muchas piezas</strong> y <strong style="color:#E8876B;">escribir herramientas nuevas</strong> para tu proyecto.
+      </p>
+      <p style="font-family:Inter,sans-serif;font-size:16px;line-height:1.65;color:rgba(255,255,255,0.82);margin:0 0 18px 0;">
+        No es un viewer web ni una importación mágica del archivo. Claude actúa sobre la escena que tenés abierta en esa misma máquina. Cuando guardás en Blender, los cambios recién ahí quedan escritos en disco.
+      </p>
+      <div style="margin-top:36px;padding:22px 24px;border-left:3px solid #D96B52;background:rgba(217,107,82,0.08);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#E8876B;text-transform:uppercase;margin-bottom:8px;">MODELO MENTAL</div>
+        <p style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:19px;line-height:1.4;color:#fff;margin:0;">
+          No le pasás un `.blend` a Claude.<br/>Conectás Claude al Blender que ya está corriendo en tu compu.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 28px;background:#F0EAD6;color:#171717;">
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#D96B52;text-transform:uppercase;margin-bottom:14px;">02 · Qué necesitás</div>
+      <h2 style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:40px;letter-spacing:-0.9px;line-height:1.05;color:#171717;margin:0 0 24px 0;">
+        Cuatro cosas antes de <em style="font-style:italic;color:#D96B52;">empezar a probar prompts</em>.
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;gap:20px;padding:18px 0;border-bottom:1px solid #D8CFB3;">
+          <span style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:42px;color:#D96B52;min-width:50px;line-height:0.9;">01</span>
+          <div>
+            <div style="font-family:Inter,sans-serif;font-size:15px;font-weight:600;color:#171717;margin-bottom:4px;">Claude Desktop</div>
+            <div style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.5;">La guía oficial de Anthropic lista Claude Desktop como requisito y aclara que funciona con cualquier plan, incluido Free.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:18px 0;border-bottom:1px solid #D8CFB3;">
+          <span style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:42px;color:#D96B52;min-width:50px;line-height:0.9;">02</span>
+          <div>
+            <div style="font-family:Inter,sans-serif;font-size:15px;font-weight:600;color:#171717;margin-bottom:4px;">Blender 4.2 o superior</div>
+            <div style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.5;">Es el mínimo que marca el tutorial de Anthropic para el conector oficial.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:18px 0;border-bottom:1px solid #D8CFB3;">
+          <span style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:42px;color:#D96B52;min-width:50px;line-height:0.9;">03</span>
+          <div>
+            <div style="font-family:Inter,sans-serif;font-size:15px;font-weight:600;color:#171717;margin-bottom:4px;">La escena abierta localmente</div>
+            <div style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.5;">No funciona desde el navegador. Anthropic lo deja explícito en el FAQ: el conector necesita Blender y Claude Desktop corriendo en la misma máquina.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:18px 0;">
+          <span style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:42px;color:#D96B52;min-width:50px;line-height:0.9;">04</span>
+          <div>
+            <div style="font-family:Inter,sans-serif;font-size:15px;font-weight:600;color:#171717;margin-bottom:4px;">Guardá una copia antes de pedir cambios masivos</div>
+            <div style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.5;">El repo open source `blender-mcp` avisa que Claude puede ejecutar Python dentro de Blender. Úsalo como una herramienta potente, no como sandbox inocuo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 28px;background:linear-gradient(180deg, #FAF6EC 0%, #F0EAD6 100%);color:#171717;">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#D96B52;text-transform:uppercase;margin-bottom:14px;">03 · Setup oficial</div>
+      <h2 style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:40px;letter-spacing:-0.9px;line-height:1.05;color:#171717;margin:0 0 24px 0;">
+        El paso a paso que hoy <em style="font-style:italic;color:#D96B52;">sí coincide</em> con la documentación.
+      </h2>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px;">
+        <div style="background:#fff;border:1px solid #D8CFB3;border-radius:18px;padding:24px 22px;box-shadow:0 16px 30px rgba(0,0,0,0.04);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#D96B52;text-transform:uppercase;margin-bottom:10px;">Paso 1</div>
+          <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:24px;letter-spacing:-0.5px;line-height:1.05;color:#171717;margin-bottom:10px;">Agregá Blender en Claude Desktop</div>
+          <p style="font-family:Inter,sans-serif;font-size:14px;line-height:1.6;color:#5A5A5A;margin:0;">
+            Andá a <strong style="color:#171717;">Customize &gt; Connectors</strong>, buscá <strong style="color:#171717;">Blender</strong> y apretá <strong style="color:#171717;">Add</strong>.
+          </p>
+        </div>
+        <div style="background:#fff;border:1px solid #D8CFB3;border-radius:18px;padding:24px 22px;box-shadow:0 16px 30px rgba(0,0,0,0.04);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#D96B52;text-transform:uppercase;margin-bottom:10px;">Paso 2</div>
+          <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:24px;letter-spacing:-0.5px;line-height:1.05;color:#171717;margin-bottom:10px;">Instalá el add-on dentro de Blender</div>
+          <p style="font-family:Inter,sans-serif;font-size:14px;line-height:1.6;color:#5A5A5A;margin:0;">
+            Abrí la página <strong style="color:#171717;">Blender MCP Server</strong>, arrastrá el link de instalación a Blender, aceptá el repositorio de lab y arrastrá ese mismo link <strong style="color:#171717;">una segunda vez</strong> para instalar el add-on.
+          </p>
+        </div>
+        <div style="background:#fff;border:1px solid #D8CFB3;border-radius:18px;padding:24px 22px;box-shadow:0 16px 30px rgba(0,0,0,0.04);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#D96B52;text-transform:uppercase;margin-bottom:10px;">Paso 3</div>
+          <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:24px;letter-spacing:-0.5px;line-height:1.05;color:#171717;margin-bottom:10px;">Conectalo desde tu escena</div>
+          <p style="font-family:Inter,sans-serif;font-size:14px;line-height:1.6;color:#5A5A5A;margin:0;">
+            En el 3D Viewport apretá <strong style="color:#171717;">N</strong>, abrí la pestaña <strong style="color:#171717;">BlenderMCP</strong> y elegí <strong style="color:#171717;">Connect to Claude</strong>. En Claude vas a ver las tools bajo el icono del conector.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;padding:18px 20px;background:rgba(217,107,82,0.1);border-left:3px solid #D96B52;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.6px;color:#B8553E;text-transform:uppercase;margin-right:6px;">Detalle raro pero real</span>
+        <span style="font-family:Inter,sans-serif;font-size:14px;color:#171717;line-height:1.55;">
+          El doble drag del link no es un invento: primero agrega el repositorio de Blender Lab y después instala el add-on. Es el punto menos obvio de todo el setup oficial.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 28px;background:#0A0A0A;color:#fff;">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#E8876B;text-transform:uppercase;margin-bottom:14px;">04 · Qué pedirle primero</div>
+      <h2 style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:40px;letter-spacing:-0.9px;line-height:1.05;color:#fff;margin:0 0 24px 0;">
+        Cinco prompts para probarlo sin caer en el clásico <em style="font-style:italic;color:#D96B52;">"haceme algo lindo"</em>.
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <pre style="margin:0;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;font-size:13px;line-height:1.6;color:#F8F4E8;">Mirá la escena abierta y renombrá objetos, materiales y colecciones para que cada nombre describa lo que realmente contiene.</pre>
+        <pre style="margin:0;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;font-size:13px;line-height:1.6;color:#F8F4E8;">Explicame paso a paso el Geometry Nodes del objeto activo y marcá qué parte convendría simplificar antes de tocar nada.</pre>
+        <pre style="margin:0;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;font-size:13px;line-height:1.6;color:#F8F4E8;">Listá todos los objetos que usan este material y decime qué se rompería si lo elimino.</pre>
+        <pre style="margin:0;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;font-size:13px;line-height:1.6;color:#F8F4E8;">Decime cuáles son los meshes más pesados de la escena y cuáles ocupan poco cuadro en la cámara activa.</pre>
+        <pre style="margin:0;padding:18px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;font-size:13px;line-height:1.6;color:#F8F4E8;">Creá una luz tipo estudio, apuntá la cámara al objeto principal y dejá una versión isométrica limpia para preview.</pre>
+      </div>
+
+      <div style="margin-top:26px;padding:22px 24px;border-left:3px solid #D96B52;background:rgba(217,107,82,0.08);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#E8876B;text-transform:uppercase;margin-bottom:8px;">MEJOR PRÁCTICA</div>
+        <p style="font-family:Inter,sans-serif;font-size:14px;line-height:1.65;color:rgba(255,255,255,0.8);margin:0;">
+          Pedile primero que <strong style="color:#fff;">lea y explique</strong>. Después pasá a pedir cambios. Ese orden baja muchísimo la chance de que improvise una solución sin entender la lógica de tu archivo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:80px 28px;background:#F0EAD6;color:#171717;">
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#D96B52;text-transform:uppercase;margin-bottom:14px;">05 · Límites y atajos</div>
+      <h2 style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:40px;letter-spacing:-0.9px;line-height:1.05;color:#171717;margin:0 0 24px 0;">
+        Lo que conviene saber antes de usarlo <em style="font-style:italic;color:#D96B52;">como si fuera magia</em>.
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="padding:20px 0;border-bottom:1px solid #D8CFB3;"><div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:21px;letter-spacing:-0.3px;color:#171717;margin-bottom:6px;"><span style="color:#D96B52;font-style:italic;">→</span> No corre en claude.ai.</div><p style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.6;margin:0;">Anthropic lo aclara en el FAQ: necesita Blender en la misma máquina, así que hoy el camino real es Claude Desktop.</p></div>
+        <div style="padding:20px 0;border-bottom:1px solid #D8CFB3;"><div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:21px;letter-spacing:-0.3px;color:#171717;margin-bottom:6px;"><span style="color:#D96B52;font-style:italic;">→</span> Cambia la escena abierta, no una copia aparte.</div><p style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.6;margin:0;">Si querés aprender o auditar, pedile que te muestre el plan o el código antes de ejecutar. La guía oficial dice que no hace falta saber Python, pero podés pedir verlo igual.</p></div>
+        <div style="padding:20px 0;border-bottom:1px solid #D8CFB3;"><div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:21px;letter-spacing:-0.3px;color:#171717;margin-bottom:6px;"><span style="color:#D96B52;font-style:italic;">→</span> Si falla, reiniciá y partí la tarea.</div><p style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.6;margin:0;">El README de `blender-mcp` recomienda reiniciar Claude y la conexión de Blender si algo se cuelga, y dividir pedidos largos en pasos más chicos.</p></div>
+        <div style="padding:20px 0;"><div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:21px;letter-spacing:-0.3px;color:#171717;margin-bottom:6px;"><span style="color:#D96B52;font-style:italic;">→</span> Hay un camino manual para Claude Code.</div><p style="font-family:Inter,sans-serif;font-size:14px;color:#5A5A5A;line-height:1.6;margin:0;">Si no querés usar Claude Desktop, la propia guía de Anthropic deriva al setup MCP de Blender y al manual de Claude Code. Para la mayoría, igual, el flujo visual de Desktop es el mejor punto de partida.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 28px 48px;background:linear-gradient(165deg, #B8553E 0%, #D96B52 55%, #E8876B 100%);color:#fff;text-align:center;">
+    <div style="max-width:560px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.7);text-transform:uppercase;margin-bottom:20px;">Cierre</div>
+      <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:44px;letter-spacing:-0.9px;line-height:1;margin-bottom:6px;">La mejor forma</div>
+      <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-weight:500;font-size:44px;letter-spacing:-0.9px;line-height:1;margin-bottom:6px;">de probar esto</div>
+      <div style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-weight:500;font-size:92px;letter-spacing:-3.4px;line-height:0.92;margin-bottom:6px;">es con tu escena.</div>
+      <p style="font-family:Inter,sans-serif;font-size:16px;line-height:1.55;color:rgba(255,255,255,0.92);margin:28px 0 8px 0;">
+        Abrí un archivo real, pedile primero lectura y recién después cambios. Ahí se nota si el conector te suma o no.
+      </p>
+      <p style="font-family:Fraunces,serif;font-optical-sizing:auto;font-style:italic;font-size:15px;color:rgba(255,255,255,0.82);margin:0;">
+        Seguime en <strong>@morfeoacademy</strong> para más guías técnicas bajadas a tierra.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding:48px 28px;background:#0A0A0A;color:rgba(255,255,255,0.55);">
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;color:#E8876B;text-transform:uppercase;margin-bottom:12px;">Fuentes</div>
+      <p style="font-family:Inter,sans-serif;font-size:12.5px;line-height:1.65;margin:0;">
+        Tutorial oficial de Anthropic: <a href="https://claude.com/resources/tutorials/using-the-blender-connector-in-claude" style="color:#E8876B;">Using the Blender Connector in Claude</a> ·
+        Help center Connectors: <a href="https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities" style="color:#E8876B;">support.claude.com/connectors</a> ·
+        Tutorial general de Connectors: <a href="https://claude.com/resources/tutorials/getting-started-with-connectors" style="color:#E8876B;">claude.com/connectors tutorial</a> ·
+        Repo open source de referencia: <a href="https://github.com/ahujasid/blender-mcp" style="color:#E8876B;">github.com/ahujasid/blender-mcp</a> ·
+        Anuncio de Claude: <a href="https://x.com/claudeai/status/2049143438281445811" style="color:#E8876B;">@claudeai en X</a>.
+      </p>
+    </div>
+  </section>
+</body>
+</html>
