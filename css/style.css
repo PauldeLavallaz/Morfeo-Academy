@@ -1393,10 +1393,44 @@ strong {
         grid-template-columns: 1fr;
         gap: var(--spacing-lg);
         padding: var(--spacing-lg) 0;
+        text-align: center;
+    }
+
+    .stack-panel::before {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    }
+
+    .stack-panel h2,
+    .stack-panel p {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .stack-logo-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(88px, 108px));
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .stack-logo-card {
+        aspect-ratio: 1;
+        min-height: 0;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 8px;
+    }
+
+    .stack-logo-card img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .stack-logo-card span {
+        font-size: 0.78rem;
     }
 
     /* Problem section */
@@ -1605,21 +1639,28 @@ strong {
     }
 
     .hot-sale-strip-inner {
-        flex-wrap: wrap;
+        min-height: 44px;
+        flex-wrap: nowrap;
         justify-content: center;
-        padding: 8px var(--spacing-sm);
+        gap: 8px;
+        padding: 7px 10px;
     }
 
     .hot-sale-strip-copy {
-        order: 3;
-        max-width: 100%;
-        flex-basis: 100%;
-        font-size: var(--font-size-xs);
+        display: none;
     }
 
     .hot-sale-strip-link,
     .hot-sale-strip-tag {
+        gap: 7px;
+        padding: 6px 10px;
         font-size: 0.72rem;
+    }
+
+    .hot-sale-strip-tag svg,
+    .hot-sale-strip-link svg {
+        width: 15px;
+        height: 15px;
     }
 
     /* Hero - keep title BIG */
@@ -1671,7 +1712,23 @@ strong {
     }
 
     .stack-logo-card {
-        min-height: 88px;
+        aspect-ratio: 1;
+        min-height: 0;
+        padding: 9px 7px;
+    }
+
+    .stack-logo-grid {
+        grid-template-columns: repeat(3, minmax(0, 96px));
+        gap: 8px;
+    }
+
+    .stack-logo-card img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .stack-logo-card span {
+        font-size: 0.72rem;
     }
 
     .problem-section .section-title {
