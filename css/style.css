@@ -1639,26 +1639,34 @@ strong {
     }
 
     .hot-sale-strip-inner {
-        min-height: 44px;
+        min-height: 46px;
         flex-wrap: nowrap;
         justify-content: center;
         gap: 8px;
-        padding: 7px 10px;
+        padding: 7px 12px;
     }
 
     .hot-sale-strip-copy {
-        display: none;
+        display: inline;
+        max-width: 220px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.68rem;
+        font-weight: 700;
+        line-height: 1.15;
+        text-align: left;
     }
 
-    .hot-sale-strip-link,
     .hot-sale-strip-tag {
         gap: 7px;
-        padding: 6px 10px;
+        padding: 6px 9px;
         font-size: 0.72rem;
     }
 
-    .hot-sale-strip-tag svg,
-    .hot-sale-strip-link svg {
+    .hot-sale-strip-link {
+        display: none;
+    }
+
+    .hot-sale-strip-tag svg {
         width: 15px;
         height: 15px;
     }
