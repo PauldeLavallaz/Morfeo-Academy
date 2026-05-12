@@ -17,6 +17,10 @@
     --color-accent-hover: #bef264;
     --color-accent-dark: #84cc16;
     --color-accent-glow: rgba(163, 230, 53, 0.15);
+    --color-sale: #ff2d2d;
+    --color-sale-dark: #7f1010;
+    --color-sale-amber: #ff8a1f;
+    --color-sale-glow: rgba(255, 45, 45, 0.22);
     --color-border: rgba(255, 255, 255, 0.06);
     --color-border-light: rgba(255, 255, 255, 0.1);
     --color-border-accent: rgba(163, 230, 53, 0.3);
@@ -132,6 +136,92 @@ strong {
 }
 
 /* ========================================
+   HOT SALE STRIP
+   ======================================== */
+.hot-sale-strip {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background:
+        linear-gradient(90deg, #360607 0%, var(--color-sale) 42%, #190405 100%);
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 10px 34px rgba(255, 45, 45, 0.2);
+    overflow: hidden;
+}
+
+.hot-sale-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.16) 0,
+        rgba(255, 255, 255, 0.16) 1px,
+        transparent 1px,
+        transparent 12px
+    );
+    opacity: 0.24;
+    pointer-events: none;
+}
+
+.hot-sale-strip-inner {
+    position: relative;
+    max-width: var(--container-max);
+    min-height: 48px;
+    margin: 0 auto;
+    padding: 8px var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.hot-sale-strip-tag,
+.hot-sale-strip-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.hot-sale-strip-tag {
+    padding: 7px 12px;
+    background: rgba(5, 5, 8, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.hot-sale-strip-copy {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-align: center;
+}
+
+.hot-sale-strip-link {
+    color: #fff;
+    padding: 7px 12px;
+    text-decoration: none;
+    border-radius: var(--border-radius-full);
+    background: rgba(5, 5, 8, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.hot-sale-strip-link:hover {
+    background: rgba(5, 5, 8, 0.72);
+    transform: translateY(-1px);
+}
+
+/* ========================================
    HERO SECTION
    ======================================== */
 .hero {
@@ -230,6 +320,87 @@ strong {
     margin: 0 auto var(--spacing-xl);
     line-height: 1.6;
     font-weight: 400;
+}
+
+.hot-sale-offer {
+    width: min(560px, 100%);
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    background: rgba(15, 15, 20, 0.72);
+    border: 1px solid rgba(255, 45, 45, 0.22);
+    border-radius: var(--border-radius-full);
+    box-shadow: 0 10px 34px rgba(255, 45, 45, 0.07);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.hot-sale-offer::before {
+    display: none;
+}
+
+.hot-sale-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-width: 0;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.countdown-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.countdown-label svg {
+    color: var(--color-sale);
+}
+
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(38px, 1fr));
+    gap: 6px;
+}
+
+.countdown-grid span {
+    display: grid;
+    place-items: center;
+    min-width: 42px;
+    min-height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.countdown-grid strong {
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    line-height: 1;
+}
+
+.countdown-grid small {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    text-transform: uppercase;
 }
 
 /* CTA Group */
@@ -341,6 +512,107 @@ strong {
     border-radius: var(--border-radius-lg);
     z-index: -1;
     opacity: 0.5;
+}
+
+.stack-panel {
+    margin: var(--spacing-xl) auto 0;
+    padding: var(--spacing-xl) 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: var(--spacing-xl);
+    align-items: center;
+    border-top: 1px solid var(--color-border-light);
+    border-bottom: 1px solid var(--color-border-light);
+    position: relative;
+}
+
+.stack-panel::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+}
+
+.stack-eyebrow {
+    display: inline-flex;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.stack-panel h2 {
+    max-width: 500px;
+    font-size: clamp(var(--font-size-xl), 3vw, var(--font-size-3xl));
+    line-height: 1.08;
+    margin-bottom: var(--spacing-sm);
+}
+
+.stack-panel p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    max-width: 540px;
+}
+
+.stack-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.stack-logo-card {
+    min-height: 96px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.stack-logo-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.stack-logo-card-featured {
+    background: rgba(163, 230, 53, 0.055);
+    border-color: rgba(163, 230, 53, 0.16);
+}
+
+.stack-logo-card img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.stack-logo-card img[src$="openai-mark.png"] {
+    filter: invert(1);
+    opacity: 0.9;
+}
+
+.stack-logo-card img[src$="openclaw.png"] {
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.stack-logo-card span {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 
@@ -803,6 +1075,20 @@ strong {
     box-shadow: 0 0 60px rgba(163, 230, 53, 0.08);
 }
 
+.final-cta-hot {
+    display: inline-flex;
+    margin-bottom: var(--spacing-sm);
+    padding: 6px 12px;
+    color: var(--color-sale);
+    background: rgba(255, 45, 45, 0.08);
+    border: 1px solid rgba(255, 45, 45, 0.18);
+    border-radius: var(--border-radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .final-cta-title {
     font-family: var(--font-display);
     font-size: clamp(var(--font-size-xl), 3vw, var(--font-size-2xl));
@@ -1033,6 +1319,21 @@ strong {
         --spacing-xl: 2rem;
     }
 
+    .hot-sale-strip-inner {
+        min-height: 56px;
+        justify-content: space-between;
+        gap: var(--spacing-xs);
+    }
+
+    .hot-sale-strip-copy {
+        max-width: 46vw;
+        line-height: 1.25;
+    }
+
+    .hot-sale-strip-link {
+        padding: 7px 10px;
+    }
+
     /* Hero - BIGGER title, centered button */
     .hero {
         padding: var(--spacing-lg) 0 var(--spacing-sm);
@@ -1055,6 +1356,20 @@ strong {
         margin-bottom: var(--spacing-lg);
     }
 
+    .hot-sale-offer {
+        width: min(520px, 100%);
+        padding: 10px 12px;
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--border-radius);
+    }
+
+    .hot-sale-countdown {
+        min-width: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
     .hero-cta-group {
         flex-direction: column;
         align-items: center;
@@ -1072,6 +1387,16 @@ strong {
     /* Video section - MUCH MORE bottom padding to hide problem section */
     .video-section {
         padding: var(--spacing-sm) 0 6rem;
+    }
+
+    .stack-panel {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg) 0;
+    }
+
+    .stack-logo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     /* Problem section */
@@ -1279,6 +1604,24 @@ strong {
         padding: 0 var(--spacing-sm);
     }
 
+    .hot-sale-strip-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 8px var(--spacing-sm);
+    }
+
+    .hot-sale-strip-copy {
+        order: 3;
+        max-width: 100%;
+        flex-basis: 100%;
+        font-size: var(--font-size-xs);
+    }
+
+    .hot-sale-strip-link,
+    .hot-sale-strip-tag {
+        font-size: 0.72rem;
+    }
+
     /* Hero - keep title BIG */
     .hero-title {
         font-size: 2.25rem;
@@ -1294,6 +1637,41 @@ strong {
         width: auto;
         padding: 14px 28px;
         font-size: var(--font-size-base);
+    }
+
+    .hot-sale-offer {
+        width: fit-content;
+        max-width: 100%;
+        padding: 8px 10px;
+    }
+
+    .hot-sale-countdown {
+        width: auto;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .countdown-label {
+        justify-content: center;
+        font-size: 0.68rem;
+    }
+
+    .countdown-grid {
+        width: auto;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .countdown-grid span {
+        min-width: 38px;
+        min-height: 38px;
+    }
+
+    .countdown-grid strong {
+        font-size: 0.95rem;
+    }
+
+    .stack-logo-card {
+        min-height: 88px;
     }
 
     .problem-section .section-title {
