@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Select elements to animate
     const animateElements = document.querySelectorAll(
-        '.hot-sale-offer, .stack-panel, .stack-logo-card, .problem-card, .solution-item, .outcome-card, .highlight-block, .comfy-block, .not-for, .is-for, .faq-item'
+        '.problem-card, .solution-item, .outcome-card, .highlight-block, .comfy-block, .not-for, .is-for, .faq-item'
     );
 
     animateElements.forEach(el => {
@@ -177,50 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     staggerAnimation('.problem-card', 100);
     staggerAnimation('.solution-item', 80);
-    staggerAnimation('.stack-logo-card', 70);
     staggerAnimation('.faq-item', 60);
-
-    // ========================================
-    // Hot Sale Countdown
-    // ========================================
-    const countdown = document.querySelector('[data-hot-sale-countdown]');
-
-    if (countdown) {
-        const deadline = new Date(countdown.getAttribute('data-deadline')).getTime();
-        const daysElement = countdown.querySelector('[data-countdown-days]');
-        const hoursElement = countdown.querySelector('[data-countdown-hours]');
-        const minutesElement = countdown.querySelector('[data-countdown-minutes]');
-        const secondsElement = countdown.querySelector('[data-countdown-seconds]');
-        const labelElement = countdown.querySelector('.countdown-label');
-        let countdownInterval;
-
-        const padNumber = (value) => String(value).padStart(2, '0');
-
-        function updateCountdown() {
-            const now = Date.now();
-            const remaining = Math.max(0, deadline - now);
-
-            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((remaining / (1000 * 60)) % 60);
-            const seconds = Math.floor((remaining / 1000) % 60);
-
-            if (daysElement) daysElement.textContent = padNumber(days);
-            if (hoursElement) hoursElement.textContent = padNumber(hours);
-            if (minutesElement) minutesElement.textContent = padNumber(minutes);
-            if (secondsElement) secondsElement.textContent = padNumber(seconds);
-
-            if (remaining === 0) {
-                if (labelElement) {
-                    labelElement.lastChild.textContent = ' Oferta finalizada';
-                }
-                window.clearInterval(countdownInterval);
-            }
-        }
-
-        updateCountdown();
-        countdownInterval = window.setInterval(updateCountdown, 1000);
-    }
 
     // ========================================
     // Button hover ripple effect
