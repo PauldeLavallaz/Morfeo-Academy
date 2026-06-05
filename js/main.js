@@ -26,6 +26,22 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
 
     const passiveOptions = passiveSupported ? { passive: true } : false;
+    const heroSection = document.querySelector('.hero');
+    const scrollCta = document.querySelector('.scroll-cta');
+
+    // ========================================
+    // Scroll CTA visibility
+    // ========================================
+    if (scrollCta && heroSection) {
+        const updateScrollCta = () => {
+            const heroPassed = heroSection.getBoundingClientRect().bottom <= 0;
+            scrollCta.classList.toggle('is-visible', heroPassed);
+        };
+
+        updateScrollCta();
+        window.addEventListener('scroll', updateScrollCta, passiveOptions);
+        window.addEventListener('resize', updateScrollCta, passiveOptions);
+    }
 
     // ========================================
     // Scroll-triggered Animations
@@ -51,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Select elements to animate
     const animateElements = document.querySelectorAll(
-        '.problem-card, .solution-item, .outcome-card, .highlight-block, .comfy-block, .not-for, .is-for, .faq-item'
+        '.stack-panel, .stack-logo-card, .problem-card, .solution-item, .outcome-card, .highlight-block, .comfy-block, .not-for, .is-for, .faq-item'
     );
 
     animateElements.forEach(el => {
@@ -86,52 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // ========================================
-    // Floating CTA visibility control
-    // Optimized with throttle
-    // ========================================
-    const floatingCta = document.getElementById('floatingCta');
-    const heroSection = document.querySelector('.hero');
-    const finalCtaSection = document.getElementById('agenda');
-    const footerSection = document.querySelector('.footer');
-
-    if (floatingCta && heroSection) {
-        const floatingCtaObserver = new IntersectionObserver((entries) => {
-            let hideFloating = false;
-
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    hideFloating = true;
-                }
-            });
-
-            // Check all sections visibility
-            const heroVisible = heroSection.getBoundingClientRect().bottom > 100;
-            const ctaVisible = finalCtaSection && finalCtaSection.getBoundingClientRect().top < window.innerHeight && finalCtaSection.getBoundingClientRect().bottom > 0;
-            const footerVisible = footerSection && footerSection.getBoundingClientRect().top < window.innerHeight;
-
-            requestAnimationFrame(() => {
-                if (heroVisible || ctaVisible || footerVisible) {
-                    floatingCta.classList.remove('visible');
-                } else {
-                    floatingCta.classList.add('visible');
-                }
-            });
-        }, { threshold: [0, 0.1, 0.5, 1] });
-
-        floatingCtaObserver.observe(heroSection);
-        if (finalCtaSection) floatingCtaObserver.observe(finalCtaSection);
-        if (footerSection) floatingCtaObserver.observe(footerSection);
-
-        // Initial check
-        setTimeout(() => {
-            const heroVisible = heroSection.getBoundingClientRect().bottom > 100;
-            if (!heroVisible) {
-                floatingCta.classList.add('visible');
-            }
-        }, 1000);
-    }
 
     // ========================================
     // FAQ Accordion
@@ -176,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     staggerAnimation('.problem-card', 100);
+    staggerAnimation('.stack-logo-card', 60);
     staggerAnimation('.solution-item', 80);
     staggerAnimation('.faq-item', 60);
 
@@ -279,6 +250,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.style.setProperty('--transition-fast', '0s');
         document.documentElement.style.setProperty('--transition-normal', '0s');
         document.documentElement.style.setProperty('--transition-slow', '0s');
+    }
+
+    // ========================================
+    // Runway Character Widget
+    // ========================================
+    const runwayPubKey = document.querySelector('meta[name="runway-character-pub-key"]')?.content?.trim() || window.MORFEO_RUNWAY_CHARACTER_PUB_KEY || '';
+    const runwayWidgetSrc = document.querySelector('meta[name="runway-character-widget-src"]')?.content?.trim() || window.MORFEO_RUNWAY_CHARACTER_WIDGET_SRC || 'https://cdn.dev.runwayml.com/prod/widget.js';
+
+    if (runwayPubKey) {
+        if (/^pub_[A-Za-z0-9_-]+$/.test(runwayPubKey)) {
+            document.body.classList.add('has-runway-character');
+
+            const runwayWidget = document.createElement('script');
+            runwayWidget.src = runwayWidgetSrc;
+            runwayWidget.dataset.pubKey = runwayPubKey;
+            runwayWidget.async = true;
+            document.body.appendChild(runwayWidget);
+        } else {
+            console.warn('Runway Character widget not loaded: invalid public key format.');
+        }
+    } else {
+        console.info('Runway Character widget not loaded: add a pub_ key from the Runway Character Embed tab.');
     }
 
     // ========================================

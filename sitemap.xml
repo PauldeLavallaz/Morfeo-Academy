@@ -30,14 +30,6 @@
     <priority>0.8</priority>
   </url>
   
-  <!-- Contact/Booking -->
-  <url>
-    <loc>https://www.morfeoacademy.com/agenda/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- Recursos (free guides with email gate) -->
   <url>
     <loc>https://www.morfeoacademy.com/recursos/</loc>
